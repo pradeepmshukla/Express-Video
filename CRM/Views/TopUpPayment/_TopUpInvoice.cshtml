@@ -1,0 +1,344 @@
+﻿@model DAL.TopUpPayment
+@{
+    Layout = null;
+    double? ScriptCharges = 0;
+    double? VioceOverCharges = 0;
+    double? VideoCharges = 0;
+    double? TotalCharges = 0;
+    double? TotalChargesGst = 0;
+    double? TotalAmount = 0;
+    if (Model != null)
+    {
+        ScriptCharges = (Model.ScriptCharges == null) ? 0 : Model.ScriptCharges;
+        VioceOverCharges = (Model.VioceOverCharges == null) ? 0 : Model.VioceOverCharges;
+        VideoCharges = (Model.VideoCharges == null) ? 0 : Model.VideoCharges;
+        TotalCharges = Convert.ToDouble((ScriptCharges + VioceOverCharges + VideoCharges));
+        TotalChargesGst = (TotalCharges / 100) * 18;
+        TotalAmount = TotalCharges + TotalChargesGst;
+    }
+
+}
+@if (Model != null)
+{
+    <style>
+        .modal-lg, .modal-xl {
+            width: 94% !important;
+        }
+    </style>
+    if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 2)
+    {
+        <style>
+            #ScriptCharges,#VioceOverCharges,#VideoCharges,#AdditionalServiceCharegs,#DiscountCharges{
+                border-width:0px;
+            }
+        </style>
+    }
+    <div class="topuprequest">
+        <div class="logo-time">
+            <div style="text-align:right">
+                <img class="img img-circle" src="~/Content/Images/logo.jpg" style="    width: 36px;
+    border-radius: 50%;
+    margin: 3px;" />
+            </div>
+            <div style="text-align:right">Date: <span>@ViewBag.Data.Rows[0]["CreatedDate"]</span></div>
+        </div>
+        <div class="row topuprequest-child">
+            <div class="col-md-7">
+                <div class="cardarea">
+                    <h3>Invoice No. EV<span class="TopUpPaymentId">@Model.TopUpPaymentId</span></h3>
+                    <table class="table table1">
+                        <tr>
+                            <th class="noborder">Category</th>
+                            <th class="noborder">Description</th>
+                            <th class="noborder">Amount</th>
+                        </tr>
+                        <tr>
+                            <td class="noborder">Additional Duration</td>
+                            <td class="noborder">@Model.AdditionalDuration</td>
+                            <td class="noborder"></td>
+                        </tr>
+                        <tr>
+                            <td>Script Charges</td>
+                            <td></td>
+                            <td>
+                                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 2)
+                                {
+                                    <input type="text" id="ScriptCharges" class="form-control" value="@Model.ScriptCharges" />
+                                }
+                                else
+                                {
+                                    <input type="hidden" id="ScriptCharges" class="form-control" value="@Model.ScriptCharges" />
+                                    <span>@Model.ScriptCharges</span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Voice Over Charges</td>
+                            <td></td>
+                            <td>
+                                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 2)
+                                {
+                                    <input type="text" id="VioceOverCharges" class="form-control" value="@Model.VioceOverCharges" />
+                                }
+                                else
+                                {
+                                    <input type="hidden" id="VioceOverCharges" class="form-control" value="@Model.VioceOverCharges" />
+                                    <span>@Model.VioceOverCharges</span>
+                                }
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Video Charges</td>
+                            <td></td>
+                            <td>
+
+                                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 2)
+                                {
+                                    <input type="text" id="VideoCharges" class="form-control" value="@Model.VideoCharges" />
+                                }
+                                else
+                                {
+                                    <input type="hidden" id="VideoCharges" class="form-control" value="@Model.VideoCharges" />
+                                    <span>@Model.VideoCharges</span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Additional Service Charges</td>
+                            <td></td>
+                            <td>
+
+                                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 2)
+                                {
+                                    <input type="text" id="AdditionalServiceCharegs" class="form-control" value="@Model.AdditionalServiceCharegs" />
+                                }
+                                else
+                                {
+                                    <input type="hidden" id="AdditionalServiceCharegs" class="form-control" value="@Model.AdditionalServiceCharegs" />
+                                    <span>@Model.AdditionalServiceCharegs</span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Discount</td>
+                            <td></td>
+                            <td>
+
+                                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 2)
+                                {
+                                    <input type="text" id="DiscountCharges" class="form-control" value="@Model.DiscountCharges" />
+                                }
+                                else
+                                {
+                                    <input type="hidden" id="DiscountCharges" class="form-control" value="@Model.DiscountCharges" />
+                                    <span>@Model.DiscountCharges</span>
+                                }
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            @if (Model.PaymentStatus == true)
+                            {
+                                <div class="text-success Bold">PAYMENT DONE</div>
+                            }
+                            else
+                            {
+                                if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 2)
+                                {
+                                    <div class="btn" onclick="UpdateTopUpPrice(@Model.OrderId)">SEND PRICE REQUEST</div>
+                                }
+                                else
+                                {
+
+                                    <form id="redirectForm" method="post" action="@Url.Action("HandleRequestTopUp","pg")" target="_blank">
+                                        <input type="hidden" value="@Model.OrderId" name="orderId" />
+                                        <button type="submit" class="btn btn-round btn-block waves-effect waves-light " value="Pay">Pay</button>
+                                    </form>
+                                }
+                            }
+                        </div>
+                        <div class="col-md-6">
+                            <div class="btn" data-dismiss="modal"> CANCEL</div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="cardarea">
+
+                    <table class="table table2">
+                        <tr>
+                            <th>Description</th>
+                            <th>Amount</th>
+                        </tr>
+                        <tr>
+                            <td class="noborder">Additional Duration</td>
+                            <td class="noborder"></td>
+                        </tr>
+                        <tr>
+                            <td class="noborder">Script</td>
+                            <td class="noborder"><span class="ScriptCharges">@Model.ScriptCharges</span></td>
+                        </tr>
+                        <tr>
+                            <td class="noborder">Voice Over</td>
+                            <td class="noborder"><span class="VioceOverCharges">@Model.VioceOverCharges</span></td>
+                        </tr>
+                        <tr>
+                            <td class="noborder">Video</td>
+                            <td class="noborder"><span class="VideoCharges">@Model.VideoCharges</span></td>
+                        </tr>
+                        <tr>
+                            <td class="">Gross Amount</td>
+                            <td class="noborder"><span class="GrossAmount">@TotalCharges</span></td>
+                        </tr>
+                        <tr>
+                            <td class="noborder">Additional Service Charges</td>
+                            <td class="noborder"><span class="AdditionalServiceCharegs">@Model.AdditionalServiceCharegs</span></td>
+                        </tr>
+                        <tr>
+                            <td class="noborder">GST(18%)</td>
+                            <td class="noborder GST">@TotalChargesGst</td>
+                        </tr>
+                        <tr>
+                            <td class="noborder">Discount</td>
+                            <td class="noborder"><span class="DiscountCharges">@Model.DiscountCharges</span></td>
+                        </tr>
+                        <tr>
+                            <td class="">Total Amount</td>
+                            <td class="noborder totalAmount">@TotalAmount</td>
+                        </tr>
+                    </table>
+                    <br />
+
+                    <table style="width:100%;color:black;">
+                        <tr>
+                            <th class="headingtitle" colspan="2" style="padding:5px; font-weight:normal;">Billing Details</th>
+                        </tr>
+                        <tr>
+                            <td style="width:30%">Bill to: </td>
+                            <td>@ViewBag.Orders.BillTo</td>
+                        </tr>
+                        <tr>
+                            <td>Address: </td>
+                            <td>@ViewBag.Orders.Address</td>
+                        </tr>
+                        <tr>
+                            <td>Company Name: </td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(ViewBag.Orders.CompanyName))
+                                {
+                                    <span>@ViewBag.Orders.CompanyName</span>
+                                }
+                                else
+                                {
+                                    <span>Not Given</span>
+                                }
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>GSTIN: </td>
+                            <td>
+                                @if (!String.IsNullOrEmpty(@ViewBag.Orders.GSTIN))
+                                {
+                                    <span>@ViewBag.Orders.GSTIN</span>
+                                }
+                                else
+                                {
+                                    <span>Not Given</span>
+                                }
+                            </td>
+                        </tr>
+
+                    </table>
+
+
+
+                    <hr />
+                    <div class="officeaddress" style="color:black;">
+                        <span>Moody Fox Productions</span><br />
+                        <span>Regd.Off Add: 17/143 Unnat Nagar4</span><br />
+                        <span>Goregaon(W), Mumbai-400104 </span><br />
+                        <span>GSTIN 06CGCPS6801D1ZM</span><br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div>Not yet request for TopUp</div>
+}
+
+<script>
+    $(document).ready(function () {
+        $("#ScriptCharges").keyup(function () {
+            $(".ScriptCharges").html(parseFloat($(this).val()).toFixed(0));
+            total();
+        });
+        $("#VioceOverCharges").keyup(function () {
+            $(".VioceOverCharges").html(parseFloat($(this).val()).toFixed(0));
+            total();
+        });
+        $("#VideoCharges").keyup(function () {
+            $(".VideoCharges").html(parseFloat($(this).val()).toFixed(0));
+            total();
+        });
+        $("#AdditionalServiceCharegs").keyup(function () {
+            var AdditionalServiceCharegs = parseFloat($(this).val()).toFixed(0);
+            if (isNaN(AdditionalServiceCharegs)) {
+                AdditionalServiceCharegs = 0;
+            }
+            $(".AdditionalServiceCharegs").html(AdditionalServiceCharegs);
+            total();
+        });
+        $("#DiscountCharges").keyup(function () {
+            var DiscountCharges = parseFloat($(this).val()).toFixed(0);
+            if (isNaN(DiscountCharges)) {
+                DiscountCharges = 0;
+            }
+            $(".DiscountCharges").html(DiscountCharges);
+            total();
+        });
+        total();
+        //debugger;
+        var val = $(".TopUpPaymentId").html();
+        val = pad(val, 5);
+        $(".TopUpPaymentId").html(val);
+    });
+
+    function total() {
+        var ScriptCharges = $("#ScriptCharges").val();
+        var VioceOverCharges = $("#VioceOverCharges").val();
+        var VideoCharges = $("#VideoCharges").val();
+        var DiscountCharges = parseFloat($("#DiscountCharges").val());
+
+        var tot = parseFloat(ScriptCharges) + parseFloat(parseInt(VioceOverCharges)) + parseFloat(VideoCharges);
+        $(".GrossAmount").html(tot.toFixed(0));
+
+        var AdditionalServiceCharegs = parseFloat($(".AdditionalServiceCharegs").html());
+        if (isNaN(tot)) {
+            tot = 0;
+        }
+        if (isNaN(AdditionalServiceCharegs)) {
+            AdditionalServiceCharegs = 0;
+        }
+
+        var totalForGst = (((tot + AdditionalServiceCharegs) / 100) * 18).toFixed(0);
+        $(".GST").html(totalForGst);
+        var GST = parseFloat($(".GST").html());
+        var totalAmount = (tot + AdditionalServiceCharegs + GST).toFixed(0);
+        if (isNaN(DiscountCharges)) {
+            DiscountCharges = 0;
+        }
+        totalAmount = totalAmount - DiscountCharges;
+        $(".totalAmount").html(totalAmount);
+    }
+</script>

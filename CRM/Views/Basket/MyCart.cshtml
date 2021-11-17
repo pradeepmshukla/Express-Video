@@ -1,0 +1,702 @@
+﻿@model DAL.Basket
+@{
+    ViewBag.Title = "MyCart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int count = 0;
+    double? total = 0;
+    int? TotalDays = 0;
+    double VideosPrice = 0;
+    double Script_Price = 0;
+    double VO_SamplePrice = 0;
+    if (Model != null)
+    {
+        VideosPrice = (Model.VideosPrice == null) ? 0 : Convert.ToDouble(Model.VideosPrice);
+        Script_Price = (Model.Script_Price == null) ? 0 : Convert.ToDouble(Model.Script_Price);
+        VO_SamplePrice = (Model.VO_SamplePrice == null) ? 0 : Convert.ToDouble(Model.VO_SamplePrice);
+        if (Model.Script_Required == null || Model.Script_Required == false)
+        {
+            Script_Price = 0;
+        }
+        if (Model.VO_Required == null || Model.VO_Required == false)
+        {
+            VO_SamplePrice = 0;
+        }
+    }
+
+
+    double OrderTotal = VideosPrice + Script_Price + VO_SamplePrice;
+    double FinalOrderTotal = 0;
+    if (Model != null)
+    {
+        FinalOrderTotal = (Model.FinalTotal == null) ? OrderTotal : Convert.ToDouble(Model.FinalTotal);
+    }
+}
+<style>
+    .layout {
+        overflow: hidden;
+        background-color: #cbc9c9;
+    }
+
+
+
+    .boxshadow {
+        background-color: white;
+        box-shadow: 1px 2px 8px 4px lightgrey;
+        padding: 1rem;
+    }
+
+    th {
+        position: relative;
+        border-top: 1px solid #ddd;
+        text-indent: 7px;
+    }
+
+    .line {
+        position: absolute;
+        width: 90%;
+        height: 2px;
+        background-color: #fcc012;
+        margin-top: -4px;
+    }
+
+    h3 {
+        margin-left: 1.3rem;
+    }
+
+    .form-control {
+        height: 38px;
+        border: 2px solid #aaaaaa;
+        font-size: small;
+    }
+
+    .userconfirmation a {
+        color: #fcc012;
+        font-weight: bold;
+    }
+
+    .my-video-dimensions {
+        width: 100%;
+    }
+
+    .OrderYourVideo, .DownloadYourVideo {
+        background-color: #fed032;
+        width: 274px;
+        height: 112px;
+        padding: 7px 22px;
+        margin: 41px auto;
+        /* float: right; */
+        border-radius: 10px;
+        text-align: center;
+        color: black;
+        font-weight: bold;
+        font-family: MyriadPro-pro;
+    }
+
+        .OrderYourVideo:hover {
+            background-color: white;
+        }
+
+    .deliverydays {
+        text-align: center;
+        font-size: medium;
+    }
+
+    table tr th {
+        background-color: #fcc012;
+    }
+
+    .btnsmall {
+        padding: 3px 5px;
+        font-size: 10px;
+        margin: 2px;
+    }
+
+    .btnedit {
+        background-color: #38a4f8;
+        border-color: #38a4f8;
+    }
+
+    .btndelete {
+        background-color: #f33f5d;
+        border-color: #f33f5d;
+    }
+
+    .btnmycart {
+        width: 190px;
+        margin-top: 17px;
+    }
+
+    .box-sizing {
+        box-sizing: border-box;
+        padding-right: 127px;
+    }
+    .boxshadow{
+        overflow:hidden;
+    }
+</style>
+<div class="modal fade" id="OrderCancel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
+        <div class="modal-content" style="background-color: #000000;color:white">
+            <div class="modal-header" style="background-color: #000000 !important;color:white;border-color: #000000; !important">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="">
+
+                    <table align="center" style="width:100%; text-align:center">
+                        <tr>
+                            <td colspan="2">
+                                <span class="responsemsg" style="padding-bottom: 43px;font-size: 1.3rem;display:block">Are you sure want to delete your cart item?</span>
+
+                            </td>
+                        </tr>
+                        <tr class="hiderow">
+                            <td><div class="btn btn-warning btncancelorderYes deletebasket" style="width:150px" data-orderid="0">Yes</div></td>
+                            <td><div class="btn btn-warning" data-dismiss="modal" style="width:150px">No</div></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="card basket-card">
+
+    @if (Model == null)
+    {
+        <div style="text-align:center">
+            <img src="../Content/Images/cartEmpty.png" />
+            <h2>Your Cart Is Empty</h2>
+
+
+            <div class="OrderYourVideo">
+                <a href="/Home/SampleVideo">
+                    <div class="row">
+                        <div class="col-md-8"><h3 style="color:black; font-size:20px;">ORDER YOUR VIDEO</h3></div>
+                        <div class="col-md-4">
+                            <img class="img" src="~/Content/Images/dashboard/videobutton.png" style="width:100%; margin-top:33px" />
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="card text-accent-1">
+            <h2 class="reviewyourorder">REVIEW YOUR ORDER</h2>
+        </div>
+
+        <div class="row" style="margin-top: 0px;">
+            <div class="col-md-8">
+                <h3>Order Details </h3>
+                <div class="boxshadow">
+                    <table class="table">
+                        <tr>
+                            <th style="border-top:0px solid">
+                                Category
+                                @*<div class="line" style="width:70px"></div>*@
+                            </th>
+                            <th style="border-top:0px solid">
+                                Description &  Amount
+                                @*<div class="line" style="width:88px"></div>*@
+                            </th>
+
+                        </tr>
+                        <tr>
+                            <td style="border-top:0px solid">Video Duration</td>
+                            <td style="border-top:0px solid">
+                                <div class="col-12">
+                                    <p>@Model.ED_VideoDuration</p>
+                                </div>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td style="border-top:0px solid">Video Resolution</td>
+                            <td style="border-top:0px solid">
+                                <div class="col-12">
+                                    <p>@Model.VideoResolution</p>
+                                </div>
+                            </td>
+
+
+                        </tr>
+                        <tr>
+                            <td>Video Details</td>
+                            <td>
+                                <div class="col-md-8 box-sizing">
+                                    <p>Video Concept -@(string.IsNullOrEmpty(Model.Script_VideoConcept) ? "Not Mentioned" : Model.Script_VideoConcept)</p>
+                                    <p>Target Audience-@(string.IsNullOrEmpty(Model.Script_TargetAudience) ? "Not Mentioned" : Model.Script_TargetAudience)</p>
+                                    <p>Explain Your Video Requirement-@(string.IsNullOrEmpty(Model.Script_ExlpainVideoRequirement) ? "Not Mentioned" : Model.Script_ExlpainVideoRequirement)</p>
+                                    <p>Fill Your Video Requirement-@(string.IsNullOrEmpty(Model.Script_ExlpainVideoRequirement) ? "Not Mentioned" : Model.Script_FillVideoRequirement)</p>
+                                    @*<p>Purpose Of Video -@(string.IsNullOrEmpty(Model.Script_PurposeOfVideo ) ? "Not Mentioned" : Model.Script_PurposeOfVideo)</p>
+                                        <p>About Company -@(string.IsNullOrEmpty(Model.Script_AboutCompany ) ? "Not Mentioned" : Model.Script_AboutCompany)</p>*@
+                                    <p>Benefits for customers -@(string.IsNullOrEmpty(Model.Script_BenifitesForCustomer) ? "Not Mentioned" : Model.Script_BenifitesForCustomer)</p>
+
+                                    <p>Company Name-@(string.IsNullOrEmpty(Model.Script_CompanyName) ? "Not Mentioned" : Model.Script_CompanyName)</p>
+                                    <p>Company Website-@(string.IsNullOrEmpty(Model.Script_CompanyWebsite) ? "Not Mentioned" : Model.Script_CompanyWebsite)</p>
+                                    @if (string.IsNullOrEmpty(Model.Script_LogoName))
+                                    {
+                                        <p> Logo -Not Mentioned</p>
+                                    }
+                                    else
+                                    {
+                                        <p>Logo </p>
+                                        <img src="~/Uploads/@Model.Script_LogoName" style="width:150px;" />
+                                    }
+                                    @if (string.IsNullOrEmpty(Model.Script_ProductServiceImages))
+                                    {
+                                        <p>Product Service Images- Not Mentioned</p>
+                                    }
+                                    else
+                                    {
+                                        string[] str = Model.Script_ProductServiceImages.Split(',');
+                                        <p>Product Service Images- </p>
+                                        foreach (var itm in str)
+                                        {
+                                            if (itm != "")
+                                            {
+                                                <img src="~/Uploads/@itm" style="width:150px;" />
+                                            }
+                                        }
+                                    }
+
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="/Home/SampleVideo?Edit=VideoDetails" class="btn btnsmall btnedit">Edit</a>
+                                </div>
+
+
+                            </td>
+
+
+                        </tr>
+                        <tr>
+                            <td>Sample Video</td>
+                            <td>
+                                <div class="col-md-8">
+
+
+                                    <div class="videooutput">
+                                        <iframe width="450" height="250" src="@Model.YoutubeLink" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    ₹ @Model.VideosPrice
+                                    <a href="/Home/Videos?Edit=SampleVideo" class="btn btnsmall btnedit">Edit</a>
+                                </div>
+                            </td>
+
+                        </tr>
+                        @if (Model.Script_Required == true)
+                        {
+                            <tr>
+                                <td>Script</td>
+                                <td>
+                                    <div class="col-md-8">
+                                        Required
+                                    </div>
+                                    <div class="col-md-4">
+                                        ₹ @Model.Script_Price
+                                        <a href="/Home/SampleVideo?Edit=Script" class="btn btnsmall btnedit">Edit</a>
+                                        <a href="/Basket/MyCart" class="btn btnsmall btndelete" onclick="RemoveScript()">Delete</a>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>Script</td>
+                                <td>
+                                    <div class="col-md-8">
+                                        Not Required
+                                    </div>
+                                    <div class="col-md-4">
+                                        ₹ 0
+                                        <a href="/Home/SampleVideo?Edit=Script" class="btn btnsmall btnedit">Edit</a>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                        @if (Model.VO_Required == true)
+                        {
+                            <tr>
+                                <td>Voice Over</td>
+                                <td>
+                                    <div class="col-md-8">
+                                        <p> Language - @((Model.VO_Language == "") ? "Not Mentioned" : Model.VO_Language)</p>
+                                        <p> Gender - @((Model.VO_Gender == "") ? "Not Mentioned" : Model.VO_Gender)</p>
+                                        @if (Model.VO_SampleId > 0)
+                                        {
+                                            <p> Voice selected</p>
+                                            <audio controls><source src="~/Uploads/@Model.SoundFileName" type="audio/ogg"><source src="~/Uploads/@Model.SoundFileName" type="audio/mpeg">Your browser does not support the audio element.</audio>
+                                        }
+                                        else
+                                        {
+                                            <p>Voice not selected</p>
+                                        }
+                                    </div>
+                                    <div class="col-md-4">
+                                        ₹ @Model.VO_SamplePrice
+                                        <a href="/Home/SampleVideo?Edit=Voice" class="btn btnsmall btnedit">Edit</a>
+                                        <a href="/Basket/MyCart" class="btn btnsmall btndelete" onclick="RemoveVoiceOver()">Delete</a>
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>Voice Over</td>
+                                <td>
+                                    <div class="col-md-8">
+                                        Not Required
+                                    </div>
+                                    <div class="col-md-4">
+                                        ₹ 0
+                                        <a href="/Home/SampleVideo?Edit=Voice" class="btn btnsmall btnedit">Edit</a>
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                        }
+
+                    </table>
+                    <div class="divconfirmation">
+                        <div style="text-align:center" class="userconfirmation">
+                            <input type="checkbox" class="chktermandcondition" />
+                            I understand and agree with the <a href="/Home/PrivacyPolicy" target="_blank">Privacy Policy</a> and <a href="/Home/TermAndConditions" target="_blank">Terms of Use</a> of EXPRESS VIDEO
+                        </div>
+                        <div style="text-align:center; margin-top:13px;">
+                            <a href="/Home/SampleVideo" class="btn btnmycart">EDIT</a>
+                            <div class="btn btnmycart" data-toggle="modal" data-target="#OrderCancel">DELETE</div>
+                            <div class="btn btnProcced btnmycart">PROCEED</div>
+                        </div>
+                    </div>
+                    <br /><br />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h3>Amount Summary</h3>
+                <div class="boxshadow">
+
+                    <table class="table">
+                        <tr>
+                            <th style="border-top:0px solid">
+                                Description
+                                @*<div class="line" style="width:88px"></div>*@
+                            </th>
+                            <th style="border-top:0px solid">
+                                Amount
+                                @*<div class="line" style="width:65px"></div>*@
+                            </th>
+                        </tr>
+                        <tr>
+                            <td style="border-top:0px solid">Sample Video</td>
+                            <td style="border-top:0px solid">
+                                ₹
+                                @if (Model.VideosPrice == null)
+                                {
+                                    <span>0</span>
+                                }
+                                else
+                                {
+                                    <span>@Model.VideosPrice</span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-top:0px solid">Script</td>
+                            <td style="border-top:0px solid">
+                                @if (Model.Script_Price != null && Model.Script_Required == true)
+                                {
+                                    <span>₹ @Model.Script_Price</span>
+                                }
+                                else
+                                {
+                                    <span>₹ 0</span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-top:0px solid">Voice Over</td>
+                            <td style="border-top:0px solid">
+                                @if (Model.VO_SamplePrice != null && Model.VO_Required == true)
+                                {
+                                    <span>₹ @Model.VO_SamplePrice </span>
+                                }
+                                else
+                                {
+                                    <span>₹ 0</span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-top:1px solid black">Gross Amount</td>
+                            <td style="border-top:1px solid black">
+
+                                <span>₹ @OrderTotal</span>
+
+
+                            </td>
+                        </tr>
+                        <tr class="IGST" style="display:none">
+                            <td style="border-top:0px solid">GST(18%)</td>
+                            @if (Model.IGST == null)
+                            {
+                                <td style="border-top:0px solid">₹ 0</td>
+                            }
+                            else
+                            {
+                                <td style="border-top:0px solid">₹ @Model.IGST</td>
+                            }
+                        </tr>
+                        <tr class="CGST">
+                            <td style="border-top:0px solid">CGST(9%)</td>
+                            @if (Model.CGST == null)
+                            {
+                                <td style="border-top:0px solid">₹ 0</td>
+                            }
+                            else
+                            {
+                                <td style="border-top:0px solid">₹ @Model.CGST</td>
+                            }
+
+                        </tr>
+                        <tr class="SGST">
+
+                            <td style="border-top:0px solid">SGST(9%)</td>
+                            @if (Model.SGST == null)
+                            {
+                                <td style="border-top:0px solid">₹ 0</td>
+                            }
+                            else
+                            {
+                                <td style="border-top:0px solid">₹ @Model.SGST</td>
+                            }
+                        </tr>
+                        <tr style="font-size:2rem">
+                            <td>Total Amount</td>
+                            @{
+                                total = Model.FinalTotal;
+                            }
+                            <td>₹ @FinalOrderTotal</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                @{
+                                    TotalDays = Model.VideoDays + 1;
+                                    if (Model.Script_Required == true)
+                                    {
+                                        TotalDays += Model.ScriptDays;
+                                    }
+                                    if (Model.VO_Required == true)
+                                    {
+                                        TotalDays += Model.VODays;
+                                    }
+                                }
+                                <div class="deliverydays-mycart">Video Delivery within @TotalDays Days</div>
+                            </td>
+                        </tr>
+                    </table>
+                    <br />
+                    <table>
+                        <tr>
+                            <th style="border-top:0px solid;padding:4px">Billing Details&nbsp;</th>
+                        </tr>
+                    </table>
+
+                    <h5>*Bill To</h5>
+                    <input type="text" class="form-control otherdetails" placeholder="Enter Bill To" id="BillTo" value="@Model.BillTo" style="color:black" />
+                    <br />
+                    <h5>*Address</h5>
+                    <textarea type="text" class="form-control otherdetails" placeholder="Enter Address" id="Address" style="color:black" rows="4">@Model.Address</textarea>
+                    <br />
+                    <h5>COMPANY NAME</h5>
+                    <input type="text" class="form-control otherdetails" placeholder="Enter your company name" id="CompanyName" value="@Model.CompanyName" style="color:black" />
+                    <br />
+                    <h5>GSTIN <span>(if any)</span></h5>
+                    <br />
+                    <input type="text" class="form-control otherdetails" placeholder="Enter your GSTIN detail" id="GSTIN" value="@Model.GSTIN" style="color:black" />
+                    <h5 style="text-transform:none">GST DETAILS(Optional)</h5>
+                    <p>To claim credit of GST charged by us, please enter your Company's GST details</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="Payment" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="close" data-dismiss="modal" aria-label="Close">&times;</span>
+                        <h2 class="modal-title">Payment</h2>
+                    </div>
+                    <div class="modal-body text-center">
+                        <h5>Total Amount</h5>
+                        <h5>₹ @total</h5>
+                        <h5 class="message-list msg"></h5>
+
+
+                        <form id="redirectForm" method="post" action="@Url.Action("HandleRequest","pg")">
+                            <button type="submit" class="btn btn-round btn-block waves-effect waves-light " value="Pay">Proceed to Payment</button>
+                            @*<div class="btn btn-round btn-block waves-effect waves-light btnOrderPlace"></div>*@
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+                                    }
+</div>
+
+<script>
+    $(document).ready(function () {
+        checklogin();
+        $(document).ready(function () {
+            setTimeout(function () {
+                $(".menulistforhide").hide();
+            }, 800);
+
+        });
+        var isclicked = false;
+        ShowHide();
+        //$(".btnProcced").hide();
+        $(".btnOrderPlace").click(function () {
+            if (isclicked == false) {
+                isclicked = true;
+                var data = {
+                    BasketId: $(".data").attr("data-basketid")
+                };
+                $(".btnOrderPlace").html("Processing...");
+                $.ajax({
+                    type: "POST",
+                    url: "/Basket/PlaceOrder",
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (d) {
+                        $(".msg").html(d);
+
+                    }
+                });
+            }
+
+        });
+
+        $(".deletebasket").click(function () {
+            var BasketId = $(this).attr("data-basketid");
+            $()
+            var data = {
+                BasketId: BasketId
+            };
+            $.ajax({
+                type: "POST",
+                url: "/Basket/DeleteBasketItem",
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (d) {
+                    $(".responsemsg").html(d);
+                    $(".hiderow").hide();
+                    location.reload();
+                }
+            });
+
+        });
+
+        var height = $($(".boxshadow")[0]).css("height");
+        $(".boxshadow").css("min-height", height);
+
+        //$(".chktermandcondition").change(function () {
+        //    if ($(this).is(":checked")) {
+        //        $(".btnProcced").show();
+        //    } else {
+        //        $(".btnProcced").hide();
+        //    }
+        //});
+
+        $(".otherdetails").blur(function () {
+            var data = {
+                BillTo: $("#BillTo").val().trim(),
+                Address: $("#Address").val().trim(),
+                CompanyName: $("#CompanyName").val().trim(),
+                GSTIN: $("#GSTIN").val().trim()
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/Basket/UpdateBasket",
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (d) {
+
+                }
+            });
+
+        });
+        $("#GSTIN").keyup(function () {
+            ShowHide();
+
+        });
+
+        $(".btnProcced").click(function () {
+
+            var data = {
+                BillTo: $("#BillTo").val().trim(),
+                Address: $("#Address").val().trim(),
+                CompanyName: $("#CompanyName").val().trim(),
+                GSTIN: $("#GSTIN").val().trim()
+            }
+            if (data.BillTo == "") {
+                _popupVC("Please enter Bill To", "JUST TO KNOW");
+                $("#BillTo").focus();
+                return;
+            }
+            if (data.Address == "") {
+                _popupVC("Please enter Address", "JUST TO KNOW");
+                $("#Address").focus();
+                return;
+            }
+
+            if ($(".chktermandcondition").is(":checked")) {
+                $("#Payment").modal();
+            }
+            else {
+                _popupVC("Please select term and conditions", "JUST TO KNOW");
+            }
+        });
+    });
+    function ShowHide() {
+        var val = $("#GSTIN").val();
+
+        if (val != undefined) {
+            if (val == "" || (val.charAt(0) == "0" && val.charAt(1) == "6")) {
+                $(".IGST").hide();
+                $(".CGST").show();
+                $(".SGST").show();
+            }
+            else {
+                $(".IGST").show();
+                $(".CGST").hide();
+                $(".SGST").hide();
+            }
+        }
+        else {
+            $(".IGST").show();
+            $(".CGST").hide();
+            $(".SGST").hide();
+        }
+    }
+</script>

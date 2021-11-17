@@ -1,0 +1,183 @@
+﻿@model DAL.UserDetails
+@{
+    Layout = null;
+}
+
+<div class="col-md-12 col-sm-12">
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12 pt-4 pb-4">
+                            <h3 class="evtitle">Hindi Sample</h3>
+                        </div>
+                        @if (!string.IsNullOrEmpty(Model.SoundSampleHindi1))
+                        {
+                            <div class="col-md-6">
+
+                                <div class="uploadedsound">
+                                    <audio controls>
+                                        <source src="~/Uploads/@Model.SoundSampleHindi1" type="audio/ogg">
+                                        <source src="~/Uploads/@Model.SoundSampleHindi1" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 viewsample-dropdown">
+                                
+                                        <b style="color:black; font-weight:normal;">Set Price For (0:30-1:00) Min</b>
+                                        <select class="form-control" id="SoundSampleHindi1_Price" data-value="@Model.SoundSampleHindi1_Price" style="height:38px; width:160px" disabled>
+                                            <option value="1200">1200</option>
+                                            <option value="1300">1300</option>
+                                            <option value="1400">1400</option>
+                                            <option value="1500">1500</option>
+                                            <option value="1600">1600</option>
+                                            <option value="1700">1700</option>
+                                            <option value="1800">1800</option>
+                                        </select>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-12">
+                                <span style="color:black;">Sample not uploaded</span>
+                            </div>
+                        }
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="row">
+                        <div class="col-12 pt-4 pb-4">
+                            <h3 class="evtitle">English Sample</h3>
+                        </div>
+                        @if (!string.IsNullOrEmpty(Model.SoundSampleEnglish1))
+                        {
+                            <div class="col-6">
+
+                                <div class="col-12 uploadedsound">
+                                    <audio controls>
+                                        <source src="~/Uploads/@Model.SoundSampleEnglish1" type="audio/ogg">
+                                        <source src="~/Uploads/@Model.SoundSampleEnglish1" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+
+
+                            </div>
+                            <div class="col-6">
+                                <span style="font-weight:normal;">Set Price For (0:30-1:00) Min</span>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <select class="form-control" id="SoundSampleEnglish1_Price" data-value="@Model.SoundSampleEnglish1_Price" style="height:38px;width:160px" disabled>
+                                            <option value="1200">1200</option>
+                                            <option value="1300">1300</option>
+                                            <option value="1400">1400</option>
+                                            <option value="1500">1500</option>
+                                            <option value="1600">1600</option>
+                                            <option value="1700">1700</option>
+                                            <option value="1800">1800</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-12">
+                                <span style="color:black;">Sample not uploaded</span>
+                            </div>
+                        }
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@*<div class="row">
+        <div class="col-12">
+            <u>English Samples:-</u>
+            <div class="row">
+                <div class="col-4">
+                    <span>Sample 01</span>
+                </div>
+                <div class="col-8">
+                    <audio controls>
+                        <source src="~/Uploads/@Model.SoundSampleEnglish1" type="audio/ogg">
+                        <source src="~/Uploads/@Model.SoundSampleEnglish1" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <span>Sample 02</span>
+                </div>
+                <div class="col-8">
+                    <audio controls>
+                        <source src="~/Uploads/@Model.SoundSampleEnglish2" type="audio/ogg">
+                        <source src="~/Uploads/@Model.SoundSampleEnglish2" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-12">
+            <u>Hindi Samples:-</u>
+            <div class="row">
+                <div class="col-4">
+                    <span>Sample 01</span>
+                </div>
+                <div class="col-8">
+                    <audio controls>
+                        <source src="~/Uploads/@Model.SoundSampleHindi1" type="audio/ogg">
+                        <source src="~/Uploads/@Model.SoundSampleHindi1" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <span>Sample 02</span>
+                </div>
+                <div class="col-8">
+                    <audio controls>
+                        <source src="~/Uploads/@Model.SoundSampleHindi2" type="audio/ogg">
+                        <source src="~/Uploads/@Model.SoundSampleHindi2" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+
+        </div>
+    </div>*@
+<script>
+    $(document).ready(function () {
+        $("select").each(function () {
+            var val = $(this).attr("data-value");
+            if (val != undefined && val != "") {
+                $(this).val(val);
+            }
+
+        });
+    });
+</script>

@@ -1,0 +1,95 @@
+﻿
+@media only screen and (max-width: 1024px) {
+    .ourserviceimgClick .ourserviceimgClickimg {
+        width: 177px;
+        height: 177px;
+    }
+
+    .background {
+        width: 190px;
+        height: 190px;
+        position: absolute;
+    }
+
+    .ourserviceimgClick .background-box {
+        width: 180px;
+        height: 180px;
+        position: absolute;
+        background-color: rgb(249,141,17);
+        transform: rotate(-12deg);
+        top: 7px;
+        z-index: -1;
+        border-radius: 3rem;
+        left: 2px;
+        transition: 0.1s all;
+        left: 9px;
+    }
+
+    .ourserviceimgClick .ourserviceimgClickimg h2 {
+        position: absolute;
+        bottom: 1rem;
+        font-size: 1.4rem;
+        color: rgb(96,92,93);
+        width: 100%;
+        text-align: center;
+        font-weight: bolder;
+    }
+
+    .why-videoimp img {
+        width: 90%;
+        margin: -82px auto;
+        margin-left: -34px;
+    }
+
+    .wch-img img {
+        width: 100%;
+    }
+
+    .wch-img h2 {
+        color: rgb(96,92,93);
+        height: 5rem;
+        font-size: 2.5rem;
+        width: 100%;
+        text-align: center;
+        margin: 29px auto;
+    }
+
+    .section {
+        padding-top: 58px;
+        padding-bottom: 62px;
+    }
+
+    .ourserviceimgClick {
+        position: relative;
+        padding: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .getpromo {
+        font-size: 3rem;
+        color: white;
+        width: 74%;
+        margin: 0 auto;
+    }
+
+    .getpromo-price {
+        font-size: 7rem;
+        color: white;
+        width: 74%;
+        margin: 0 auto;
+    }
+
+    .extraline {
+        height: 69px;
+    }
+
+    .bgmain {
+        width: 95%;
+        margin: 105px auto;
+    }
+
+    .ourservice-infographicvideo img {
+        width: 89%;
+        margin: 16px auto;
+    }
+}

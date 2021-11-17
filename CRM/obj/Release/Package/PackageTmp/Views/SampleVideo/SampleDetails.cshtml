@@ -1,0 +1,109 @@
+﻿@model DAL.SampleVideo
+@{
+    ViewBag.Title = "SampleDetails";
+    Layout = "~/Views/Shared/_megalayout.cshtml";
+}
+
+<!-- TOP SECTION
+================================================== -->
+
+<section class="section white-section section-home-padding-top">
+
+    <div class="container">
+        <div class="sixteen columns">
+            <div class="section-title left">
+                <h2>@Model.Name</h2>
+                @*<div class="subtitle left">Category: Men</div>*@
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<!-- SECTION
+================================================== -->
+
+<section class="section white-section section-padding-bottom">
+    <div class="container">
+        <div class="six columns">
+            <div class="shop-carousel-wrap">
+
+                <div id="sync1" class="owl-carousel owl-theme" style="opacity: 1; display: block;">
+                    <div class="owl-wrapper-outer">
+                        <div class="owl-wrapper" style="width: 2580px; left: 0px; display: block; transition: all 0ms ease 0s; transform: translate3d(0px, 0px, 0px); transform-origin: 215px center; perspective-origin: 215px center;">
+                            <div class="owl-item" style="width: 430px;">
+                                <div class="item">
+                                    <img src="~/Content/Theme/wb_theme/images/shop/1.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>           
+            </div>
+        </div>
+        <div class="ten columns">
+            <div class="shop-item-details">
+                <div class="price" data-price="@Model.Price">Rs. @Model.Price</div>
+                <div class="num-itm-ic cartitemDelete"></div>
+                <div class="num-itm">1</div>
+                <div class="num-itm-ic cartitemAdd"></div>
+                <div class="button-shop" data-SampleVideoId="@Model.SampleVideoId">add to cart</div>
+            </div>
+            <div class="after-button">
+                <p>@Model.Description</p>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+        $(".cartitemDelete").click(function () {
+            var num = $(".num-itm").text();
+            if (parseInt(num) > 1) {
+                num--;
+                $(".num-itm").text(num);
+                calculateAmount();
+            }
+        });
+        $(".cartitemAdd").click(function () {
+            var num = $(".num-itm").text();
+            num++;
+            $(".num-itm").text(num);
+            calculateAmount();
+
+        });
+        $(".button-shop").click(function () {
+            AddTocCart(this);
+        });
+    });
+    function calculateAmount() {
+        var price = $(".price").attr("data-price");
+        var qty = $(".num-itm").text();
+        var Total = price * qty;
+        $(".price").text("Rs. " + Total);
+    }
+    function AddTocCart(btn) {
+        var Quantity = $(".num-itm").text();
+        var SampleVideoId = $(btn).attr("data-SampleVideoId");
+        var CustomerId = 1;
+
+        var data = {
+
+            CustomerId: CustomerId,
+            ProductId: SampleVideoId,
+            Quantity: Quantity
+        }
+        $.ajax({
+            type: "POST",
+            url: "/SampleVideo/AddTocCart",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                alert(data);
+                
+            }
+        });
+        
+    }
+</script>

@@ -1,0 +1,55 @@
+﻿@model DAL.Dashboard
+@{
+    Layout = null;
+}
+<style>
+    .Areabox {
+        border: 1px solid black;
+    box-shadow: none;
+    background-color: #fcc008;
+    color: black;
+    height: 105px;
+    font-size: 16px;
+    font-weight: normal;
+    padding-bottom: 14px;
+    }
+    .btn-secondary{
+        margin:auto;
+    }
+</style>
+<div class="ArtistDashboard">
+    @if (Model != null)
+    {
+        <div class="row">
+            <div class="col-6">
+                <div class="Areabox">
+                    <h2 style="font-size:22px; color:black; font-weight:normal;">Total Orders</h2>
+                    <h4 style="color:black;">@Model.TotalNoOfProject</h4>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="Areabox">
+                    <h2 style="font-size:22px; color:black; font-weight:normal;">Total Revenue</h2>
+                    <h4 style="color:black;">@Model.TotalRevenue</h4>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-6">
+                <div class="Areabox">
+                    <h2 style="font-size:22px; color:black; font-weight:normal;">Total Orders</h2>
+                    <h4>0</h4>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="Areabox">
+                    <h2 style="font-size:22px; color:black; font-weight:normal;">Total Revenue</h2>
+                    <h4>0</h4>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,12 @@
+﻿.top-line {
+    background-image: url(../Content/Images/dashboard/freelancer1.png);
+    background-repeat: no-repeat;
+    width: 35%;
+    transform: scaleX(-1) scale(1.5);
+    position: absolute;
+    /* height: 500px; */
+    left: 3rem;
+    margin-left: 75px;
+    top: 3rem;
+}
+

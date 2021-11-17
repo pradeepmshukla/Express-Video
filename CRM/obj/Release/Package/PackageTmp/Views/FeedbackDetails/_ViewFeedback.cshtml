@@ -1,0 +1,98 @@
+﻿@*@model List<CRM.Models.ViewModel.vmFeedbackDetails>*@
+@model System.Data.DataTable
+@{
+    Layout = null;
+}
+<style>
+    .feedback {
+        border-left: 3px solid #fcc012;
+        margin: 5px;
+    }
+
+    .divFeedbackComments, .divClientStatus, .viewFile {
+        font-size: 13px;
+    }
+
+    .divfeedbackdate {
+        font-size: 10px;
+        color: #fcc012;
+    }
+
+    .viewFile {
+        color: #fcc012;
+    }
+    .GiveFeedback label{
+        color:white;
+    }
+    .feedbackdetails{
+        text-align:left;
+    }
+</style>
+<div class="feedbackdetails">
+    @if (Model.Rows.Count == 0)
+    {
+        <span>There is no file updated yet</span>
+    }
+    @foreach (System.Data.DataRow row in Model.Rows)
+    {
+        <div class="row">
+            <div class="col-12 feedback">
+                <span class="divFeedbackComments">@row["FeedbackComments"]</span>
+                <span class="divClientStatus">[@row["ClientStatus"]]</span>
+                @if (Convert.ToString(row["FilesUploaded"]) != "")
+                {
+                    <span class="viewFile" onclick="ViewFile('@row["FilesUploaded"]')">View File</span>
+                }
+                <div class="divfeedbackdate">@row["CreatedDate"]</div>
+            </div>
+        </div>
+    }
+    @if(CRM.Models.Global.GlobalFunctions.GetRoleId() == 4)
+    {
+    <div class="GiveFeedback">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="username">Choose your status</label>
+                    <div class="input-group mb-12" style="position:inherit">
+                        <select class="form-control" id="ddUpdateClientStatus">
+                            <option value="0">Select</option>
+                            <option value="6">Correction</option>
+                            <option value="7">Approved</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <label for="username">Give your feedback here</label>
+                    <div class="input-group mb-12" style="position:inherit">
+                        <textarea id="feedbackComments" class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="file-upload">
+                    <div class="file-select">
+                        <div class="file-select-button" id="fileName">Choose File</div>
+                        <div class="file-select-name" id="noFile">No file chosen...</div>
+                        <input type="file" name="chooseFile" id="fu_feedbackfile" onchange="UploadFile('fu_feedbackfile', 'FilesUploaded', 'all')">
+                        <input type="hidden" value="" id="FilesUploaded" />
+                    </div>
+                    <div class="error-message" style="color:red"></div>
+                    <div class="filename">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <br/>
+                <div class="btn" onclick="SaveFeedback(@ViewBag.OrderId,@ViewBag.SentTo,'@ViewBag.FeedbackType')">
+                    Submit
+                </div>
+                <p id="msgfeedback" style="text-align: center;color: red;"></p>
+            </div>
+        </div>
+    </div>
+    }
+</div>

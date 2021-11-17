@@ -1,0 +1,19 @@
+﻿@model  DAL.OrderStatus
+@{
+    Layout = null;
+}
+<div class="ScriptDetails">
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label style="color:white">Please submit your final project files link below:-</label>
+                <div class="input-group mb-12">
+                    <input type="text" class="form-control" value="@Model.ProjectFileLink" id="ProjectFileLink"/>
+                </div>
+            </div>
+        </div>
+            <div class="col-12" style="text-align:center; padding-top:10px; padding-bottom:10px">
+                <div class="btn" onclick="  UpdateProjectFileLink(@Model.OrderId)">Submit</div>
+           </div>
+    </div>
+</div>

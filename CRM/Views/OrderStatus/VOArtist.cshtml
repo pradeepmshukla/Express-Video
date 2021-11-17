@@ -1,0 +1,335 @@
+﻿@model  System.Data.DataTable
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;// "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@*<!-- DataTables -->
+<link href="../../plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="../../plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<!-- Responsive datatable examples -->
+<link href="../../plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />*@
+<style>
+    .table{
+        text-align:center;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12 col-sm-12">
+        <div class="card">
+            <div class="card-body table-responsive">
+                @*<h5 class="header-title">Row Border Bottom Example</h5>
+                    <p class="text-muted mb-3">DataTables has most features enabled by default, so all you need to do to use it with your own ables is to call the construction function: <code>$().DataTable();</code> and border bottom.</p>*@
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%">
+                    <div class="modal-dialog  modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title feedbackPopup-heading" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="projectdetails">
+
+                                </div>
+
+                                <div class="feedbackPopup">
+                                    <h5>Client Comments</h5>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-sm-12 col-md-12 viewfeedbackdetails">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                @*<button type="button" class="btn btn-primary">Save changes</button>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="">
+                        <table id="datatable2" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            <thead>
+                                <tr>
+                                    @foreach (System.Data.DataColumn col in Model.Columns)
+                                    {
+                                        if (col.ColumnName == "OrderStatusId")
+                                        {
+                                            <th>Script Details</th>
+                                        }
+                                        else if (col.ColumnName == "Order ID")
+                                        {
+                                            <th>Order No.</th>
+                                        }
+                                        else
+                                        {
+                                                <th>@col.ColumnName</th>
+                                             
+                                        }
+                                    }
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (System.Data.DataRow row in Model.Rows)
+                                {
+                                    <tr>
+                                        @foreach (System.Data.DataColumn col in Model.Columns)
+                                        {
+
+                                            if (col.ColumnName == "Project Details")
+                                            {
+
+                                                <td>
+                                                    <div class="btn btn-sm btn-round btn-block waves-effect waves-light tblbtnview" onclick="ProjectDetails(@row["Order ID"])" data-toggle="modal" data-target="#exampleModal"
+                                                         >View</div>
+                                                </td>
+                                            }
+
+                                            else
+                                            {
+                                                if (col.ColumnName == "OrderStatusId")
+                                                {
+                                                    <td>
+                                                        <div class="btn btn-sm btn-round btn-block waves-effect waves-light">Script Details</div>
+
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                     
+                                                        <td>@row[col.ColumnName]</td>
+                                                     
+                                                }
+                                            }
+                                        }
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<!-- Required datatable js -->
+<script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+<!-- Buttons examples -->
+<script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/dataTables.buttons.min.js"></script>
+<script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/buttons.bootstrap4.min.js"></script>
+<script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/jszip.min.js"></script>
+<script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/pdfmake.min.js"></script>
+<script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/vfs_fonts.js"></script>
+<script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/buttons.html5.min.js"></script>
+<script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/buttons.print.min.js"></script>
+<script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/buttons.colVis.min.js"></script>
+<!-- Responsive examples -->
+<script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/dataTables.responsive.min.js"></script>
+<script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/responsive.bootstrap4.min.js"></script>
+<script src="~/Content/Theme/Crovex_v1.0/HTML/assets/pages/jquery.datatable.init.js"></script>*@
+
+<script>
+    $(document).ready(function () {
+
+        $(".updatestatus").each(function () {
+            var status = $(this).attr("data-VOStatus");
+            $(this).val(status);
+
+        });
+
+        $(".updatestatus").change(function () {
+
+          $(this).siblings(".updatebtn").show();
+
+        });
+
+        $(".updatebtn").click(function () {
+            $(this).hide();
+            var OrderId = $(this).attr("data-orderid");
+            var VOStatus = $(this).siblings(".updatestatus").val();
+            var VOFileName = $(this).attr("data-VOFileName");
+            UpdateVOStatus(OrderId, VOStatus, VOFileName);
+
+        });
+
+        $(".UploadVOFile").change(function(){
+            var filename=$(this).val();
+            var name=filename.split('\\');
+            name=name[name.length-1];
+            $(this).parents(".tdfileupload").find(".Uploadedfile").html("<div>"+name+" <span style='color:red;cursor:pointer' onclick='RemoveFile(this)'>Remove</span></div>");
+            $(this).parents(".tdfileupload").find(".btnUpload").show();
+            $(this).hide();
+            var fileuploadid = $(this).attr("id");
+            var fileurl = $(this).attr("data-fileurl");
+            if (fileValidation(fileuploadid, 'image')) {
+                var fileurl = $(this).attr("data-fileurl");
+                var r = UploadFile(fileuploadid, fileurl);
+            }
+        });
+        $(".btnUpload").click(function(){
+            var OrderId=$(this).attr("data-orderid");
+            var VOFileName = $("#FileUrl_" + OrderId).val();
+            var VOStatus = $(this).attr("data-VOStatus");
+            UpdateVOStatus(OrderId, VOStatus, VOFileName);
+
+        });
+
+    });
+    function UpdateVOStatus(OrderId, VOStatus, VOFileName) {
+        var data = {
+            OrderId: OrderId,
+            VOStatus: VOStatus,
+            VOFileName: VOFileName
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/OrderStatus/UpdateVOStatus",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                callPage('/OrderStatus/VOArtist', 'VO Artist Panel', '');
+            }
+        });
+    }
+    function ProjectDetails(OrderId) {
+        $(".viewfeedbackdetails").html("Not yet any feedback ");
+        $(".feedbackPopup-heading").html("Project Details(Order Id: #" + OrderId + ")");
+        $(".projectdetails").html("<h4>Please wait..</h4>");
+
+        var data = {
+            OrderId: OrderId
+        }
+        $.ajax({
+            type: "POST",
+            url: "/FileApprovalStatus/GetFeedback",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                var html = '<div class="row">' +
+                    '<div class="col-md-3"><p>Update Status</p></div>' +
+                    '<div class="col-md-3"><p>Upload File</p></div>' +
+                    '<div class="col-md-3"><p>Client Feedback</p></div>' +
+                    '<div class="col-md-3"><p>Last Updated</p></div>' +
+                    '</div>';
+                for (var i = 0; i < data.length - 1; i++) {
+                    html += '<div class="row">';
+                    html += '<div class="col-md-3">' + data[i].FileStatus + '</div>';
+                    html += '<div class="col-md-3">' + data[i].FileName + '</div>';
+                    html += '<div class="col-md-3">' + data[i].ClientFeedback + '-' + data[i].ClientStatus + '</div>';
+                    html += '<div class="col-md-3">' + data[i].CreatedDate + '</div>';
+                    html += "</div>";
+                }
+                var len = data.length - 1;
+                var FileStatus = "";
+                var FileName = "";
+                var ClientFeedback = "";
+                var ClientStatus = "";
+                var CreatedDate = "";
+                var length = data.length;
+                var fileid = 'FileUrl_orderid' + OrderId + '_' + length;
+                if (len > -1) {
+                    FileStatus = data[len].FileStatus;
+                    FileName = data[len].FileName;
+                    ClientFeedback = data[len].ClientFeedback;
+                    ClientStatus = data[len].ClientStatus;
+                    CreatedDate = data[len].CreatedDate;
+                }
+
+                html += '<div class="row">';
+                html += '<div class="col-md-3">';
+                html += '<select class="form-control FileStatus" data-orderid="' + OrderId + '">';
+
+                if (FileStatus == 'YTS' || FileStatus == '1') { html += '<option value="1" selected>YTS</option>'; }
+                else { html += '<option value="1">YTS</option>'; }
+
+                if (FileStatus == 'WIP' || FileStatus == '2') { html += '<option value="2" selected>WIP</option>'; }
+                else { html += '<option value="2">WIP</option>'; }
+
+                if (FileStatus == 'Done' || FileStatus == '5') { html += '<option value="5" selected>Done</option>' }
+                else { html += '<option value="5">Done</option>' }
+
+                html += '</select>';
+                html += '<div class="btn btn-sm btn-round btn-block waves-effect waves-light" onclick="SaveFeedback(' + OrderId + ')">Update</div>';
+                html += '<p class="Update-Message"></p>';
+                html += '</div>';
+                html += '<div class="col-md-3">' +
+                            '<h4>' + FileName + '</h4>' +
+                            '<input type="hidden" id="' + fileid + '" value="' + FileName + '"/>' +
+                            '<div class="file-upload">' +
+                            '<div class="file-select">' +
+                            '<div class="file-select-button" id="fileName">Choose File</div>' +
+                            '<div class="file-select-name" id="noFile">No file chosen...</div>' +
+                            '<input type="file" class="UploadVOFile" id="uploadscriptfile" data-fileurl="' + fileid + '"' +
+                            '</div></div></div>' +
+                    '</div>';
+                html += '<div class="col-md-3">' + ClientStatus + '</div>';
+                html += '<div class="col-md-3">' + CreatedDate + '</div>';
+                html += "</div>";
+
+                ViewFeedback(OrderId);
+                if (html != "") {
+                    $(".projectdetails").html(html);
+
+                }
+            }
+        });
+    }
+    function ViewFeedback(OrderId) {
+        $(".viewfeedbackdetails").html("Not yet any feedback ");
+        
+        var data = {
+
+
+            OrderId: OrderId,
+            FeedbackType: 'VO Artist',
+
+        }
+        $.ajax({
+            type: "POST",
+            url: "/FeedbackDetails/ViewFeedbackArtist",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                var html = "";
+                for (var i = 0; i < data.length; i++) {
+                    html += '<div class="fd">' +
+                        '<div class="comment"><span style="font-weight:bold">['+data[i].ClientStatus+']</span> <span>'+ data[i].FeedbackComment +'</span></div>' +
+                        '<span class="dt">'+ data[i].DateTime + '</span>';
+                    if (data[i].FilesUploaded != "") {
+                        html += '<span class="attachment"><a href="' + data[i].FilesUploaded + '" target="_blank">View file</a>';
+                    } else {
+                        html += '<span class="attachment"></span>';
+                    }
+
+                    html += "</div>";
+
+                }
+                if (html != "") {
+                    $(".viewfeedbackdetails").html(html);
+                }
+            }
+        });
+    }
+    function RemoveFile(btnremove){
+        $(btnremove).parents(".tdfileupload").find("input[type='file']").val("");
+        $(btnremove).parents(".tdfileupload").find("input[type='file']").show();
+        $(btnremove).parents(".tdfileupload").find(".btnUpload").hide();
+        $(btnremove).parent("div").remove();
+    }
+</script>

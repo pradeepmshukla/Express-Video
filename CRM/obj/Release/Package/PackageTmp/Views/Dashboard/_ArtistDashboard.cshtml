@@ -1,0 +1,221 @@
+﻿@model DAL.Dashboard
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<style>
+    .top-line {
+        
+        width: 420px;
+        height: 281px;
+        background-size: 100% 100%;
+        margin-left: 30px;
+    }
+
+   .Total-earning {
+    width: 323px;
+    height: 125px;
+    background-color: rgb(235,203,20);
+    color: black;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 24px;
+    font-size: 27px;
+    float: right;
+    font-weight: bold;
+}
+
+        .Total-earning .this-month {
+            font-size: 1rem;
+            background-color: rgb(243,231,157);
+            border-radius: 8px;
+            width: 80%;
+            margin: 50px auto;
+            font-weight: 300;
+            display:none;
+        }
+.details {
+    background-color: white;
+    border-radius: 20px;
+    text-align: left;
+    padding: 1rem;
+    margin-bottom: 70px;
+    margin-top: 2px;
+}
+
+    
+
+    .card {
+        -webkit-box-shadow: 0px 2px 4px rgba(31,30,47,0);
+        box-shadow: 0px 2px 4px rgba(31,30,47,0);
+        background-color: rgb(227,228,233);
+    }
+
+    .chartarea {
+        background-color: white;
+        margin-bottom: 22px;
+    }
+
+        .chartarea h3 {
+            padding-left: 10px;
+            font-size: 1rem;
+        }
+
+    .detail-heading {
+        font-size: 1.7rem;
+        color: black;
+    }
+
+    .detais-description {
+        color: rgb(37,37,35);
+        line-height: 1rem;
+    }
+    .announcement {
+    background-color: white;
+    height: 197vh;
+    border-radius: 2px;
+    overflow-y: auto;
+    margin: -25px auto;
+    border-top-left-radius: 20px;
+}
+   
+</style>
+<div class="row greybg dashboard">
+    <div class="col-md-8">
+        <div class="col-md-12 cust-dash">
+            <div class="Total-earning">
+                <div>Total Earning</div>
+                <div class="Total-earning-amount">Rs. @Model.TotalEarning</div>
+                <div class="this-month">This month: Rs. @Model.ThisMonthEarning</div>
+            </div>
+            <div class="top-line">
+
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="row chartdetails">
+                <div class="col-md-6 col-sm-6">
+                    <div class="chartarea">
+                        <h3>Monthly Work</h3>
+                        <div class="monthalywork" id="monthalywork"></div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <div class="chartarea">
+                        <h3>Monthly Earnings</h3>
+                        <div class="monthalyEarning" id="monthalyEarning"></div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <div class="details">
+                        <h3 class="detail-heading">PROJECT DETAILS:</h3>
+                        <h4 class="detais-description">Total Project Done: @Model.TotalNoOfProject</h4>
+                        <h4 class="detais-description">Monthly Project: @Model.ThisMonthProject</h4>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+
+                    <div class="details">
+                        <h3 class="detail-heading">REVENUE DETAILS:</h3>
+                        <h4 class="detais-description">Total Earning: Rs. @Model.TotalEarning</h4>
+                        <h4 class="detais-description">Monthly Earning: Rs. @Model.ThisMonthEarning</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="col-md-4">
+        <div class="announcement">
+            <h3 class="announcement-heading">ANNOUNCEMENTS</h3>
+            <div class="announcement-list">
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Content/Theme/Crovex_v1.0/plugins/apexcharts/apexcharts.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //$(".page-title").hide();
+        GetMonthlyWork();
+        GetMonthalyEarning();
+        GetAnnouncement();
+        var screensize = window.innerWidth;
+        setTimeout(function () {
+            if (screensize >= 768) {
+                $(".footer-admin").css("bottom", "-84px");
+            }
+            else {
+                $(".footer-admin").css("bottom", "-155px");
+            }
+        },200);
+        
+    });
+    function GetMonthlyWork() {
+        var options = {
+            chart: {
+                type: 'bar',
+                foreColor: '#ffffff'
+            },
+            
+            series: [{
+                name: 'Project',
+                data: [10, 20, 30, 40, 50, 60, 70, 80],
+                fill: {
+                    //colors: ['rgb(255, 255, 255)']
+                    colors:['#ffffff'],
+                }
+            }],
+            dataLabels: {
+                style: {
+                    colors: ['#ffffff']
+                },
+                fill: {
+                    colors:['#ffffff'],
+                }
+            },
+            xaxis: {
+                categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+            },
+            fill: {
+               colors: ['rgb(255,88,7)']
+                //colors:['#ffffff']
+                
+            }
+
+        }
+
+        var chart = new ApexCharts(document.querySelector("#monthalywork"), options);
+
+        chart.render();
+    }
+    function GetMonthalyEarning() {
+        var options = {
+            chart: {
+                type: 'bar'
+            },
+            series: [{
+                name: 'Earning',
+                data: [10, 20, 30, 40, 50, 60, 70, 80],
+                fill: {
+                    colors: ['rgb(255, 255, 255)']
+                }
+            }],
+            xaxis: {
+                categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+            },
+            fill: {
+                colors: ['white']
+            }
+        }
+
+        var chart = new ApexCharts(document.querySelector("#monthalyEarning"), options);
+
+        chart.render();
+    }
+    
+</script>

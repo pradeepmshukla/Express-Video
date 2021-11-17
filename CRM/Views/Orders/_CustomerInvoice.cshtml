@@ -1,0 +1,304 @@
+﻿@model List<CRM.Models.ViewModel.vmMyCart>
+@{
+    Layout = null;
+    double? total = 0;
+}
+@*<style>
+        .layout {
+            overflow: hidden;
+            background-color: #cbc9c9;
+        }
+
+        .card {
+            margin: 68px auto;
+            width: 77%;
+            font-size: 1.3rem;
+        }
+
+        .boxshadow {
+            background-color: white;
+            box-shadow: 1px 2px 8px 4px lightgrey;
+            padding: 1rem;
+        }
+
+        th {
+            position: relative;
+            border-top: 1px solid #ddd;
+            text-indent: 7px;
+        }
+
+        .line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #fcc012;
+            margin-top: -4px;
+        }
+
+        h3 {
+            margin-left: 1.3rem;
+        }
+
+        .form-control {
+            height: 38px;
+            border: 2px solid #aaaaaa;
+            font-size: small;
+        }
+
+        .userconfirmation a {
+            color: #fcc012;
+            font-weight: bold;
+        }
+
+        .my-video-dimensions {
+            width: 100%;
+        }
+
+        .OrderYourVideo, .DownloadYourVideo {
+            background-color: white;
+            width: 314px;
+            height: 132px;
+            padding: 25px;
+            margin: 70px auto;
+            border-radius: 16px;
+            text-align: center;
+            color: black;
+            font-weight: bold;
+            font-size: 15px;
+        }
+    </style>*@
+<style>
+    .headingtitle {
+        background-color: #fcc012;
+        color: black;
+        font-weight: 500;
+    }
+</style>
+
+<div class="card">
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <div class="row" style="color:black; position:relative">
+                <div class="logo-time">
+                    <div style="text-align:right">
+                        <img class="img img-circle" src="~/Content/Images/logo.jpg" style="width: 45px;
+    border-radius: 50%;
+    margin: 10px;">
+                    </div>
+                    <div style="text-align:right">Date: <span>@ViewBag.Date</span></div>
+                </div>
+                <div class="col-md-8">
+                    <div class="boxshadow" style="margin-top:95px;">
+                        
+                        <h3 class="invoiceno"></h3>
+                        <table class="table">
+                            <tr class="headingtitle">
+                                <th style="border-top:0px solid">
+                                    Category
+                                    <div class="line" style="width:70px"></div>
+                                </th>
+                                <th style="border-top:0px solid">
+                                    Description
+                                    <div class="line" style="width:88px"></div>
+                                </th>
+                                <th style="border-top:0px solid">
+                                    Amount
+                                    <div class="line" style="width:65px"></div>
+                                </th>
+                                @*<th style="border-top:0px solid">
+                                        <div>&nbsp;</div>
+
+                                    </th>*@
+                            </tr>
+                            <tr>
+                                <td style="border-top:0px solid">Video Duration</td>
+                                <td style="border-top:0px solid">@item.ED_VideoDuration</td>
+                                <td style="border-top:0px solid"></td>
+                                @*<td style="border-top:0px solid">edit</td>*@
+                            <tr>
+                                <td style="border-top:0px solid">Video Resolution</td>
+                                <td style="border-top:0px solid">@item.VideoResolution</td>
+                                <td style="border-top:0px solid"></td>
+                                @*<td style="border-top:0px solid">edit</td>*@
+                            </tr>
+
+                            <tr>
+                                <td>Sample Video</td>
+                                <td>
+                                    @*<div class="videooutput">
+
+                                            <iframe width="450" height="250" src="@item.YoutubeLink" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        </div>*@
+                                    Title- @item.Title
+
+                                </td>
+                                <td>₹ @item.VideosPrice</td>
+                            </tr>
+                            @if (item.Script_Required == true)
+                            {
+
+
+                                <tr>
+                                    <td>Script</td>
+                                    <td><span>Required</span></td>
+                                    <td>₹ @item.Script_Price</td>
+                                </tr>
+                            }
+                            @if (item.VO_Required == true)
+                            {
+                                <tr>
+                                    <td>Voice Over</td>
+                                    <td><span>Required</span></td>
+                                    <td>₹ @item.VO_SamplePrice</td>
+                                </tr>
+                            }
+                        </table>
+
+                    </div>
+                </div>
+                <div class="col-md-4" style="padding-top: 85px;`">
+
+                    <h3>Amount Summary</h3>
+                    <div class="boxshadow">
+
+                        <table class="table">
+                            <tr class="headingtitle">
+                                <th style="border-top:0px solid">
+                                    Description
+                                    <div class="line" style="width:88px"></div>
+                                </th>
+                                <th style="border-top:0px solid">
+                                    Amount
+                                    <div class="line" style="width:65px"></div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td style="border-top:0px solid">Sample Video</td>
+                                <td style="border-top:0px solid">₹ @item.VideosPrice</td>
+                            </tr>
+                            <tr>
+                                <td style="border-top:0px solid">Script</td>
+                                <td style="border-top:0px solid">₹ @item.Script_Price</td>
+                            </tr>
+                            <tr>
+                                <td style="border-top:0px solid">Voice Over</td>
+                                <td style="border-top:0px solid">₹ @item.VO_SamplePrice</td>
+                            </tr>
+                            <tr>
+                                <td style="border-top:1px solid #d1d1d1">Gross Amount</td>
+                                <td style="border-top:1px solid #d1d1d1">
+                                    ₹ @(item.VideosPrice + item.Script_Price + item.VO_SamplePrice)
+                                </td>
+                            </tr>
+                            <tr class="IGST" style="display:none">
+                                <td style="border-top:0px solid">GST(18%)</td>
+                                <td style="border-top:0px solid">₹ @item.IGST</td>
+                            </tr>
+                            <tr class="CGST">
+                                <td style="border-top:0px solid">CGST(9%)</td>
+                                <td style="border-top:0px solid">₹ @item.CGST</td>
+                            </tr>
+                            <tr class="SGST">
+                                <td style="border-top:0px solid">SGST(9%)</td>
+                                <td style="border-top:0px solid">₹ @item.SGST</td>
+                            </tr>
+                            <tr style="font-size:1.2rem">
+                                <td>Total Amount</td>
+                                @{
+                                    total = item.VideosPrice + item.Script_Price + item.VO_SamplePrice + item.CGST;
+                                }
+                                <td>₹ @item.FinalTotal</td>
+                            </tr>
+                        </table>
+                        <br />
+
+                        @*<h5 style="text-transform:none">GST DETAILS(Optional)</h5>
+                            <p>To claim credit of GST charged by us, please enter your Company's GST details</p>
+                            <br />*@
+                        <div class="ClientInfo">
+                            <table style="width:100%; color:black;">
+                                <tr>
+                                    <th class="headingtitle" colspan="2" style="padding:5px;">Billing Details</th>
+                                </tr>
+                                <tr>
+                                    <td style="width:30%;color:black;">Bill to: </td>
+                                    <td style="color:black;">@item.BillTo </td>
+                                </tr>
+                                <tr>
+                                    <td>Address: </td>
+                                    <td>@item.Address</td>
+                                </tr>
+                                <tr>
+                                    <td>Company Name: </td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(item.CompanyName))
+                                        {
+                                            <span>@item.CompanyName</span>
+                                        }
+                                        else
+                                        {
+                                            <span>Not Given</span>
+                                        }
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>GSTIN</td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(item.GSTIN))
+                                        {
+                                            <span>@item.GSTIN</span>
+                                        }
+                                        else
+                                        {
+                                            <span>Not Given</span>
+                                        }
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+                        <hr />
+                        <div class="officeaddress" style="color:black;">
+                            <span>Moody Fox Productions</span><br />
+                            <span>Regd.Off Add: 17/143 Unnat Nagar4</span><br />
+                            <span>Goregaon(W), Mumbai-400104 </span><br />
+                            <span>GSTIN 06CGCPS6801D1ZM</span><br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+                                        }
+                                    }
+</div>
+
+<script>
+    $(document).ready(function () {
+        var isclicked = false;
+        ShowHide();
+        var orderinvoice = "Invoice No: OD" + pad(@ViewBag.OrderId, 5);
+        $(".invoiceno").html(orderinvoice);
+    });
+    function ShowHide() {
+        var val = $("#GSTIN").val();
+        if (val != undefined) {
+            if (val == "" || (val.charAt(0) == "0" && val.charAt(1) == "6")) {
+                $(".IGST").hide();
+                $(".CGST").show();
+                $(".SGST").show();
+            }
+            else {
+                $(".IGST").show();
+                $(".CGST").hide();
+                $(".SGST").hide();
+            }
+        }
+        else {
+            $(".IGST").show();
+            $(".CGST").hide();
+            $(".SGST").hide();
+        }
+    }
+</script>

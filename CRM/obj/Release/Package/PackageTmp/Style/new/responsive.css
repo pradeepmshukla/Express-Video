@@ -1,0 +1,907 @@
+@media all and (max-width: 1440px) {
+
+.title_part{ position: relative; width: 100%; padding-right: 9px; padding-left: 9px;}
+.page-title { font-size: 22px; margin: 0; padding: 12px 27px; font-weight: bold;}
+.footer-admin { border-top: 1px solid #e8ebf3; bottom: -114px; padding: 20px;position: absolute; right: 0; left: 0; color: #fff; }
+.btn_VORequirements{ font-size: small; padding: 9px 2px !important; margin-left: 5px;}
+
+}
+
+
+@media all and (max-width: 1024px) {
+
+    .title_part { position: relative; width: 100%; padding-right: 9px; padding-left: 9px; }
+    .page-title { font-size: 22px; margin: 0;  padding: 12px 27px; font-weight: bold;}
+    .fillvideoform { text-align: center; margin: 110px auto; margin-left: -14px; transform: scale(0.95);}
+    .pricebox { background: url(../Content/Images/steps/price.png); width: 30rem; height: 13rem; background-size: contain; position: absolute; bottom: -110px; background-position: -43px; background-repeat: no-repeat; }
+    .pricebox span { position: absolute; top: 5.5rem; left: 6rem; font-size: 2.5rem; font-weight: bold; color: #3b3838; line-height: 5.5rem; }
+    .deliverydays { text-align: center; background-color: #fcc012 !important; width: 86%; margin: 112px auto;}
+    .notes{ margin-top:145px; }
+    .Total-earning {
+    width: 244px; height: 177px; background-color: rgb(235,203,20);color: black; text-align: center; padding: 2rem; border-radius: 24px; font-size: 2rem; float: none; font-weight: bold; margin: 33px auto; margin-left: 23rem;}
+
+}
+
+
+@media (max-width: 768px) {
+    .imgOrderYourVideo { width: 27%; margin-top: 0px;}
+    .page-title-box .page-title { font-size: 27px;  margin-top: 40px; text-align: center; margin-bottom: 10px;}
+    .top-line { width: 71%; height: 343px; background-size: 103% 100%; margin-top: -68px; margin-left: -54px; }
+    #orderYourvideo { display: flex; justify-content: space-around; align-items: center; }
+    .navbar-nav > li { border-bottom: 0; margin-left: 18px; }
+    #videoContent { width: 60%; }
+    #videoLogo { width: 40%; }
+    .imgOrderYourVideo { width: 83%;}
+    .OrderYourVideo, .DownloadYourVideo { width: 245px; height: 95px; padding: 6px; margin: 0px; float: right; border-radius: 1px; text-align: center; color: black; font-weight: bold; margin-top: -83px; margin-right: 35px; }
+        .OrderYourVideo h3 { line-height: 30px; color: black; font-weight: 700; font-size: x-large; }
+    .LatestOrder { background-color: white; padding: 7px; border-radius: 2px;
+        margin-top: 26px; max-height: 299px;
+        overflow-y: auto;
+    }
+
+
+    .footer {
+        border-top: 1px solid #e8ebf3;
+        bottom: -351px;
+        padding: 20px;
+        position: absolute;
+        right: 0;
+        left: 0;
+        color: #fff;
+    }
+
+    .customer_support {
+        color: #fff;
+    }
+
+    .dropdown {
+        color: #fff;
+    }
+
+    .profilephoto {
+        width: 90%;
+        margin-left: 0;
+        margin-top: 18px;
+        border-radius: 0;
+        padding: 0;
+        background-color: #d1d3d6;
+        border: 0px solid #122640;
+        border-radius: 0.25rem;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .page-wrapper {
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        padding: 0;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        margin-top: 72px;
+        width: 100%;
+    }
+
+
+
+    .announcement-notification h4 {
+        margin: 0px;
+    }
+
+    .announcement-notification p {
+        line-height: 1.6;
+        font-family: "Roboto",sans-serif;
+    }
+
+    .btnchangepassword {
+        margin-left: 0px;
+        margin-top: 0px;
+    }
+
+    .btnupdateprofile {
+    }
+
+    .page-title-box {
+        padding: 1px;
+        box-sizing: border-box;
+        margin-bottom: 38px;
+    }
+
+    .dashboard_section {
+        position: relative;
+        width: 100%;
+        padding-right: 6px;
+        padding-left: 6px;
+        margin-top: 0rem;
+    }
+
+    .mydaashboard {
+        background-color: #e0e3e8;
+        padding-top: 2px;
+        /* margin-bottom: 27px; */
+    }
+
+    #common-modal .modal-dialog {
+        width: 100%;
+    }
+
+    .viewsample-leftalign {
+        margin-left: 5px;
+    }
+
+    .uploadedsound audio {
+        width: 204px;
+    }
+
+    .deliverydays {
+        text-align: center;
+        background-color: #fcc012 !important;
+        width: 86%;
+        margin: 34px auto;
+        padding: 5px;
+    }
+
+    .newbtn {
+        position: absolute;
+        right: 17px;
+        z-index: 1;
+        top: -1px;
+        border-radius: 0.1rem;
+        padding: 3px 25px;
+        background: #fcc012;
+        /*top: 75px;*/
+    }
+
+
+    .footer-admin {
+        border-top: 1px solid #e8ebf3;
+        position: absolute;
+        right: 0;
+        left: 0;
+        color: #fff;
+        width: 100%;
+        padding: 21px 27px;
+        background-color: #0f0e0e;
+        z-index: 22;
+        /* bottom: -165px; */
+        bottom: -168px;
+    }
+
+    .profilearea {
+        width: 184px;
+        height: auto;
+    }
+
+    .profilearea {
+        width: 187px;
+        height: 292px;
+    }
+
+    .uploadprofileicon {
+        width: 40px;
+        margin-left: 85px;
+        margin-top: -202px;
+    }
+
+    .imageDetails {
+        position: relative;
+        bottom: 102px;
+        left: 29px;
+    }
+
+    .dashboardSection {
+        height: 180px;
+        margin-bottom: 45px;
+    }
+
+    .Review-box-1 {
+        padding: 9px 10px;
+        background-color: white;
+        margin: 10px 0;
+        border-radius: 20px;
+        height: 100%;
+    }
+
+    .announcement {
+        height: 89vh;
+    }
+
+    .top-line {
+        background-image: url(../Content/Images/dashboard/freelancer1.png);
+        background-repeat: no-repeat;
+        width: 41%;
+        transform: scaleX(-1) scale(1.5);
+        position: absolute;
+        height: 240px;
+        left: -4rem;
+        margin-left: 75px;
+        top: -2rem;
+    }
+
+    .cust-dash {
+        background-size: contain;
+        min-height: 154px;
+        position: relative;
+        background-image: url(../Content/Images/dashboard/dashboard-background.png);
+    }
+
+    .OrderYourVideo, .DownloadYourVideo {
+        width: 245px;
+        height: 95px;
+        padding: 11px;
+        margin: 0px;
+        float: right;
+        border-radius: 15px;
+        text-align: center;
+        color: black;
+        font-weight: bold;
+        margin-top: -13px;
+        margin-right: -16px;
+    }
+}
+
+@media all and (max-width: 635px) {
+    .our-services {
+    padding-top: 636px;
+}
+   
+}
+
+@media all and (max-width: 600px) {
+    .navbar_text {
+        position: absolute;
+        top: 64px;
+        right: 76px;
+    }
+
+    .navbar-custom .nav-link {
+        padding: 0 0.75rem;
+        color: #7081b9;
+        max-height: 70px;
+        margin-left: 10px;
+    }
+
+    .customer_part {
+        text-align: center;
+        width: 100%;
+    }
+
+    #UpdateProfileBtn {
+        margin: 12px auto;
+        padding: 20px 0px;
+    }
+
+    .timing {
+        width: 100%;
+        text-align: left;
+        margin: 10px 10px;
+    }
+
+    .Review-box {
+        background-color: white;
+        padding: 1px 13px;
+        margin-bottom: 14px;
+        text-align: left;
+    }
+
+
+    /*#centerForMobile{
+        text-align:center;
+            list-style: none;
+    padding-left: 0;
+    }*/
+    .dropdown {
+        color: white;
+    }
+
+    .navbar-custom {
+        padding-right: 40px;
+    }
+
+    .enlarge-menu.enlarge-menu-all .topbar .topbar-left {
+        height: 38px;
+        width: 100%;
+        margin: auto;
+        align-items: center;
+        display: inline-block;
+    }
+
+    .three_dot {
+        margin-top: 31px;
+        width: 85px;
+        display: inline-block;
+    }
+
+    .topbar .topbar-left .logo {
+        line-height: 80px;
+        font-size: 2rem;
+    }
+
+    .container_part {
+        margin-top: 44px;
+        width: 100%;
+        padding-right: 12px;
+        padding-left: 12px;
+        margin-right: auto;
+        margin-left: auto;
+        margin-bottom: 100px;
+    }
+
+    .ProfileImage {
+        width: 100%;
+        text-align: center;
+        color: white;
+        margin-top: 60px;
+    }
+
+    #common-modal .modal-dialog {
+        width: 100%;
+    }
+
+    .viewsample-dropdown {
+        padding-top: 18px;
+        padding-bottom: 30px;
+    }
+
+    .modal-dialog {
+        max-width: 80%;
+        margin: 1.75rem auto;
+    }
+
+    .addsoundsample {
+        margin-top: 5px;
+    }
+
+    .btn-remove-audio {
+    margin-top: -2px;
+    margin-left: 0px;
+}
+
+    .reservedby {
+        position: absolute;
+        bottom: -243px;
+        left: 8%;
+    }
+
+    .videoTopDetails .vHeading {
+        font-size: 2.5rem;
+        font-weight: bold;
+        position: relative;
+    }
+
+    .newbtn {
+        top: 55px;
+    }
+
+    .btnlogout-left {
+        margin: 0 auto;
+        min-width: 138px;
+        line-height: 3;
+        left: 0%;
+    }
+
+    .btnlogout-right {
+        margin: 0 auto;
+        min-width: 138px;
+        line-height: 3;
+        left: 0%;
+    }
+}
+@media all and (max-width: 480px) {
+    .navbar-custom .nav-link {
+        padding: 0 0.75rem;
+        color: #7081b9;
+        /* line-height: 0px; */
+        max-height: 70px;
+    }
+
+    .wch-img p {
+        color: rgb(96,92,93);
+        /* margin-top: -8px; */
+        margin-top: 33px;
+    }
+
+    .wch-img {
+        text-align: center;
+        margin-top: 20px;
+        height: 405px;
+    }
+
+        .wch-img h2 {
+            color: rgb(96,92,93);
+            height: 3rem;
+            font-size: 2.5rem;
+            width: 100%;
+            text-align: center;
+            /* margin: 25px auto; */
+            margin-top: 7px;
+            line-height: 2.5rem;
+        }
+
+    #lowPriceContent {
+        margin-top: 57px;
+    }
+
+    .section {
+        padding-top: 34px;
+        padding-bottom: 2px;
+    }
+
+    .section-title {
+        font-family: Montserrat-Bold;
+        font-size: 2.5rem;
+        line-height: 5rem;
+        margin-top: 55px;
+    }
+
+    .whychooseus {
+        margin-top: 103rem;
+    }
+
+
+    .navbar .brand {
+        /* float: left; */
+        /* width: 296px; */
+        font-size: 27px;
+    }
+
+    .getpromo-price {
+        font-size: 6rem;
+        color: white;
+        width: 74%;
+        margin: 0 auto;
+    }
+
+    .our-services {
+        margin-top: 14rem;
+    }
+
+    .viewsample-dropdown {
+        padding-top: 18px;
+        padding-bottom: 30px;
+    }
+
+    .how-it-works {
+        font-weight: bold;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        padding-left: 1rem;
+    }
+
+    .reservedby {
+        position: absolute;
+        bottom: -257px;
+        left: 16%;
+    }
+
+    .videoTopDetails .vHeading {
+        font-size: 2.5rem;
+        font-weight: bold;
+        position: relative;
+    }
+
+    .OrderYourVideo, .DownloadYourVideo {
+        width: 266px;
+        height: 95px;
+        padding: 6px;
+        margin: 0px;
+        float: right;
+        border-radius: 6px;
+        text-align: center;
+        color: black;
+        font-weight: bold;
+        margin-top: 13rem;
+        margin-right: 2rem;
+    }
+
+        .OrderYourVideo h3 {
+            line-height: 25px;
+            font-size: 26px;
+        }
+
+    .announcement {
+        background-color: white;
+        height: 114vh;
+        border-radius: 2px;
+        overflow-y: auto;
+        margin: 45px auto;
+    }
+
+    .btnlogout-left {
+        margin: 0 auto;
+        min-width: 138px;
+        line-height: 3;
+        left: 0%;
+        transform: scale(0.9);
+    }
+
+    .btnlogout-right {
+        margin: 0 auto;
+        min-width: 138px;
+        line-height: 3;
+        left: 0%;
+        transform: scale(0.9);
+    }
+
+    .frheader {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .profilearea {
+        width: 290px;
+        height: auto;
+        margin-left: -66px;
+    }
+
+    .top-line {
+        background-image: url(../Content/Images/dashboard/freelancer1.png);
+        background-repeat: no-repeat;
+        width: 61%;
+        transform: scaleX(-1) scale(1.5);
+        position: absolute;
+        height: 240px;
+        left: 0rem;
+        margin-left: 75px;
+        top: 0rem;
+    }
+
+    .dashboardSection {
+        height: 180px;
+        margin-bottom: 370px;
+    }
+
+    .Review-box-1-area {
+        margin-bottom: 40px;
+    }
+
+    .Total-earning {
+        width: 244px;
+        height: 177px;
+        background-color: rgb(235,203,20);
+        color: black;
+        text-align: center;
+        padding: 2rem;
+        border-radius: 24px;
+        font-size: 2rem;
+        float: none;
+        font-weight: bold;
+        margin: 180px auto;
+    }
+
+    .chartdetails {
+        margin-top: -75px;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 470px) {
+
+    .OrderYourVideo, .DownloadYourVideo {
+        margin-right: 68px;
+    }
+
+    .announcement .announcement-heading {
+        font-size: 24px;
+    }
+
+    .page-wrapper .page-content {
+        padding: 0 9px 15px 3px;
+    }
+
+    .LatestOrder {
+        background-color: white;
+        padding: 7px;
+        border-radius: 2px;
+        margin-top: 99px;
+    }
+
+    .videoTopDetails .vHeading {
+        font-size: 2.5rem;
+        font-weight: bold;
+        position: relative;
+        margin-top: 27px;
+    }
+
+    .Total-earning {
+        position: absolute;
+        left: 36px;
+    }
+
+    .uploadprofileicon {
+        width: 40px;
+        margin-left: 85px;
+        margin-top: -69px;
+    }
+
+    .imageDetails {
+        position: relative;
+        bottom: 23px;
+        left: -41px;
+    }
+
+    audio {
+        transform: scale(0.7);
+        margin-left: -25px;
+    }
+
+    video {
+        width: 266px;
+        height: 250px;
+        left: 0px;
+        top: 0px;
+    }
+
+    .btnupdatesoundsample {
+        margin-left: 0px;
+        margin-top: 20px;
+    }
+
+    .btnupdateprofile {
+        margin-top: 35px;
+        bottom: 31px;
+        width: 100%;
+        left: -100px;
+    }
+}
+
+@media all and (max-width: 320px) {
+    .navbar-custom .nav-link {
+        padding: 0 0.75rem;
+        color: #7081b9;
+        /* line-height: 0px; */
+        max-height: 70px;
+    }
+
+    .wch-img p {
+        color: rgb(96,92,93);
+        /* margin-top: -8px; */
+        margin-top: 33px;
+    }
+
+    .wch-img {
+        text-align: center;
+        margin-top: 20px;
+        height: 405px;
+    }
+
+        .wch-img h2 {
+            color: rgb(96,92,93);
+            height: 3rem;
+            font-size: 2.5rem;
+            width: 100%;
+            text-align: center;
+            /* margin: 25px auto; */
+            margin-top: 7px;
+            line-height: 2.5rem;
+        }
+
+    #lowPriceContent {
+        margin-top: 57px;
+    }
+
+    .section {
+        padding-top: 34px;
+        padding-bottom: 2px;
+    }
+
+    .section-title {
+        font-family: Montserrat-Bold;
+        font-size: 2.5rem;
+        line-height: 5rem;
+    }
+
+    .whychooseus {
+        margin-top: 103rem;
+    }
+
+
+    .navbar .brand {
+        /* float: left; */
+        /* width: 296px; */
+        font-size: 27px;
+    }
+
+    .getpromo-price {
+        font-size: 6rem;
+        color: white;
+        width: 74%;
+        margin: 0 auto;
+    }
+
+    .our-services {
+        margin-top: 14rem;
+    }
+
+    .viewsample-dropdown {
+        padding-top: 18px;
+        padding-bottom: 30px;
+    }
+
+    .how-it-works {
+        font-weight: bold;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        padding-left: 1rem;
+    }
+
+    .reservedby {
+        position: absolute;
+        bottom: -257px;
+        left: 6%;
+    }
+
+
+    .videoTopDetails .vHeading {
+        font-size: 2.5rem;
+        font-weight: bold;
+        position: relative;
+    }
+
+    .OrderYourVideo, .DownloadYourVideo {
+        width: 239px;
+        height: 81px;
+        padding: 6px;
+        margin: 0px;
+        float: right;
+        border-radius: 1px;
+        text-align: center;
+        color: black;
+        font-weight: bold;
+        margin-top: 211px;
+        margin-right: 0%;
+    }
+
+        /*.LatestOrder {
+        background-color: white;
+        padding: 7px;
+        border-radius: 2px;
+        margin-top: -181px;
+    }*/
+
+        .OrderYourVideo h3 {
+            line-height: 25px;
+            font-size: 24px;
+        }
+
+    .top-line {
+        width: 71%;
+        height: 241px;
+        background-size: 103% 100%;
+        margin-top: -68px;
+        margin-left: -44px;
+    }
+
+    #UpdateProfileBtn {
+        margin: 0px auto;
+        padding: 40px 0px;
+    }
+
+
+    .profilearea .profilephoto {
+        width: 90%;
+        margin-left: 0;
+        margin-top: -16px;
+        border-radius: 0;
+        padding: 0;
+        background-color: #d1d3d6;
+        border: 0px solid #122640;
+        border-radius: 0.25rem;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .page-wrapper .page-content {
+        width: 100%;
+        position: relative;
+        min-height: 100vh;
+        /* padding: 0 15px 60px 15px; */
+    }
+
+    .btnlogout-left {
+        margin: 0 auto;
+        min-width: 138px;
+        line-height: 3;
+        left: -17%;
+        transform: scale(0.75);
+    }
+
+    .btnlogout-right {
+        margin: 0 auto;
+        min-width: 138px;
+        line-height: 3;
+        left: -17%;
+        transform: scale(0.75);
+    }
+
+    .three_dot {
+        margin-top: 20px;
+        width: 85px;
+        display: inline-block;
+    }
+
+
+
+    .Total-earning {
+        width: 234px;
+        height: 177px;
+        background-color: rgb(235,203,20);
+        color: black;
+        text-align: center;
+        padding: 3rem 2rem;
+        border-radius: 18px;
+        font-size: 1.8rem;
+        float: none;
+        font-weight: bold;
+        margin: 230px auto;
+        /* margin-left: -23rem; */
+        position: absolute;
+        left: 10px;
+        top: 31px;
+    }
+
+    .top-line {
+        background-image: url(../Content/Images/dashboard/freelancer1.png);
+        background-repeat: no-repeat;
+        width: 100%;
+        transform: scaleX(-1) scale(1.5);
+        position: absolute;
+        height: 15rem;
+        left: -5rem;
+        margin-left: 83px;
+        top: 0rem;
+    }
+
+    .navbar_text {
+        position: absolute;
+        top: 64px;
+        right: 24px;
+    }
+
+    .profilearea {
+        width: 268px;
+        height: 268px;
+        margin-left: -29px;
+    }
+
+    .announcement .announcement-heading {
+        text-align: left;
+        background-color: #388df8;
+        margin-top: 0px;
+        padding: 1rem 0.5rem;
+        font-size: 1.4rem;
+        font-family: MyriadPro-pro;
+        /* font-weight: bolder; */
+        color: white;
+    }
+
+    .announcement {
+        background-color: white;
+        height: 101vh;
+        border-radius: 2px;
+        overflow-y: auto;
+        margin: -4px auto;
+    }
+
+    .modal.show .modal-dialog {
+        -webkit-transform: none;
+        transform: none;
+        margin-left: 20px;
+    }
+
+    .uploadprofileicon {
+    width: 40px;
+    margin-left: 69px;
+    margin-top: -140px;
+}
+
+    .imageDetails {
+        position: relative;
+        bottom: 65px;
+        left: -36px;
+    }
+    .btnupdateprofile {
+    width: 100%;
+    left: -97px;
+}
+}

@@ -1,0 +1,90 @@
+﻿@model  CRM.Models.ViewModel.vmFreelancerInvoice
+@{ 
+    Layout = null;
+}
+
+<style>
+    .mdlFreeliancer{
+        color:black;
+    }
+</style>
+
+@if (Model != null)
+{
+<div class="mdlFreeliancer">
+    <div class="row frheader">
+        <div class="col-md-8" style="margin-top:50px">
+            <div class="myinfo1 YourName">Name: @Model.YourName</div>
+            <div class="myinfo1 YourAddress">Phone: @Model.YourContactDetails</div>
+            <div class="myinfo1 YourAddress">E-mail: @Model.YourEmail</div>
+            <div class="myinfo1 YourContactDetails">Pan No.: @Model.YourPanCard</div>
+        </div>
+        <div class="col-md-4" style="margin-top:50px">
+            <div class="myinfo">INVOICE</div>
+            <div class="myinfo1">Date: <span class="InvoiceDate">@Model.InvoiceDate.ToString().Split(' ')[0]</span></div>
+            <div class="myinfo1">INV NO: <span class="InoviceNo">@Model.InoviceNo</span></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <table style="margin-top:40px; width:50%">
+                <tr style="background-color:#fcc012;">
+                    <td style="padding:5px">Bill To </td>
+                </tr>
+            </table>
+            <div class="BillTo">
+                @Html.Raw(Model.BillTo)
+            </div>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            @*<div class="invoice-header">Project Details</div>
+            <div class="invoice-projectdetails">
+                Project Order No :<span class="ProjectOrderNo">@Model.ProjectOrderNo</span>
+            </div>*@
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-condensed" style="margin-top: 13px;">
+                <tr style="background-color:#fcc012">
+                    <th style="width:80%">DESCRIPTION</th>
+                    <th>TOTAL</th>
+                </tr>
+                <tr>
+                    <td class="ProjectDuration">@Model.ProjectDuration</td>
+                    <td style="border-left:2px solid gray" class="Amount">@Model.Amount</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td style="border-left:2px solid gray"></td>
+                </tr>
+
+                <tr style="font-size:18px">
+                    <td style="text-align:right;">Total Amount</td>
+                    <td style="color:black">₹<span class="Amount">@Model.Amount</span></td>
+                </tr>
+
+            </table>
+        </div>
+
+    </div>
+    <div style="border-top: 0px solid #fcc012;margin-top:5px">
+
+    </div>
+    @if(CRM.Models.Global.GlobalFunctions.GetRoleId() == 2 && Model.IsInvoiceGenerated==true)
+    {
+        <span>The bill is submitted by artists</span>
+    }
+    else
+    {
+     <div class="btn" onclick="GenerateInvoice(@Model.OrderId)">Submit</div>
+    }
+</div>
+}
+else
+{
+    <span>Not Found</span>
+}

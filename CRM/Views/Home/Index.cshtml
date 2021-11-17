@@ -1,0 +1,567 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Home -->
+
+<main id="home" class="main">
+    <!-- Start revolution slider -->
+
+    <div class="rev_slider_wrapper">
+        <div id="rev_slider" class="rev_slider fullscreenbanner" data-version="5.0.7" style="height:1px;">
+            <div class="row" style="background-image:url('../Content/Images/bg/Bg_background_v03.jpg'); background-size:100% 100%">
+                <div class="col-md-6" style="text-align:center;">
+                    <div class="extraline"></div>
+                    <h3 class="getpromo animated bounceInLeft animate delay-0.5s">GET PROMO VIDEO FOR YOUR BUSINESS STARTING FROM</h3>
+                    <h3 class="getpromo-price wow swing delay-1s">₹ 1800/-</h3>
+                    <h3 style="" class="filltheform animated bounceInLeft animate delay-0.5s">
+                        FILL THE FORM & LETS GET STARTED
+                    </h3>
+                    @if (CRM.Models.Global.GlobalFunctions.GetUserId() > 0)
+                    {
+                        <a href="/Dashboard" class="btn animated animate heartBeat" style="background-color:rgb(252,192,18); border-color:rgb(252,192,18); color:black;font-size:1.5rem; font-weight:bold;border-radius:5rem">START WITH US</a>
+                    }
+                    else
+                    {
+                        <a href="#" class="btn animated animate heartBeat delay-2s" style="background-color:rgb(252,192,18); border-color:rgb(252,192,18); color:black;font-size:1.5rem; font-weight:bold;border-radius:5rem"  data-toggle="modal" data-target="#Login">START WITH US</a>
+                    }
+                    
+                </div>
+                <div class="col-md-6" style="text-align:center">
+                    <img src="~/Content/Images/bg/Bg_main_v03.png" class="img bgmain animated animate headShake" />
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Content -->
+
+<div class="content">
+
+    <!-- Our Service  -->
+
+    <section id="our-services" class="services our-services text-center section pb-0">
+        <div class="container">
+            <div class="row">
+                <header class="col-md-8 col-sm-12 col-md-offset-2">
+                    <h2 class="section-title">Our Services</h2>
+                    <div class="spacer spacer-primary"></div>
+                    <p class="section-description">ExpressVideo provides all kind of business promotion video services for their customers at lowest cost.  Whether you need motion graphic videos, explainer videos, whiteboard animations videos, infographic videos, 2D animation videos, we have it all. Apart from that we provide script writing and voice over services also to our customers so that they will get a complete package at one place.</p>
+                </header>
+            </div>
+        </div>
+        <div class="section-content">
+            <div class="row" style="margin:0 auto">
+                <div class="col-md-2 col-sm-6">
+                    <div class="ourserviceimgClick" data-content="explainervideos">
+                        <div class="ourserviceimgClickimg ourservice-exaplinervideos">
+                            <img src="~/Content/Images/ourservices/ICONS/explainer.png" />
+                            <h2>Explainer Videos</h2>
+                        </div>
+
+                        <div class="background-box background"></div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <div class="ourserviceimgClick" data-content="motiongraphic">
+                        <div class="ourserviceimgClickimg ourservice-motiongraphic">
+                            <img src="~/Content/Images/ourservices/ICONS/motion graphic.png" />
+                            <h2>Motion Graphic</h2>
+                        </div>
+
+                        <div class="background"></div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <div class="ourserviceimgClick" data-content="whiteboardanimation">
+                        <div class="ourserviceimgClickimg ourservice-whiteboard">
+
+                            <img src="~/Content/Images/ourservices/ICONS/whiteboard animation.png" />
+                            <h2>Whiteboard Animation</h2>
+                        </div>
+
+                        <div class="background"></div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <div class="ourserviceimgClick" data-content="voiceover">
+                        <div class="ourserviceimgClickimg ourservice-voiceover">
+
+                            <img src="~/Content/Images/ourservices/ICONS/voice over.png" />
+                            <h2>Voice Over</h2>
+                        </div>
+
+                        <div class="background"></div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <div class="ourserviceimgClick" data-content="scriptwriter">
+                        <div class="ourserviceimgClickimg ourservice-scriptWriter">
+
+                            <img src="~/Content/Images/ourservices/ICONS/script writing.png" />
+                            <h2>Script Writing</h2>
+                        </div>
+
+                        <div class="background"></div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-6">
+                    <div class="ourserviceimgClick" data-content="infographicvideo">
+                        <div class="ourserviceimgClickimg ourservice-infographicvideo">
+
+                            <img src="~/Content/Images/ourservices/ICONS/Infographic.png" />
+                            <h2>Infographic Videos</h2>
+                        </div>
+
+                        <div class="/Content/Images/ourprocess/icons/concept.pngbackground"></div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row our-services-description">
+                <div class="col-md-4">
+                    <img src="~/Content/Images/ourservices/BOX/explainer.png" class="ourserviceimg explainervideos ourservicecontent" style="display:block" />
+                    <img src="~/Content/Images/ourservices/BOX/Script writing.png" class="ourserviceimg scriptwriter ourservicecontent" />
+                    <img src="~/Content/Images/ourservices/BOX/Voice Over.png" class="ourserviceimg voiceover ourservicecontent" />
+                    <img src="~/Content/Images/ourservices/BOX/Motion Graphic.png" class="ourserviceimg motiongraphic ourservicecontent" />
+                    <img src="~/Content/Images/ourservices/BOX/whiteboard.png" class="ourserviceimg whiteboardanimation ourservicecontent" />
+                    <img src="~/Content/Images/ourservices/BOX/Infographic.png" class="ourserviceimg infographicvideo ourservicecontent" style="width: 68%;" />
+                </div>
+                <div class="col-md-8" style="text-align:left">
+                    <div class="explainervideos ourservicecontent" style="display:block">
+                        <h2>Explainer Videos</h2>
+                        <p class="section-description">An explainer Video is a short animated video commonly used by business to quickly tell their brand stories in a memorable way. Explainer Videos work perfectly well for companies which provide services that may be very hard to describe in a clear and concise way.</p>
+                    </div>
+                    <div class="scriptwriter ourservicecontent">
+                        <h2>Script Writing</h2>
+                        <p class="section-description">Every business promotional videos uses a formula, structure and approach for it to be seen as effective to the audience. The Script Artist always keeps in mind that the script has to be short, concise and speaks directly to the audience. One of the major reasons why explainer videos are very popular in business is its flexibility in storytelling. The explainer video script is what the narrator or voice actor will say in the video.</p>
+                    </div>
+                    <div class="voiceover ourservicecontent">
+                        <h2>Voice Over</h2>
+                        <p class="section-description">A good & professional voice over into your promotional video is an add-on to encourage your target audience to use your product and sell your services. Through ExpressVideo you can choose a wide variety of voice over artists who will give their voices to the videos and makes it more engaging and entertaining.</p>
+                    </div>
+                    <div class="motiongraphic ourservicecontent">
+                        <h2>Motion Graphic</h2>
+                        <p class="section-description">Motion graphic are pieces of Real images or digital footages which create the illusion of motion or rotation, and are usually combined with audio for use in multimedia projects. Animated motion graphics is a video style that combines informational and educational content with colorful graphics. It makes your videos more exciting with illusions of motion.</p>
+                    </div>
+                    <div class="whiteboardanimation ourservicecontent">
+                        <h2>Whiteboard Animation</h2>
+                        <p class="section-description">Whiteboard animation is a process where a story or a storyboard with pictures gets drawn on a whiteboard or something that looks like a whiteboard (hence the name). They are videos that draw themselves. Originally, animators would record themselves in the process of creating such animations. A very precise way to showcase your business</p>
+                    </div>
+                    <div class="infographicvideo ourservicecontent">
+                        <h2>Infographic Videos</h2>
+                        <p class="section-description">An Infographic video is a visual representation of data & knowledge in the form of video. Because it’s an entertaining combination of audio & visuals, viewers are more likely to make an emotional connection to the message & are more likely to respond to it, share it with friends & colleagues & even view it multiple times.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- whyvideoareimportant  -->
+
+    <section id="whyvideoareimportant" class="services text-center section pb-0">
+        <div class="container">
+            <div class="row">
+                <header class="col-md-8 col-md-offset-2">
+                    <h2 class="section-title">Why videos are important</h2>
+                    <div class="spacer spacer-primary"></div>
+                    <p class="section-description">Video is the most effective communication medium of all time. You can use ExpressVideo “A One Stop Solution" to create your business promotional videos at a lowest possible price.</p>
+                </header>
+            </div>
+        </div>
+        <div class="section-content">
+            <div class="container why-videoimp-parent">
+                <div class="row row-columns">
+                    <div class="column col-md-4">
+                        <div class="feature-box-wrap">
+                            <div class="feature-box wow fadeInLeft" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
+                                <div class="media-left">
+                                    @*<i class="text-primary icon-feature fa fa-send"></i>*@
+                                    <img src="~/Content/Images/whyvideoimp/presentation.png" />
+                                </div>
+                                <div class="media-right">
+                                    <h3 class="icon-title">Presentation Video</h3>
+                                    <p class="feature-descr text-muted section-description" style="text-align:left">
+                                        Videos are lively, engaing & enjoyable to watch. They are great for commanding attention, explaining
+                                        complex concepts & increasing learning retention.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="feature-box wow fadeInLeft extraspace" data-wow-delay="0.6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInLeft;">
+                                <div class="media-left">
+                                    @*<i class="text-primary icon-feature fa fa fa-cogs"></i>*@
+                                    @*<img src="~/Content/Images/whyvideoimp/loudspeaker.png" />*@
+                                    <img src="~/Content/Images/whyvideoimp/speaker.png" />
+                                </div>
+                                <div class="media-right">
+                                    <h3 class="icon-title">Advertising Video</h3>
+                                    <p class="feature-descr text-muted section-description" style="text-align:left">
+                                        Video advertising allows marketers to grab their audience in the form of video. A good advertisement help the business
+                                        to grow and target the right customers.
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column col-md-4 wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+                        <img alt="" class="img-responsive" src="img/img-feature.jpg">
+                    </div>
+                    <div class="column col-md-4">
+                        <div class="feature-box-wrap">
+                            <div class="feature-box wow fadeInRight salesvideo" data-wow-delay="1.2s" style="visibility: visible; animation-delay: 1.2s; animation-name: fadeInRight;">
+                                <div class="media-left">
+                                    @*<i class="text-primary icon-feature fa fa-desktop"></i>*@
+                                    <img src="~/Content/Images/whyvideoimp/salesvideo.png" />
+                                </div>
+                                <div class="media-right">
+                                    <h3 class="icon-title">Sales Video</h3>
+                                    <p class="feature-descr text-muted section-description" style="text-align:left">
+                                        Sales videos are designed to sell product and services. They play a vital role to boost your product sales and services, your
+                                        popularity in market and your revenue.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="feature-box wow fadeInRight extraspace" data-wow-delay="1.5s" style="visibility: visible; animation-delay: 1.5s; animation-name: fadeInRight;">
+                                <div class="media-left">
+                                    @*<i class="text-primary icon-feature fa fa-bullseye"></i>*@
+                                    <img src="~/Content/Images/whyvideoimp/product.png" />
+                                </div>
+                                <div class="media-right">
+                                    <h3 class="icon-title">Product Video</h3>
+                                    <p class="feature-descr text-muted section-description" style="text-align:left">
+                                        These type of videos are unique, quirky and are perfect for illustrating product benefits. It is fun to demonstrate and easy to understand.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column why-videoimp">
+                        <img src="~/Content/Images/whyvideoimp/whyvideosareimportant.png" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- our process  -->
+
+    <section id="ourprocess" class="ourprocess-section section pb-0" style="text-align:center">
+        <div class="container">
+            <div class="row">
+                <header class="text-center col-md-8 col-md-offset-2">
+                    <h2 class="section-title">Our Process</h2>
+                    <div class="spacer spacer-primary"></div>
+                    <p class="section-description" style="width: 76%;margin: 20px auto;">
+                        While every business promotion videos are different from one another, ExpressVideo follows these 5 fundamental stages to achieve an awesome video quality.
+                    </p>
+                </header>
+            </div>
+        </div>
+        @*<div class="section-content">
+                <div class="row-about bgc-light clearfix">
+                    <div class="bg-ourprocess-1 bg-left-fluid bordered col-md-12">
+
+                    </div>
+                </div>
+
+            </div>*@
+
+        <div class="ourprocess" style="">
+            <div class="ourprocess-content">
+
+                <img src="~/Content/Images/ourprocess/icons/Main Circle.png" class="maincircle" />
+                <div class="concept-box processbox">
+                    <div class="row wow fadeInRight">
+                        <div class="col-md-4 col-sm-2 col-xs-3">
+                            <img src="~/Content/Images/ourprocess/icons/concept.png" />
+                        </div>
+                        <div class="col-md-8 col-sm-10 col-xs-9 contents">
+
+                            <h2>CONCEPT</h2>
+                            <p class="section-description-1">
+                                After taking time to understand your company &  your goals for the video, & of course some good old fashioned
+                                brainstorming, we put together a creative direction & concept.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="script-box processbox">
+                    <div class="row wow fadeInRight">
+                        <div class="col-md-4 col-sm-2 col-xs-3">
+                            <img src="~/Content/Images/ourprocess/icons/script.png" />
+                        </div>
+                        <div class="col-md-8 col-sm-10 col-xs-9 contents">
+
+                            <h2>Script</h2>
+                            <p class="section-description-1">
+                                Once we've decided on a direction, we'll then craft together a script that artfully & effectively,
+                                conveys your message.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="voiceover-box processbox ">
+                    <div class="row wow fadeInRight">
+                        <div class="col-md-4 col-sm-2 col-xs-3">
+                            <img src="~/Content/Images/ourprocess/icons/VO.png" />
+                        </div>
+                        <div class="col-md-8 col-sm-10 col-xs-9 contents">
+
+                            <h2>Voice Over</h2>
+                            <p class="section-description-1">
+                                After script writing, you can select from our handpicked group of voice over artists by listening their sound samples. ExpressVideo has many different voice over artists.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="Animation-box processbox">
+                    <div class="row wow fadeInRight">
+                        <div class="col-md-4 col-sm-2 col-xs-3">
+                            <img src="~/Content/Images/ourprocess/icons/Animation.png" />
+                        </div>
+                        <div class="col-md-8 col-sm-10 col-xs-9 contents">
+
+                            <h2>Animation</h2>
+                            <p class="section-description-1">
+                                Using all the graphic elements, characters & voice over recordings, professional animators manage to set the entire
+                                animated explainer video in motion.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="delivery-box processbox ">
+                    <div class="row wow fadeInRight">
+                        <div class="col-md-4 col-sm-2 col-xs-3">
+                            <img src="~/Content/Images/ourprocess/icons/Delivery.png" />
+                        </div>
+                        <div class="col-md-8 col-sm-10 col-xs-9 contents">
+
+                            <h2>Delivery</h2>
+                            <p class="section-description-1">
+                                Once the animation process is complete, we will provide the video for your review. After the approval will upload the video.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Why choose us  -->
+
+    <section id="whychooseus" class="whychooseus section pb-0">
+        <div class="container">
+            <div class="row">
+                <header class="text-center col-md-8 col-md-offset-2">
+                    <h2 class="section-title">Why Choose us</h2>
+                    <div class="spacer spacer-primary"></div>
+                    <p class="section-description">
+                        Whether it's Fast Delivery, Low Pricing, Secure Payments, Easy Tracking or Quality Output, we've got you covered. ExpressVideo are professionals who understand how these thing matters to our customers.
+                    </p>
+                </header>
+            </div>
+
+        </div>
+        <div class="row whychooseus-area">
+            <div class="col-md-3 col-sm-6">
+                <div class="wch-img">
+                    <img src="~/Content/Images/why choose us/IMAGES/express delivery.png" />
+                    <h2>FAST<br />DELIVERY</h2>
+                    <p class="feature-descr text-muted section-description-1"> As you are important to us, we understand your time as well. With our professionally dedicated team will make sure you get the best creation at express speed from ExpressVideo.</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="wch-img">
+                    <img src="~/Content/Images/why choose us/IMAGES/low cost.png" />
+                    <h2>LOW PRICE <br />& SECURE PAYMENT</h2>
+                    <p class="feature-descr text-muted section-description-1" id="lowPriceContent">With ExpressVideo, get your brand video at the most affordable price. Its something like online shopping with our easy payment system.</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="wch-img">
+                    <img src="~/Content/Images/why choose us/IMAGES/easy tracking.png" />
+                    <h2>EASY<br />TRACKING</h2>
+                    <p class="feature-descr text-muted section-description-1">ExpressVideo is an open platform for our customers to track their order status at any point of time. Our goal is to walk with you at every step.</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+                <div class="wch-img">
+                    <img src="~/Content/Images/why choose us/IMAGES/quality.png" />
+                    <h2 class="wch-h2">QUALITY<br />OUTPUT</h2>
+                    <p style="margin-top: 0px;" class="feature-descr text-muted section-description-1">ExpressVideo focuses on quality output. With multi layered checking process and effective pipeline, we try and achieve quality output at lowest possible price.</p>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+
+
+    <!-- who we are-->
+
+    <section id="whoweare" class="whoweare section pb-0">
+        <div class="container">
+            <div class="row">
+                <header class="text-center col-md-8 col-md-offset-2">
+                    <h2 class="section-title">Who we are</h2>
+                    <div class="spacer spacer-primary"></div>
+                    <p class="section-description">
+                        The difference between a Designer and Developer when it comes to design skills, is the difference between
+                        shooting a bullet and throwing it.
+                    </p>
+                </header>
+            </div>
+        </div>
+
+
+        <div class="row whoweare-description">
+            <div class="col-md-6" id="css_animation">
+                <p class="whoweare-text">
+                    Express Video is a squad of experienced video makers who can tell your business story to the world in your way.
+                    we fulfill the need of promotional videos for businesses of all sectors at the lowest possible price.
+                    with our videos, you can personalise your brand, showcase your product, explain your business just in 60 second.
+                    our simplified process makes this journey so easy for our customers that they won't even realise when they
+                    started & when we finished.
+                </p>
+            </div>
+            <div class="col-md-6">
+                <img src="~/Content/Images/whoweare/icon_who we are_01.png" class="img3guys" />
+            </div>
+        </div>
+
+    </section>
+
+
+    <section id="reviews" class="reviews-2 text-center section">
+        <div class="container">
+            <div class="row">
+                <header class="col-md-8 col-md-offset-2">
+                    <h2 class="section-title">Our Testimonials</h2>
+                    <div class="spacer spacer-primary"></div>
+                </header>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <blockquote class="step-1 testimonial">
+                        <div class="row">
+                            <div class="col-sm-8 col-sm-offset-2">
+                                <p>A very satisfactory approach from the team of ExpressVideo.  Simple to track the progress.  Very cheap.</p>
+                                <small>Sudheer tyagi</small>
+                            </div>
+                        </div>
+                    </blockquote>
+                    <blockquote class="step-2 testimonial">
+                        <div class="row">
+                            <div class="col-sm-8 col-sm-offset-2">
+                                <p>Hi, ExpressVideo staff is very helpful. They guided me well from the very start of the video selection part till my final video output.  Will definitely recommend to my friends.</p>
+                                <small>Manish Kumar</small>
+                            </div>
+                        </div>
+                    </blockquote>
+                    <blockquote class="step-3 testimonial">
+                        <div class="row">
+                            <div class="col-sm-8 col-sm-offset-2">
+                                <p>ExpressVideo is providing really a cost effective videos. The varieties they have really helps me to made my video as per my choice. Great.</p>
+                                <small>Rajesh Sharma </small>
+                            </div>
+                        </div>
+                    </blockquote>
+
+
+                </div>
+                <div class="col-md-12">
+                    <div class="box-area">
+                        <div class="box-circle" data-step="step-1"></div>
+                        <div class="box-circle" data-step="step-2"></div>
+                        <div class="box-circle" data-step="step-3"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Contact -->
+
+    <section id="contact" class="contact text-white masked section" style="background:url(../Content/Images/contact-us-bg.jpg) no-repeat center; width:100%;">
+        <div class="container">
+            <header class="text-center col-md-8 col-md-offset-2">
+                <h2 class="text-white section-title">contact Us</h2>
+                <div class="spacer spacer-primary"></div>
+            </header>
+        </div>
+        <div class="section-content">
+            <div class="container rel-1">
+                <div class="row row-columns">
+                    <div class="column col-md-12" style="padding:0% 10%">
+                        <form class="js-ajax-form">
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-white name " name="name" placeholder="YOUR NAME*" style="border: 2px solid #ffffff; color:#fff;">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-white email" name="email" required placeholder="YOUR EMAIL*" style="border: 2px solid #ffffff; color:#fff;">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-white contact_no" name="Contact_number" required placeholder="YOUR CONTACT NO *" style="border: 2px solid #ffffff; color:#fff;">
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control form-control-white message" name="message" required placeholder="MESSAGE" style="border: 2px solid #ffffff; color:#fff;"></textarea>
+                            </div>
+                            <div class="text-center">
+                                <div class="btn btn-b-white wow swing" style="border: 2px solid #ffffff; margin-bottom:20px;" onclick="contactus_details()">SEND MESSAGE</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+
+
+</div>
+<script>
+    $(document).ready(function () {
+        $(".ourserviceimgClick").click(function () {
+            content = $(this).attr("data-content");
+            $(".ourservicecontent").hide();
+            $("." + content).show();
+            $(".background").removeClass("background-box");
+            $(this).find(".background").addClass("background-box");
+        });
+
+        $(".box-circle").click(function () {
+            var step = $(this).attr("data-step");
+            $(".testimonial").hide();
+            $("." + step).show();
+            $(".box-circle").removeClass("box-circle-active");
+            $(this).addClass("box-circle-active");
+
+        });
+        $(".testimonial").hide();
+        $(".step-1").show();
+        $(".box-circle[data-step='step-1']").addClass("box-circle-active");
+    });
+
+</script>
+
+
+ 
+
+ 

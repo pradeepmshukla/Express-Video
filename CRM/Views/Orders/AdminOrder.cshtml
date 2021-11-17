@@ -1,0 +1,215 @@
+﻿@model  System.Data.DataTable
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;// "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@*<!-- DataTables -->
+    <link href="../../plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <!-- Responsive datatable examples -->
+    <link href="../../plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />*@
+
+
+<div class="row">
+    <div class="col-lg-12 col-sm-12" style="padding:0px">
+        <div class="card-body table-responsive">
+            <div class="">
+                <table id="datatable2" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead>
+                        <tr>
+                            @foreach (System.Data.DataColumn col in Model.Columns)
+                            {
+
+                                //if (col.ColumnName == "Order No" ||col.ColumnName=="Start Date"|| col.ColumnName == "Script" || col.ColumnName == "VO" || col.ColumnName == "Video" ||col.ColumnName=="End Date"|| col.ColumnName == "Order Status")
+                                if (col.ColumnName == "Order No" || col.ColumnName == "Start Date" || col.ColumnName == "End Date" || col.ColumnName == "Order Details" || col.ColumnName == "Order Total" || col.ColumnName == "Payment Status" || col.ColumnName == "Client Details" || col.ColumnName == "Invoice" || col.ColumnName == "Top up Invoice" || col.ColumnName == "Rating")
+                                {
+                                    <th>@col.ColumnName</th>
+                                    if (col.ColumnName == "Order No")
+                                    {
+                                        <th></th>
+                                    }
+
+                                }
+
+                            }
+                            <th>Status</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (System.Data.DataRow row in Model.Rows)
+                        {
+                            <tr style="text-align:center">
+                                @foreach (System.Data.DataColumn col in Model.Columns)
+                                {
+                                    if (col.ColumnName == "Order No" || col.ColumnName == "Start Date" || col.ColumnName == "End Date" || col.ColumnName == "Order Details" || col.ColumnName == "Order Total" || col.ColumnName == "Payment Status" || col.ColumnName == "Client Details" || col.ColumnName == "Invoice" || col.ColumnName == "Top up Invoice" || col.ColumnName == "Rating")
+                                    {
+                                        if (col.ColumnName == "Order No")
+                                        {
+
+                                            <td># @row[col.ColumnName]</td>
+                                            <td><div class="btn btn-warning" onclick="ScriptDetails(@row[col.ColumnName])">Video Form</div></td>
+                                        }
+                                        else if (col.ColumnName == "Order Details")
+                                        {
+                                            <td class="orderDetails">
+                                                <div class="btn" onclick="_OrderDetails(@row["Order No"],'@row["ScriptRequired"]','@row["VORequired"]')">
+                                                    View
+                                                </div>
+                                            </td>
+                                        }
+                                        else if (col.ColumnName == "Client Details")
+                                        {
+                                            <td><div class="btn" onclick="_ClientDetails(@row["Client Details"])">View</div></td>
+                                        }
+                                        else if (col.ColumnName == "Invoice")
+                                        {
+                                            <td><div class="btn" onclick="_CustomerInvoice(@row["Invoice"])">View</div></td>
+                                        }
+                                        else if (col.ColumnName == "Top up Invoice")
+                                        {
+                                            <td><div class="btn" onclick="_TopUpInvoice(@row["Top up Invoice"])">View</div></td>
+                                        }
+                                        else if (col.ColumnName == "Rating")
+                                        {
+                                            <td>
+                                                @if (Convert.ToString(row[col.ColumnName]) == "-1")
+                                                {
+                                                    <span>-</span>
+                                                }
+                                                else
+                                                {
+                                                    <div class="btn" onclick="ViewCustomerFeedback('@row["Order No"]')">@row[col.ColumnName]</div>
+                                                }
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>@row[col.ColumnName]</td>
+                                        }
+                                    }
+
+
+                                }
+                                <td>@Html.Raw(row["Order Details"])</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<!-- Required datatable js -->
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples -->
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/dataTables.buttons.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/buttons.bootstrap4.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/jszip.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/pdfmake.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/vfs_fonts.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/buttons.html5.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/buttons.print.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/buttons.colVis.min.js"></script>
+    <!-- Responsive examples -->
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/dataTables.responsive.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/responsive.bootstrap4.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/HTML/assets/pages/jquery.datatable.init.js"></script>*@
+
+<script>
+    var OrderId = 0;
+    var FeedbackType = "";
+    var SentTo = 0;
+    var FilesUploaded = "";
+    var ClientStatus = "";
+    $(document).ready(function () {
+        $(".SubmitFeedback").click(function () {
+            var FeedbackComments = $(".feedbackComments").val().trim();
+            var FilesUploaded = $("#FilesUploaded").val().trim();
+            var ClientStatus = $("#ddUpdateClientStatus").val();
+
+            if (FeedbackComments != "" && ClientStatus != "") {
+                var data = {
+
+                    FeedbackComments: FeedbackComments,
+                    OrderId: OrderId,
+                    FeedbackType: FeedbackType,
+                    SentTo: SentTo,
+                    FilesUploaded: FilesUploaded,
+                    ClientStatus: ClientStatus
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "/FeedbackDetails/SaveFeedback",
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        alert(data);
+                        $(".feedbackComments").val('');
+                        $("#FilesUploaded").val('');
+                        $("#uploadfile").val('');
+                        ViewFeedback(OrderId);
+                    }
+                });
+            }
+
+        });
+
+        $("#uploadfile").change(function () {
+            UploadFile("uploadfile", "FilesUploaded");
+        });
+
+
+        $(".btnupdate").click(function () {
+            var ScriptAssignedUserId = 0;
+            var VOAssignedUserId = 0;
+            var VideoAssignedUserId = 0;
+            var usertype = $(this).attr("data-usertype");
+            var UserId = $(this).siblings("select").val();
+            var OrderId = $(this).siblings("select").attr("data-orderid");
+            if (usertype == "script") {
+                ScriptAssignedUserId = UserId;
+            }
+            if (usertype == "vo") {
+                VOAssignedUserId = UserId;
+            }
+            if (usertype == "video") {
+                VideoAssignedUserId = UserId;
+            }
+
+
+            $(this).hide();
+            if (OrderId > 0 && UserId > 0) {
+                var data = {
+                    OrderId: OrderId,
+                    ScriptAssignedUserId: ScriptAssignedUserId,
+                    VOAssignedUserId: VOAssignedUserId,
+                    VideoAssignedUserId: VideoAssignedUserId
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "/OrderStatus/AssignOrderToUser",
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        alert(data);
+
+                    }
+                });
+            }
+        });
+        setTimeout(function () {
+            $("#datatable2_filter").find("input").attr("placeholder", "Search by order status, order id, payment status");
+            $("#datatable2_filter").find("label").css("color", "white");
+        }, 1);
+
+
+    });
+</script>

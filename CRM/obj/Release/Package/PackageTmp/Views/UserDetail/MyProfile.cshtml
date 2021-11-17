@@ -1,0 +1,525 @@
+﻿@model DAL.UserDetails
+@{
+    Layout = null;
+}
+<head>
+
+    <style>
+        .document {
+            margin-top: 1.5rem;
+        }
+
+        .attchement a {
+            color: #fcc012;
+        }
+
+
+
+        .Soundarea {
+            padding: 2px;
+        }
+
+        .uploadedsound {
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="profile-wrap">
+            <div class="profile-picture">
+                <div class="profilearea">
+                    @if (!string.IsNullOrEmpty(CRM.Models.Global.GlobalFunctions.GetCookie("GmailImageUrl")))
+                    {
+
+                        <img src="@CRM.Models.Global.GlobalFunctions.GetCookie("GmailImageUrl")" class="img img-thumbnail" onerror="this.src ='../Content/Images/defaultprofile.png'" />
+                    }
+                    else if (!String.IsNullOrEmpty(Model.ProfilePhoto))
+                    {
+                        <img src="~/Uploads/@Model.ProfilePhoto" class="profilephoto img img-thumbnail" onerror="this.src ='../Content/Images/defaultprofile.png'" />
+                    }
+                    else
+                    {
+                        <img src="~/Content/Images/defaultprofile.png" class="profilephoto img img-thumbnail" />
+                    }
+
+                    <div class="file-upload" style="display:none">
+                        <div class="file-select">
+                            <div class="file-select-button" id="fileName">Choose File</div>
+                            <div class="file-select-name" id="noFile">No file chosen...</div>
+                            <input type="file" name="chooseFile" id="fileUploadFile_ProfilePhoto" onchange="UploadFile('fileUploadFile_ProfilePhoto', 'ProfilePhoto','image')" data-filesize="100kb">
+                            <input type="hidden" value="@Model.ProfilePhoto" id="ProfilePhoto" />
+                        </div>
+                    </div>
+                </div>
+                <div class="change-picture">
+                    <img class="img uploadprofileicon" onclick="openfileUpload()" src="~/Content/Images/camera_icon.png" />
+                </div>
+            </div>
+            <div class="imageDetails">
+                <p>Photo Size: 512x512 px.</p>
+                <p>Max Size: 100kb</p>
+            </div>
+            @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 5 || CRM.Models.Global.GlobalFunctions.GetRoleId() == 6 || CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+            {
+                <div class="col-md-12">
+                    <h4><mark style="background-color:#38a4f8">UPLOAD YOUR DOCUMENTS</mark></h4>
+
+                </div>
+                <div class="col-md-12 document">
+                    <fieldset></fieldset>
+                    <span>
+                        PAN CARD*
+                        @if (!string.IsNullOrEmpty(Model.PanCard))
+                        {
+                            <span class="filePanCard attchement">
+                                <a href="~/Uploads/@Model.PanCard" target="_blank" class="ev-text-redcolor">(View Attached Document)</a>
+                            </span>
+                        }
+                    </span>
+
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="PanCard_text" placeholder="Entrer pancard no" value="@Model.PanCard_text">
+                        </div>
+                    </div>
+                    @if (Model.IsPancardApproved == null || Model.IsPancardApproved == false || string.IsNullOrEmpty(Model.PanCard))
+                    {
+                        <div class="file-upload">
+                            <div class="file-select">
+                                <div class="file-select-button" id="fileName">Choose File</div>
+                                <div class="file-select-name" id="noFile">No file chosen...</div>
+                                <input type="file" name="chooseFile" id="fileUploadFile_PanCard" onchange="UploadFile('fileUploadFile_PanCard', 'PanCard', 'image')">
+                                <input type="hidden" value="@Model.PanCard" id="PanCard" />
+                            </div>
+                            <div class="error-message" style="color:red">
+
+                            </div>
+                            <div class="filename">
+
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="col-md-12 document">
+                    <span>
+                        AADHAR CARD*
+                        @if (!string.IsNullOrEmpty(Model.AadharCard))
+                        {
+                            <span class="filePanCard attchement">
+                                <a href="~/Uploads/@Model.AadharCard" target="_blank" class="ev-text-redcolor">(View Attached Document)</a>
+                            </span>
+                        }
+                    </span>
+
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="AadharCard_text" placeholder="Entrer Aadhar no" value="@Model.AadharCard_text">
+                        </div>
+                    </div>
+                    @if (Model.IsAadharCardApproved == false || Model.IsAadharCardApproved == null || string.IsNullOrEmpty(Model.AadharCard))
+                    {
+                        <div class="file-upload">
+                            <div class="file-select">
+                                <div class="file-select-button" id="fileName">Choose File</div>
+                                <div class="file-select-name" id="noFile">No file chosen...</div>
+                                <input type="file" name="chooseFile" id="fileUploadFile_AadharCard" onchange="UploadFile('fileUploadFile_AadharCard', 'AadharCard', 'image')">
+                                <input type="hidden" value="@Model.AadharCard" id="AadharCard" />
+                            </div>
+                            <div class="error-message" style="color:red"></div>
+                            <div class="filename">
+
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+
+                <div class="col-md-12 document">
+                    <span>
+                        BANK ACCOUNT DETAILS*
+                        @if (!string.IsNullOrEmpty(Model.BankAccountDetails))
+                        {
+                            <span class="filePanCard attchement">
+                                <a href="~/Uploads/@Model.BankAccountDetails" target="_blank" class="ev-text-redcolor">(View Attached Document)</a>
+                            </span>
+                        }
+                    </span>
+
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="BankName" placeholder="Entrer Bank Name" value="@Model.BankName">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="AccountHolderName" placeholder="Entrer Account Holder Name" value="@Model.AccountHolderName">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="AccountNumber" placeholder="Entrer Account Number" value="@Model.AccountNumber">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="IFSC" placeholder="Entrer IFSC" value="@Model.IFSC">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="BranchName" placeholder="Entrer Branch Name" value="@Model.BranchName">
+                        </div>
+                    </div>
+                    @if (Model.IsBankDetailsApproved == false || Model.IsBankDetailsApproved == null || string.IsNullOrEmpty(Model.BankAccountDetails))
+                    {
+                        <div class="file-upload">
+                            <div class="file-select">
+                                <div class="file-select-button" id="fileName">Choose File</div>
+                                <div class="file-select-name" id="noFile">No file chosen...</div>
+                                <input type="file" name="chooseFile" id="fileUploadFile_BankAccountdetails" onchange="UploadFile('fileUploadFile_BankAccountdetails', 'BankAccountDetails', 'image,pdf')">
+                                <input type="hidden" value="@Model.BankAccountDetails" id="BankAccountDetails" />
+                            </div>
+                            <div class="error-message" style="color:red"></div>
+                            <div class="filename">
+
+                            </div>
+                        </div>
+                        <span style="font-size: 11px;color: #9a9a9a;">*Need to add cancelled cheque image. It should be in .jpg, .jpeg, .png or .pdf formate</span>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-md-8">
+        <h4><mark>PERSONAL DETAILS</mark></h4>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="username">First Name*</label>
+                    <div class="input-group mb-3">
+                        @if (Model.IsPancardApproved == true)
+                        {
+                            <input type="text" class="form-control" id="FirstName" placeholder="Enter First Name" value="@Model.FirstName" readonly>
+                        }
+                        else
+                        {
+                            <input type="text" class="form-control" id="FirstName" placeholder="Enter First Name" value="@Model.FirstName">
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="username">Last Name*</label>
+                    <div class="input-group mb-3">
+                        @if (Model.IsPancardApproved == true)
+                        {
+                            <input type="text" class="form-control" id="LastName" placeholder="Enter Last Name" value="@Model.LastName" readonly>
+                        }
+                        else
+                        {
+                            <input type="text" class="form-control" id="LastName" placeholder="Enter Last Name" value="@Model.LastName">
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="username">Contact No.*</label>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="Title" placeholder="Enter Contact No" value="@Model.MobileNo" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="username">Alternate Contact No</label>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="AlternateMobileno" placeholder="Enter Alternate Contact no" value="@Model.AlternateMobileNo">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="username">Email Id*</label>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="Title" placeholder="Enter Your Email id" value="@Model.EmailID" readonly>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h4><mark>CHANGE PASSWORD</mark></h4>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="username">Current  Password*</label>
+                    <div class="input-group mb-3" style="position:relative">
+                        @*<img src="~/Content/Images/eye.png" class="img-eye" />*@
+                        <input type="password" class="form-control" id="CurrentPassword" placeholder="Enter Current Password" value="" autocomplete="nope" onblur="CheckPassword()">
+                        <span><i class="fa fa-eye-slash password_hide"></i></span>
+                        <span><i class="fa fa-eye password_show"></i></span>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="username">New  Password*</label>
+                    <div class="input-group mb-3" style="position:relative">
+                        @*<img src="~/Content/Images/eye.png" class="img-eye" />*@
+                        <input type="password" class="form-control" id="NewPassword" placeholder="Enter New Password" value="" autocomplete="nope">
+                        <span><i class="fa fa-eye-slash password_hide"></i></span>
+                        <span><i class="fa fa-eye password_show"></i></span>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="username">Confirm  Password*</label>
+                    <div class="input-group mb-3" style="position:relative">
+                        @*<img src="~/Content/Images/eye.png" class="img-eye" />*@
+                        <input type="password" class="form-control" id="ConfirmPassword" placeholder="Enter Confirm Password" value="" autocomplete="nope">
+                        <span><i class="fa fa-eye-slash password_hide"></i></span>
+                        <span><i class="fa fa-eye password_show"></i></span>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="btn btnchangepassword" onclick="ChangePassword()" style="background-color:#f33f5d">Update Password</div>
+            </div>
+        </div>
+
+        @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 6)
+        {
+            <div class="col-md-12 col-sm-12 addsoundsample" style="color:black;">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <h4><mark>ADD SOUND SAMPLE</mark></h4>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <span>Hindi Sample</span>
+                                        <div class="file-upload">
+                                            <div class="file-select">
+                                                <div class="file-select-button" id="fileName">Choose File</div>
+                                                <div class="file-select-name" id="noFile">No file chosen...</div>
+                                                <input type="file" name="chooseFile" id="filSoundSampleHindi1" onchange="UploadFile('filSoundSampleHindi1', 'SoundSampleHindi1', 'audio')">
+                                                <input type="hidden" value="@Model.SoundSampleHindi1" id="SoundSampleHindi1" />
+                                            </div>
+                                            <div class="error-message" style="color:red"></div>
+                                            <div class="filename">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <span>Set Price For (0:30-1:00) Min</span>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <select class="form-control" id="SoundSampleHindi1_Price" data-value="@Model.SoundSampleHindi1_Price" style="height:38px">
+                                                    <option value="1200">1200</option>
+                                                    <option value="1300">1300</option>
+                                                    <option value="1400">1400</option>
+                                                    <option value="1500">1500</option>
+                                                    <option value="1600">1600</option>
+                                                    <option value="1700">1700</option>
+                                                    <option value="1800">1800</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                @if (!string.IsNullOrEmpty(Model.SoundSampleHindi1))
+                                {
+                                    <div class="col-12 uploadedsound">
+                                        <audio controls>
+                                            <source src="~/Uploads/@Model.SoundSampleHindi1" type="audio/ogg">
+                                            <source src="~/Uploads/@Model.SoundSampleHindi1" type="audio/mpeg">
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                        <div class="btn btn-red btn-remove-audio">REMOVE</div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="col-12" style="display:none">
+                                <p>Sample 02 (Upload Your Sample)</p>
+                                <div class="file-upload">
+                                    <div class="file-select">
+                                        <div class="file-select-button" id="fileName">Choose File</div>
+                                        <div class="file-select-name" id="noFile">No file chosen...</div>
+                                        <input type="file" name="chooseFile" id="fileSoundSampleHindi2" onchange="UploadFile('fileSoundSampleHindi2', 'SoundSampleHindi2', 'audio')">
+                                        <input type="hidden" value="@Model.SoundSampleHindi2" id="SoundSampleHindi2" />
+                                    </div>
+                                    <div class="error-message" style="color:red"></div>
+                                    <div class="filename">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12 uploadedsound">
+                                    <audio controls>
+                                        <source src="~/Uploads/@Model.SoundSampleHindi2" type="audio/ogg">
+                                        <source src="~/Uploads/@Model.SoundSampleHindi2" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                    <div class="btn btn-red btn-remove-audio">REMOVE</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 19px;">
+                    <div class="col-md-6 col-sm-12">
+                        @*<h4><mark>UPDATE YOUR SOUND SAMPLE</mark></h4>*@
+
+                        <div class="row">
+                            <div class="col-12">
+                                @*<p>Sample 01 (Upload Your Sample)</p>*@
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <span>English Sample</span>
+                                        <div class="file-upload">
+                                            <div class="file-select">
+                                                <div class="file-select-button" id="fileName">Choose File</div>
+                                                <div class="file-select-name" id="noFile">No file chosen...</div>
+                                                <input type="file" name="chooseFile" id="fileSoundSampleEnglish1" onchange="UploadFile('fileSoundSampleEnglish1', 'SoundSampleEnglish1', 'audio')">
+                                                <input type="hidden" value="@Model.SoundSampleEnglish1" id="SoundSampleEnglish1" />
+                                            </div>
+                                            <div class="error-message" style="color:red"></div>
+                                            <div class="filename">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <span>Set Price For (0:30-1:00) Min</span>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <select class="form-control" id="SoundSampleEnglish1_Price" data-value="@Model.SoundSampleEnglish1_Price" style="height:38px">
+                                                    <option value="1200">1200</option>
+                                                    <option value="1300">1300</option>
+                                                    <option value="1400">1400</option>
+                                                    <option value="1500">1500</option>
+                                                    <option value="1600">1600</option>
+                                                    <option value="1700">1700</option>
+                                                    <option value="1800">1800</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @if (!string.IsNullOrEmpty(Model.SoundSampleEnglish1))
+                                {
+                                    <div class="col-12 uploadedsound">
+                                        <audio controls>
+                                            <source src="~/Uploads/@Model.SoundSampleEnglish1" type="audio/ogg">
+                                            <source src="~/Uploads/@Model.SoundSampleEnglish1" type="audio/mpeg">
+                                            Your browser does not support the audio element.
+                                        </audio>
+                                        <div class="btn btn-red btn-remove-audio">REMOVE</div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="col-12" style="display:none">
+                                <p>Sample 02 (Upload Your Sample)</p>
+                                <div class="file-upload">
+                                    <div class="file-select">
+                                        <div class="file-select-button" id="fileName">Choose File</div>
+                                        <div class="file-select-name" id="noFile">No file chosen...</div>
+                                        <input type="file" name="chooseFile" id="fileSoundSampleEnglish2" onchange="UploadFile('fileSoundSampleEnglish2', 'SoundSampleEnglish2', 'audio')">
+                                        <input type="hidden" value="@Model.SoundSampleEnglish2" id="SoundSampleEnglish2" />
+                                    </div>
+                                    <div class="error-message" style="color:red"></div>
+                                    <div class="filename">
+
+                                    </div>
+                                </div>
+                                <div class="col-12 uploadedsound">
+                                    <audio controls>
+                                        <source src="~/Uploads/@Model.SoundSampleEnglish2" type="audio/ogg">
+                                        <source src="~/Uploads/@Model.SoundSampleEnglish2" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                    <div class="btn btn-red btn-remove-audio">REMOVE</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <div class="btn btnupdatesoundsample" onclick="UpdateProfile()" style="">Update sound Sample</div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div style="clear:both"></div>
+
+</div>
+<div class="row" id="UpdateProfileBtn">
+    <div class="col-4 col-sm-12">
+
+    </div>
+    <div class="col-md-8 col-sm-12">
+        <div class="btn btnupdateprofile" onclick="UpdateProfile()">Update My Profile</div>
+
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".password_hide").click(function () {
+            $(this).parents(".form-group").find("input").attr("type", "text");
+            $(this).parents(".form-group").find(".password_show").show();
+            $(this).hide();
+        });
+        $(".password_show").click(function () {
+            $(this).parents(".form-group").find("input").attr("type", "password");
+            $(this).parents(".form-group").find(".password_hide").show();
+            $(this).hide();
+        });
+
+        $("#CurrentPassword").val('');
+        $("#NewPassword").val('');
+        $("#ConfirmPassword").val('');
+        $("#NewPassword").attr("disabled", true);
+        $("#ConfirmPassword").attr("disabled", true);
+        $(".img-eye").click(function () {
+            var type = $(this).siblings("input").attr("type");
+            if (type == "text") {
+                $(this).siblings("input").attr("type", "password");
+            }
+            else {
+                $(this).siblings("input").attr("type", "text");
+            }
+        });
+
+        $("select").each(function () {
+            var val = $(this).attr("data-value");
+            if (val != undefined && val != "") {
+                $(this).val(val);
+            }
+
+        });
+
+        $(".btn-remove-audio").click(function () {
+            $(this).parent(".uploadedsound").remove();
+        });
+
+    });
+    function openfileUpload() {
+        $("#fileUploadFile_ProfilePhoto").trigger("click");
+    }
+</script>

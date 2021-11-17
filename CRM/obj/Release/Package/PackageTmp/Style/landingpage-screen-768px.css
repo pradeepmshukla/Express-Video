@@ -1,0 +1,281 @@
+﻿@media only screen and (max-width: 768px) {
+
+    .why-videoimp {
+        display: none;
+    }
+
+    .our-services {
+        margin-top: 0px;
+    }
+
+    .bgmain {
+        width: 95%;
+        margin: 100px auto;
+    }
+
+    .rev_slider_wrapper {
+        height: 97rem;
+    }
+
+    .extraline {
+        height: 44px;
+    }
+      .navbar-nav > li{
+    border-bottom: 0;
+    margin-left: 18px;
+  }
+
+
+    .ourserviceimgClick .ourserviceimgClickimg {
+        width: 256px;
+        height: 239px;
+    }
+
+    .background {
+        width: 190px;
+        height: 185px;
+        position: absolute;
+    }
+
+    .ourserviceimgClick .background-box {
+        width: 258px;
+        height: 242px;
+        left: -1px;
+        top: -1px;
+    }
+
+    .ourserviceimgClick {
+            position: relative;
+    left: 38px;
+    padding: 0rem;
+    margin-bottom: 5rem;
+    }
+
+    .column {
+        margin-top: 0px;
+    }
+
+    .feature-box {
+        padding: 18px;
+        min-height: 127px;
+        margin: 18px auto;
+    }
+
+    .media-left, .media > .pull-left {
+        padding-right: 4px;
+        padding-top: 27px;
+    }
+
+    /*Our Process*/
+    .processbox {
+        position: relative;
+        margin-top: 23px;
+        padding-right: 12px;
+        left: 0px;
+    }
+
+    .maincircle {
+          position: relative;
+    top: -17px;
+    width: 344px;
+    left: -198px;
+    margin: auto;
+    }
+
+    .processbox {
+        width: 100%;
+        line-height: 2rem;
+        text-align: left;
+        position: relative;
+        /* transform: scale(0.9); */
+    }
+
+
+    .ourprocess {
+        margin-top: 79px;
+        padding-top: 0px;
+        text-align: center;
+    }
+
+    .processbox img {
+        margin: -22px auto;
+        width: 93%;
+    }
+
+    .concept-box {
+        top: 0px;
+        right: 0px;
+    }
+
+    .script-box {
+        top: 0px;
+        right: 0px;
+    }
+
+    .voiceover-box {
+        top: 0px;
+        right: 0px;
+    }
+
+    .Animation-box {
+        top: 0px;
+        right: 0px;
+    }
+
+    .delivery-box {
+        top: 0px;
+        right: 0px;
+    }
+
+    .contents {
+        font-size: 1.5rem;
+        margin-top: -14px;
+        margin-left: -27px;
+        width: 35%;
+    }
+
+
+    .whychooseus {
+        margin-top: 60rem;
+    }
+
+    .getpromo {
+        font-size: 3rem;
+        color: white;
+        width: 74%;
+        margin: 0px auto;
+        margin-top: 72px;
+    }
+
+    .getpromo-price {
+        font-size: 7rem;
+        color: white;
+        width: 74%;
+        margin: 0 auto;
+    }
+
+    .section {
+        padding-top: 0px;
+        padding-bottom: 55px;
+    }
+
+    .wch-img img {
+        width: 75%;
+        margin: 0px auto;
+    }
+
+    .rev_slider .col-md-6 {
+        margin-top: 11px;
+        padding-bottom: 18px;
+    }
+
+    .timing {
+        margin-top: 0px;
+    }
+
+    .salesvideo {
+        margin-top: 0px;
+    }
+
+    .brand {
+        display: inline-block;
+        margin: 0 0 15px 15px;
+        text-align: center;
+        font-size: 22px;
+        line-height: 1;
+        text-transform: uppercase;
+        font-weight: 500;
+        color: #fff;
+        letter-spacing: 0.16em;
+    }
+
+    .whoweare-description {
+       width: 132%;
+    margin: 0 auto;
+    background: url(../Content/Images/whoweare/bg_who-we-are.png);
+    background-size: 100% 54%;
+    background-position: 100% 0%;
+    padding-left: 89px;
+    padding-top: 53px;
+    font-size: 1.7rem;
+    color: white;
+    background-repeat: no-repeat;
+    margin-left: -10rem;
+    }
+
+        .whoweare-description p {
+            width: 71%;
+            margin-left: 76px;
+        }
+
+    .filltheform {
+        font-size: 2.8rem;
+        color: white;
+        /* width: 84%; */
+        margin: 0 auto;
+        font-family: cursive;
+        padding-bottom: 34px;
+        margin-left: 0px;
+        font-family: 'Hind', sans-serif;
+    }
+    
+
+    .tp-simpleresponsive img, .rev_slider img {
+        max-width: none !important;
+        -moz-transition: none;
+        -webkit-transition: none;
+        -o-transition: none;
+        transition: none;
+        margin: 0px;
+        padding: 18px;
+        border-width: 0px;
+        border: none;
+        margin-left: 0px;
+        margin-top: 23px;
+    }
+
+    .our-services {
+            margin-top: 705px;
+    }
+
+    .section-title {
+        font-family: Montserrat-Bold;
+        font-size: 3.5rem;
+        line-height: 5rem;
+    }
+    .wch-img {
+    text-align: center;
+    margin-top: 42px;
+    height: 445px;
+}
+
+    .reviewyourorder{
+     margin-left: 10px;
+    font-size: 2rem;
+    padding-top: 50px;
+    }
+    .divconfirmation{
+        position: absolute;
+    bottom: -1287px;
+    background-color: white;
+    padding: 7px;
+    left: 16px;
+    }
+    .basket-card {
+    margin: 68px auto;
+    width: 77%;
+    font-size: 1.3rem;
+    margin-bottom: 175px;
+}
+    .deliverydays {
+    text-align: center;
+    background-color: #fcc012 !important;
+    width: 86%;
+    margin: 120px auto;
+}
+}
+/*@media only screen and (orientation: landscape) {
+  .our-services {
+    padding-top: 319px;
+}
+}*/

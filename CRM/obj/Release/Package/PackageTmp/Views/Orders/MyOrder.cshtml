@@ -1,0 +1,261 @@
+﻿@model  System.Data.DataTable
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;// "~/Views/Shared/_AdminLayout.cshtml";
+
+    int columnCount = 0;
+}
+
+<style>
+    .tbldata {
+        text-align: center;
+    }
+
+        .tbldata div {
+            text-align: center;
+            border: 1px solid black;
+            padding: 3px;
+            height: 27px;
+            font-size: 0.8rem;
+            margin: 0.6rem;
+        }
+
+    .tbl-header div {
+        border-bottom: 2px solid orange;
+        text-align: center;
+        /* font-weight: 500; */
+        padding-bottom: 1px;
+        margin-bottom: 8px;
+    }
+
+    .not-assigned {
+        color: red;
+    }
+
+    .modal-body a {
+        color: #ffc800;
+    }
+
+    .orderDetails td .btn {
+        padding: 0.00rem 0.75rem;
+    }
+
+    .OrderCancelled_class {
+        /*background-color: antiquewhite;*/
+    }
+
+    .popupbox {
+        background: white;
+        padding: 11px;
+    }
+</style>
+
+
+<div class="row">
+    <div class="col-lg-12 col-sm-12">
+        <div class="modal fade" id="OrderCancel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog  modal-dialog-centered" role="document">
+                <div class="modal-content" style="background-color: #000000;color:white">
+                    <div class="modal-header" style="background-color: #000000 !important;color:white;border-color: #000000; !important">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="">
+
+                            <table align="center" style="width:100%; text-align:center;margin-bottom: 44px;">
+                                <tr>
+                                    <td colspan="2">
+                                        <span class="responsemsg" style="padding-bottom: 43px;font-size: 1.3rem;display:block">Are you sure want to cancel your order?</span>
+
+                                    </td>
+                                </tr>
+                                <tr class="hiderow">
+                                    <td><div class="btn btn-warning btncancelorderYes" style="width:150px" onclick="CancelOrder(this)" data-orderid="0">Yes</div></td>
+                                    <td><div class="btn btn-warning" data-dismiss="modal" style="width:150px">No</div></td>
+                                </tr>
+                            </table>
+
+                            <span>*Please read our <a href="/Home/TermAndConditions" target="_blank">terms & conditions</a> properly.</span>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="card-body table-responsive">
+            <div class="">
+                <table id="datatable2" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%; text-align:center">
+                    <thead>
+                        <tr>
+                            @foreach (System.Data.DataColumn col in Model.Columns)
+                            {
+
+                                if (col.ColumnName == "Order No" || col.ColumnName == "Start Date" || col.ColumnName == "End Date" || col.ColumnName == "Order Details" || col.ColumnName == "Invoice")
+                                {
+                                    if (col.ColumnName == "Order No")
+                                    {
+                                        <th>@col.ColumnName</th>
+                                        <th></th>
+                                    }
+                                    else
+                                    {
+                                        <th>@col.ColumnName</th>
+                                    }
+
+                                }
+
+                            }
+                            <th>Top up Invoice</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (System.Data.DataRow row in Model.Rows)
+                        {
+                            <tr>
+
+                                @foreach (System.Data.DataColumn col in Model.Columns)
+                                {
+                                    if (col.ColumnName == "Order No" || col.ColumnName == "Start Date" || col.ColumnName == "End Date" || col.ColumnName == "Order Details" || col.ColumnName == "Invoice" || col.ColumnName == "Total Amt.")
+                                    {
+                                        if (col.ColumnName == "Order No")
+                                        {
+                                            <td>#@row[col.ColumnName]</td>
+                                            <td class="tdvideoform"><div class="btn btn-warning" onclick="ScriptDetails(@row[col.ColumnName])">Video Form</div></td>
+                                        }
+                                        else if (col.ColumnName == "Invoice")
+                                        {
+                                            <td><div class="btn btn-warning" onclick="_CustomerInvoice(@row["Order No"])">@row[col.ColumnName]</div></td>
+                                        }
+                                        else if (col.ColumnName == "Order Details")
+                                        {
+                                            <td><div class="btn btn-warning" onclick="_OrderDetails(@row["Order No"])">View</div></td>
+                                        }
+                                        else if (col.ColumnName == "Total Amt.")
+                                        {
+                                            @*<td>@row["Order No"]</td>*@
+                                            <td>
+                                                @if(Convert.ToString(row["TopUp"])=="TopupInvoice")
+                                                {
+                                                    @*<div class="btn" onclick="_TopUpInvoice(@row["Order No"])">INVOICE</div>*@
+                                                    <div class="btn btn-warning" onclick="_TopUpInvoice(@row["Order No"])">VIEW</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="btn btn-warning" onclick="_TopUpRequest(@row["Order No"])">TOP UP</div>
+                                                }                                                   
+                                            
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>@row[col.ColumnName]</td>
+                                        }
+                                    }
+
+
+                                }
+
+                                @if (Convert.ToString(row["VideoClientStatus"]) == "7")
+                                {
+                                    <td><div class="btn btn-warning" style="cursor:not-allowed">Cancel Order</div></td>
+                                }
+                                else if (Convert.ToString(row["IsOrderCancel"]) == "True")
+                                {
+                                    <td>@row["OrderCancelDate"]</td>
+                                }
+                                else
+                                {
+                                    <td><div class="btn btn-warning cancelOrder" data-toggle="modal" data-target="#OrderCancel" data-orderid="@row["Order No"]">Cancel Order</div></td>
+                                }
+
+                            </tr>
+
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    var OrderId = 0;
+    var FeedbackType = "";
+    var SentTo = 0;
+    var FilesUploaded = "";
+    var ClientStatus = "";
+    $(document).ready(function () {
+        $(".cancelOrder").click(function () {
+            var orderid = $(this).attr("data-orderid");
+            $(".btncancelorderYes").attr("data-orderid", orderid);
+            $(".responsemsg").html("Are you sure want to cancel your order?");
+            $(".hiderow").show();
+
+        });
+    });
+    function SetOrderId(id) {
+        OrderId = id;
+    }
+    function ViewFeedback(OrderId) {
+        $(".viewfeedbackdetails").html("Not yet any feedback ");
+        var data = {
+
+            OrderId: OrderId,
+            FeedbackType: FeedbackType
+        }
+        $.ajax({
+            type: "POST",
+            url: "/FeedbackDetails/ViewFeedback",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                var html = "";
+                for (var i = 0; i < data.length; i++) {
+                    html += '<div class="fd">' +
+                        '<div class="comment"><span style="font-weight:bold">[' + data[i].ClientStatus + ']</span> <span>' + data[i].FeedbackComment + '</span></div>' +
+                        '<span class="dt">' + data[i].DateTime + '</span>';
+                    if (data[i].FilesUploaded != "") {
+                        html += '<span class="attachment"> <a href="#" target="_blank" data-url="../Uploads/' + data[i].FilesUploaded + '">download file</a>';
+                    } else {
+                        html += '<span class="attachment"></span>';
+                    }
+
+                    html += "</div>";
+
+                }
+                if (html != "") {
+                    $(".viewfeedbackdetails").html(html);
+                }
+            }
+        });
+    }
+    function CancelOrder(btn) {
+        var OrderId = $(btn).attr("data-orderid");
+        var data = {
+            OrderId: OrderId
+        };
+        $.ajax({
+            type: "POST",
+            url: "/OrderStatus/CancelOrder",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                $(".responsemsg").html(data);
+                $(".hiderow").hide();
+            }
+        });
+    }
+    
+
+</script>

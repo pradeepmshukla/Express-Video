@@ -1,0 +1,237 @@
+﻿@model DAL.SampleVideo
+@{
+    ViewBag.Title = "New Staff";
+    Layout = null;// "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <input type="hidden" id="SampleVideoId" value="@Model.SampleVideoId"/>
+    <div class="col-md-4 col-sm-12">
+        <div class="form-group">
+            <label for="username">Video Name</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="Name" placeholder="enter  video name" value="@Model.Name"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12" style="display:none">
+        <div class="form-group">
+            <label for="username">Video Title</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="Title" placeholder="Enter Video Title" value="@Model.Title">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <div class="form-group">
+            <label for="username">Category</label>
+            <div class="input-group mb-3">
+                <select class="form-control VideoCategory" data-value="@Model.VideoCategory" id="VideoCategory">
+                    <option value="">Select Category</option>
+                    <option value="EXPLAINER VIDEO">EXPLAINER VIDEO</option>
+                    <option value="INFOGRAPHIC VIDEO">INFOGRAPHIC VIDEO</option>
+                    <option value="MOTION GRAPHIC VIDEO">MOTION GRAPHIC VIDEO</option>
+                    <option value="WHITEBOARD VIDEO">WHITEBOARD VIDEO</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <div class="form-group">
+            <label for="username">Video type</label>
+            <div class="input-group mb-3">
+                <select class="form-control VideoType" data-value="@Model.VideoType" id="VideoType">
+                    <option value="Level 01">Level 01</option>
+                    <option value="Level 02">Level 02</option>
+                    <option value="Level 03">Level 03</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <div class="form-group">
+            <label for="username">Price</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="Price" placeholder="enter price" value="@Model.Price"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <div class="form-group">
+            <label for="username">Youtube Link</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="YoutubeLink" placeholder="Enter Youtube Link" value="@Model.YoutubeLink">
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        @if (Model.SampleVideoId > 0)
+            {
+            <div class="btn btn-sm btn-round btn-block waves-effect waves-light" id="btnSubmit">Update Video Sample</div>
+        }
+        else
+        {
+            <div class="btn btn-sm btn-round btn-block waves-effect waves-light" id="btnSubmit">Add Video Sample</div>
+        }
+        &nbsp;&nbsp; <div onclick="callPage('/SampleVideo/Index', 'List Of Sample Video', '')" class="btn btn-sm btn-round btn-block waves-effect waves-light">Back to List</div>
+    </div>
+
+    <div class="col-md-12 col-sm-12" style="display:none">
+        <div class="form-group">
+            <label for="username">Description</label>
+            <div class="input-group mb-3">
+                <textarea class="form-control" id="Description" placeholder="Enter Video Description" rows="7">
+                @Model.Description
+                </textarea>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12" style="display:none">
+        <div class="form-group">
+            <label for="username">Upload Video</label>
+            <div class="input-group mb-12">
+                @if (string.IsNullOrEmpty(Model.VideoUrl))
+                {
+                    <div class="videooutput">Video not uploaded</div>
+                }
+                else
+                {
+                    <div class="videooutput">
+                         <video id="my-video"
+                               class="video-js"
+                               controls
+                               preload="auto"
+                               width="640"
+                               height="264"
+                               poster="test.png"
+                               data-setup="{}">
+                            <source src="~/Uploads/@Model.VideoUrl" type="video/mp4" />
+                             
+                        </video>
+                    </div>
+                }
+                <hr/>
+                <input type="file" id="uploadVideo" onchange="uploadVideo()"/>
+                <input type="text" class="form-control" id="VideoUrl" value="@Model.VideoUrl" style="display:none"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12"  style="display:none">
+        <div class="form-group">
+            <label for="username">Upload Image</label>
+            <div class="input-group mb-12">
+                <img src="~/Uploads/@Model.ImageUrl" class="img img-thumbnail"/>
+                <input type="file" id="uploadImage" onchange="uploadImage()"/>
+                <input type="text" class="form-control" id="ImageUrl" value="@Model.ImageUrl" style="display:none"/>
+            </div>
+        </div>
+    </div>
+    <div style="clear:both"></div>
+    <div class="col-md-3"></div>
+    <div class="col-md-3"></div>
+        <div class="col-md-3">
+          
+        </div>
+        
+
+
+
+    </div>
+
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#btnSubmit").click(function () {
+            SaveData();
+        });
+       
+        var val = $("#VideoCategory").attr("data-value");
+        $("#VideoCategory").val(val);
+
+        val = $("#VideoType").attr("data-value");
+        $("#VideoType").val(val);
+    });
+    function uploadImage() {
+        if (fileValidation('uploadImage','image')) {
+            var r = UploadFile("uploadImage", "ImageUrl");
+        }
+    }
+    function uploadVideo() {
+        if (fileValidation('uploadVideo','video')) {
+            var r = UploadFile("uploadVideo", "VideoUrl");
+        }
+    }
+    function SaveData() {
+        //debugger;
+        var SampleVideoId = $("#SampleVideoId").val().trim();
+        var Name = $("#Name").val().trim();
+        var Price = $("#Price").val().trim();
+        var VideoUrl = $("#VideoUrl").val().trim();
+        var ImageUrl = $("#ImageUrl").val().trim();
+        var Title = $("#Title").val().trim();
+        var Description = $("#Description").val().trim();
+        var IsActive = true;//$("#IsActive").is(":checked");
+        var VideoCategory = $("#VideoCategory").val();
+        var YoutubeLink = $("#YoutubeLink").val().trim();
+        var VideoType = $("#VideoType").val().trim();
+        
+        var data = {
+
+            SampleVideoId: SampleVideoId,
+            Name: Name,
+            Price: Price,
+            VideoUrl: VideoUrl,
+            Title: Title,
+            Description: Description,
+            ImageUrl: ImageUrl,
+            VideoUrl:VideoUrl,
+            IsActive: IsActive,
+            VideoCategory: VideoCategory,
+            YoutubeLink: YoutubeLink,
+            VideoType: VideoType
+        }
+        if (isvalidate(data)) {
+            $.ajax({
+                type: "POST",
+                url: "/SampleVideo/SaveData",
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    //alert(data);
+                    callPage('/SampleVideo/Index', 'List Of Sample Video', '');
+                    //location.href = "/SampleVideo/Index";
+                }
+            });
+        }
+    }
+    function isvalidate(d) {
+        var isvalid = true;
+        var msg = [];
+        if (d.Name == "") {
+            msg.push("Please Enter Video Sample Name");
+        }
+        if (d.Title == "") {
+          //  msg.push("Please Enter Video Title");
+        }
+        if (d.Price == "") {
+            msg.push("Please Price of Video");
+        }
+
+
+        if (msg.length > 0) {
+            var error = "<ul>";
+            for (var i = 0; i < msg.length; i++) {
+                error += "<li>"+msg[i]+"</li>";
+            }
+            error += "</ul>";
+            alert(error);
+            isvalid = false;
+        }
+        return isvalid;
+    }
+</script>

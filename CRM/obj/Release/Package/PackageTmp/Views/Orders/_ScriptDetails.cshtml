@@ -1,0 +1,253 @@
+﻿@model  DAL.Orders
+@{
+    Layout = null;
+}
+<style>
+    .ScriptDetails .hint {
+        font-size: 11px;
+        text-transform:initial;
+    }
+
+    .remove {
+        color: red;
+        font-weight: bold;
+        margin-left: 13px;
+        font-size: 15px;
+    }
+    .files{
+        padding:5px;
+    }
+    .hint{
+        display:block;
+    }
+</style>
+<div class="ScriptDetails">
+
+
+
+    @if (CRM.Models.Global.GlobalFunctions.GetRoleId() ==5 || CRM.Models.Global.GlobalFunctions.GetRoleId() == 2 || CRM.Models.Global.GlobalFunctions.GetRoleId() == 4)
+    {
+        <div class="row">
+             <div class="col-12">
+                <div class="form-group">
+                    <label>Video Concept*</label>
+                    <span class="hint">(Mention what video you want to make?)i.e, product promotion of your food business,product launching video, etc..</span>
+                    <div class="mb-12">
+                        <textarea class="form-control" id="Script_VideoConcept" placeholder="enter video concept">@Model.Script_VideoConcept</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <label>Target Audience*</label>
+                    <span class="hint">(Mention who your customers are?</span>
+                    <div class="mb-12">
+                        <textarea class="form-control" id="Script_TargetAudience" placeholder="enter purpose of video">@Model.Script_TargetAudience</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <label>Explain Your Video Requirements*</label>
+                    <span class="hint">(Mention what you want to show in video?) i.e, your business services, your strength, features, etc..</span>
+                    <div class="mb-12">
+                        <textarea class="form-control" id="Script_ExlpainVideoRequirement" placeholder="enter benifits for customers">@Model.Script_ExlpainVideoRequirement</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <label>Fill You Video Requirements*</label>
+                    <span class="hint">(Write & Fill specific data which you want to show in video) i.e, your business features, statistics, etc..)</span>
+                    <div class="mb-12">
+                        <textarea class="form-control" id="Script_FillVideoRequirement" placeholder="enter about your company">@Model.Script_FillVideoRequirement</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <label>Benifits to Customer*</label>
+                    <span class="hint">(Mention what and how customer will get benefit from this?)</span>
+                    <div class="mb-12">
+                        <textarea class="form-control" id="Script_BenifitesForCustomer" placeholder="enter target audience">@Model.Script_BenifitesForCustomer</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <label>Company Name*</label>
+                    <span class="hint">(Mention your company or business name)</span>
+                    <div class="mb-12">
+                        <input type="text" class="form-control" placeholder="enter company name" id="Script_CompanyName" value="@Model.Script_CompanyName" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <label>Company Website</label>
+                    <span class="hint">(provide website URL if any)</span>
+                    <div class="mb-12">
+                        <input type="text" class="form-control" placeholder="enter company website" id="Script_CompanyWebsite" value="@Model.Script_CompanyWebsite" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col-12">
+            <div class="form-group">
+                <label>Company Logo</label>
+                <span class="hint">(Provide High resolution logo image if any in .png)</span>
+                <div class="mb-12">
+                    @if (!string.IsNullOrEmpty(Model.Script_LogoName))
+                    {
+                        <div class="col-12">
+                            <div class="removeimagearea">
+                                <img style="width:150px" src="../Uploads/@Model.Script_LogoName" /><br/>
+                                <a href="../Uploads/@Model.Script_LogoName" download="@Model.Script_LogoName" class="btn btn-red">Download</a>
+                                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 4)
+                                {
+                                    <div class="remove removeimage" data-value="@Model.Script_LogoName" data-id="Script_LogoName">X</div>
+                                }
+                            </div>
+                            <br />
+                        </div>
+                    }
+                    @if (!Model.IsFinalSaved && CRM.Models.Global.GlobalFunctions.GetRoleId() == 4 )
+                    {
+                        <div class="col-md-6 form-control" style="height:fit-content">
+                            <div class="file-upload">
+                                <div class="file-select">
+                                    @if (Model.OrderId > 0)
+                                    {
+                                        <div class="file-select-button" id="fileName">Choose File</div>
+                                        <div class="file-select-name" id="noFile">No file chosen...</div>
+                                    }
+                                    <input type="file" name="chooseFile" id="fu_Script_LogoName" onchange="UploadFile('fu_Script_LogoName', 'Script_LogoName','image')">
+                                    <input type="hidden" value="@Model.Script_LogoName" id="Script_LogoName" />
+                                </div>
+                                <div class="error-message" style="color:red"></div>
+                                <div class="filename">
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+        <div class="col-12" style="margin-top:35px">
+            <div class="form-group">
+                <label>Product Service Images</label>
+                <span class="hint">(Upload images of product etc. if you want to add something in video)</span>
+                <div class="mb-12">
+                    @if (!string.IsNullOrEmpty(Model.Script_ProductServiceImages))
+                    {
+                        <div class="col-12 fu_Script_ProductServiceImages_addedFile">
+                            @foreach (var item in Model.Script_ProductServiceImages.Split(','))
+                            {
+                                if (!string.IsNullOrEmpty(item))
+                                {
+                                    <div class="col-md-3 removeimagearea files" data-savedfilename="@item">
+                                        <img style="width:150px" src="../Uploads/@item" /><br/>
+                                        <a href="../Uploads/@item" download="@item" class="btn btn-red">Download</a>
+                                        @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 4)
+                                        {
+                                            <div class="remove removeimage" data-value="@item" data-id="Script_ProductServiceImages">X</div>
+                                        }
+                                    </div>
+                                }
+                            }
+                        </div>
+                    }
+                    @if (!Model.IsFinalSaved && CRM.Models.Global.GlobalFunctions.GetRoleId() == 4)
+                    {
+                        <div class="productserviceimages col-md-6 form-control" style="height: fit-content;padding: 13px;">
+                            <div class="file-upload">
+                                <div class="file-select">
+                                    @if (Model.OrderId > 0)
+                                    {
+                                        <div class="file-select-button" id="fileName">Choose File</div>
+                                        <div class="file-select-name" id="noFile">No file chosen...</div>
+                                    }
+                                    <input type="file" name="chooseFile" id="fu_Script_ProductServiceImages" onchange='UploadFile("fu_Script_ProductServiceImages", "Script_ProductServiceImages", "image")'>
+                                    <input type="hidden" value="@Model.Script_ProductServiceImages" id="Script_ProductServiceImages" />
+                                </div>
+                                <div class="error-message" style="color:red"></div>
+                                <div class="filename">
+
+                                </div>
+                                
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        @if (Model.OrderId > 0)
+        {
+            <div class="col-12">
+                <div class="form-group">
+                    <label>Sample Video Link</label>
+                    <div class="mb-12">
+                        <div class="videooutput">
+                            <iframe width="450" height="250" src="@Model.YoutubeLink" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            if (!string.IsNullOrEmpty(Model.SoundFileName))
+            {
+                <div class="col-12">
+                    <div class="col-6">
+                        <span> Voice selected</span>
+                    </div>
+                    <div class="col-6">
+                        <audio controls><source src="~/Uploads/@Model.SoundFileName" type="audio/ogg"><source src="~/Uploads/@Model.SoundFileName" type="audio/mpeg">Your browser does not support the audio element.</audio>
+                    </div>
+                </div>
+            }
+
+        }
+        <div style="clear:both"></div>
+        @if (!Model.IsFinalSaved && CRM.Models.Global.GlobalFunctions.GetRoleId() == 4 && Model.OrderId > 0)
+        {
+            <div class="col-12" style="text-align:center; padding-top:10px; padding-bottom:10px">
+                <div class="btn" onclick="SaveScriptDetails(@Model.OrderId)">SAVE AS FINAL</div>
+
+                <p style="margin-top: 28px;color: red;"><b>Note:</b> Any difficulty in filling this form? <b>don't worry! Just Call Us.</b> We will assist you.</p>
+            </div>
+        }
+        @if (Model.OrderId == 0)
+        {
+            <div class="col-12" style="text-align:center; padding-top:10px; padding-bottom:10px">
+                <p style="text-align:center;color:red;" id="scriptmessage"></p>
+                <div class="btn" onclick="SaveScriptDetails(0,this)">SAVE</div>
+            </div>
+        }
+    </div>
+
+</div>
+<script>
+    var IsFinalSaved = '@Model.IsFinalSaved';
+    $(document).ready(function () {
+        if (IsFinalSaved.toLowerCase() == "true") {
+            $(".ScriptDetails").find("textarea").attr("disabled", true);
+            $(".ScriptDetails").find("input").attr("disabled", true)
+        }
+        $(".removeimage").click(function () {
+            var id = $(this).attr("data-id");
+            var val = $(this).attr("data-value");
+            var oldvalue = $("#" + id).val();
+            oldvalue = oldvalue.replace(val, '').replace(',,', ',');
+            $("#" + id).val(oldvalue);
+            $(this).parent(".removeimagearea").remove();
+        });
+    });
+
+</script>

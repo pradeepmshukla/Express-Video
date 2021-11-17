@@ -1,0 +1,140 @@
+@media all and (max-width: 600px) {
+    .navbar_text {
+        position: absolute;
+        top: 64px;
+        right: 76px;
+    }
+
+    .navbar-custom .nav-link {
+        padding: 0 0.75rem;
+        color: #7081b9;
+        max-height: 70px;
+        margin-left: 10px;
+    }
+
+    .customer_part {
+        text-align: center;
+        width: 100%;
+    }
+
+    #UpdateProfileBtn {
+        margin: 12px auto;
+        padding: 20px 0px;
+    }
+
+    .timing {
+        width: 100%;
+        text-align: left;
+        margin: 10px 10px;
+    }
+
+    .Review-box {
+        background-color: white;
+        padding: 1px 13px;
+        margin-bottom: 14px;
+        text-align: left;
+    }
+
+
+    /*#centerForMobile{
+        text-align:center;
+            list-style: none;
+    padding-left: 0;
+    }*/
+    .dropdown {
+        color: white;
+    }
+
+    .navbar-custom {
+        padding-right: 40px;
+    }
+
+    .enlarge-menu.enlarge-menu-all .topbar .topbar-left {
+        height: 38px;
+        width: 100%;
+        margin: auto;
+        align-items: center;
+        display: inline-block;
+    }
+
+    .three_dot {
+        margin-top: 31px;
+        width: 85px;
+        display: inline-block;
+    }
+
+    .topbar .topbar-left .logo {
+        line-height: 80px;
+        font-size: 2rem;
+    }
+
+    .container_part {
+        margin-top: 44px;
+        width: 100%;
+        padding-right: 12px;
+        padding-left: 12px;
+        margin-right: auto;
+        margin-left: auto;
+        margin-bottom: 100px;
+    }
+
+    .ProfileImage {
+        width: 100%;
+        text-align: center;
+        color: white;
+        margin-top: 60px;
+    }
+
+    #common-modal .modal-dialog {
+        width: 100%;
+    }
+
+    .viewsample-dropdown {
+        padding-top: 18px;
+        padding-bottom: 30px;
+    }
+
+    .modal-dialog {
+        max-width: 80%;
+        margin: 1.75rem auto;
+    }
+
+    .addsoundsample {
+        margin-top: 5px;
+    }
+
+    .btn-remove-audio {
+    margin-top: -2px;
+    margin-left: 0px;
+}
+
+    .reservedby {
+        position: absolute;
+        bottom: -243px;
+        left: 8%;
+    }
+
+    .videoTopDetails .vHeading {
+        font-size: 2.5rem;
+        font-weight: bold;
+        position: relative;
+    }
+
+    .newbtn {
+        top: 55px;
+    }
+
+    .btnlogout-left {
+        margin: 0 auto;
+        min-width: 138px;
+        line-height: 3;
+        left: 0%;
+    }
+
+    .btnlogout-right {
+        margin: 0 auto;
+        min-width: 138px;
+        line-height: 3;
+        left: 0%;
+    }
+}

@@ -1,0 +1,199 @@
+﻿@model DAL.Dashboard
+@{
+    Layout = null;
+}
+<style>
+    .mydaashboard {
+        background-color: #e0e3e8;
+    }
+
+   
+</style>
+
+<div class="row mydaashboard">
+    <div class="col-md-8 col-sm-12 dashboard_section">
+        <div class="row dashboardSection">
+            <div class="col-md-4 col-sm-4 col-lg-4 Review-box-1-area">
+                <div class="Review-box-1 ">
+                    <h4 class="r-title">Revenue Details:</h4>
+                    <div class="row">
+                        <div class="col-12 r-description">
+                            <span>Total Revenue: </span>
+                            <span>@Model.TotalRevenue</span>
+                        </div>
+                        <div class="col-12 r-description">
+                            <span>Yearly Revenue: </span>
+                            <span>@Model.YearlyRevenue</span>
+                        </div>
+                        <div class="col-12 r-description">
+                            <span>Monthly Revenue: </span>
+                            <span>@Model.MonthalyRevenue</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-lg-4 Review-box-1-area">
+                <div class="Review-box-1">
+                    <h4 class="r-title">Order Details:</h4>
+                    <div class="row">
+                        <div class="col-12 r-description">
+                            <span>Total Order: </span>
+                            <span>@Model.TotalNoOfOrders</span>
+                        </div>
+                        <div class="col-12 r-description">
+                            <span>Yearly Order: </span>
+                            <span>@Model.TotalNoOfOrdersYearly</span>
+                        </div>
+                        <div class="col-12 r-description">
+                            <span>Monthly Order: </span>
+                            <span>@Model.TotalNoOfOrdersMonthaly</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-lg-4 Review-box-1-area">
+                <div class="Review-box-1">
+                    <h4 class="r-title totalnoofcustomer-title" style="text-align:center">Total no. of<br />registered customers:</h4>
+                    <span class="totalnoofcustomer">@Model.TotalNoOfCustomer</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="Review-box RevenueAnalyticsChart-area">
+                    <h4 style="padding:14px">
+                        Monthly Work
+                        @*<span class="label-danger">Today</span>
+                            <span>Weekly</span>
+                            <span>Monthaly</span>*@
+                    </h4>
+                    <div id="RevenueAnalyticsChart"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <div class="Review-box-1" style="padding:0px">
+            <div class="announcement">
+                <h3 class="announcement-heading">ANNOUNCEMENTS</h3>
+                <div class="announcement-list" style="overflow-y: auto;">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Content/Theme/Crovex_v1.0/plugins/apexcharts/apexcharts.min.js"></script>
+<script>
+    $(document).ready(function () {
+        GetAnnouncement();
+        //$(".page-title").hide();
+        RevenueAnalyticsChart();
+    });
+    function RevenueAnalyticsChart() {
+
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: "/Dashboard/AdminTotalDataForChart",
+            data: JSON.stringify({}),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+
+                var namelabel = [];
+                var d = new Date();
+                for (var i = 0; i < data.length; i++) {
+                    if (i == 0) {
+                        namelabel.push('Jan ' + d.getFullYear());
+                    }
+                    if (i == 1) {
+                        namelabel.push('Feb ' + d.getFullYear());
+                    }
+                    if (i == 2) {
+                        namelabel.push('Mar ' + d.getFullYear());
+                    }
+                    if (i == 3) {
+                        namelabel.push('Apr ' + d.getFullYear());
+                    }
+                    if (i == 4) {
+                        namelabel.push('May ' + d.getFullYear());
+                    }
+                    if (i == 5) {
+                        namelabel.push('Jun ' + d.getFullYear());
+                    }
+                    if (i == 6) {
+                        namelabel.push('Jul ' + d.getFullYear());
+                    }
+                    if (i == 7) {
+                        namelabel.push('Aug ' + d.getFullYear());
+                    }
+                    if (i == 8) {
+                        namelabel.push('Sep ' + d.getFullYear());
+                    }
+                    if (i == 9) {
+                        namelabel.push('Oct ' + d.getFullYear());
+                    }
+                    if (i == 10) {
+                        namelabel.push('Nov ' + d.getFullYear());
+                    }
+                    if (i == 11) {
+                        namelabel.push('Dec' + d.getFullYear());
+                    }
+
+                }
+                var options = {
+                    series: [{
+                        name: '',
+                        type: 'column',
+                        data: data
+                    }],
+                    chart: {
+                        height: 350,
+                        type: 'line',
+                    },
+                    stroke: {
+                        width: [0, data.length]
+                    },
+                    title: {
+                        text: ''
+                    },
+                    dataLabels: {
+                        enabled: true,
+                        enabledOnSeries: [1]
+                    },
+                    labels: namelabel,
+                    xaxis: {
+                        type: 'datetime'
+                    },
+                    yaxis: [{
+                        title: {
+                            text: '',
+                        },
+
+                    }, {
+                        opposite: true,
+                        title: {
+                            text: ''
+                        }
+                    }]
+                };
+
+                var chart = new ApexCharts(document.querySelector("#RevenueAnalyticsChart"), options);
+                chart.render();
+
+
+            },
+            error: function () {
+                alert("Something happen wrong!");
+            }
+        });
+    }
+
+
+</script>

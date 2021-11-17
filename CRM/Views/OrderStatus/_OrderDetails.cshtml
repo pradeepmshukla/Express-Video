@@ -1,0 +1,686 @@
+﻿
+@model  DAL.OrderStatus
+@{
+    Layout = null;
+    string disable = "";
+    if (CRM.Models.Global.GlobalFunctions.GetRoleId() != 2)
+    {
+        disable = "disablectnrl";
+    }
+    bool Script_Required = ViewBag.Script_Required;
+    bool VO_Required = ViewBag.VO_Required;
+}
+<style>
+    .orderdetail .form-control {
+        width: 85%;
+        margin: 0 auto;
+    }
+
+
+    .orderdetail td {
+        padding: 10px 18px;
+    }
+
+    .revision {
+        color: red;
+        font-size: 12px;
+    }
+
+    .feedbackarea {
+        text-align: center;
+    }
+
+        .feedbackarea .form-control {
+            width: 60px;
+        }
+
+        .feedbackarea .btn {
+            font-size: small;
+            float: left;
+            margin-left: -20px;
+        }
+
+    .btnupdate {
+        display: none;
+    }
+
+    .tbldata {
+        text-align: center;
+    }
+
+        .tbldata div {
+            margin: 0.6rem auto;
+            width: 83%;
+        }
+
+    .tbl-header {
+        text-transform: uppercase;
+    }
+
+        .tbl-header div {
+            border-bottom: 2px solid orange;
+            text-align: center;
+            /* font-weight: 500; */
+            padding-bottom: 1px;
+            margin-bottom: 8px;
+        }
+
+    .not-assigned {
+        color: red;
+    }
+
+    .ddlassignuser {
+        width: 83%;
+        margin: 0 auto;
+        border: 1px solid solid;
+        color: black;
+    }
+
+    .btnupdate {
+        display: none;
+        left: 15%;
+        margin-top: 5px;
+        width: 72%;
+        border-radius: 0;
+    }
+
+    .OrderDetailsArea {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .btnscriptview, .btnvoview, .btnvideoview {
+        line-height: 20px;
+        border-radius: 8px !important;
+        border-width: 0px !important;
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        transition:0.3s all;
+    }
+    .btnscriptview:hover, .btnvoview:hover, .btnvideoview:hover {
+        transform:scale(0.9);
+    }
+
+    .btnscriptview {
+        background-color: rgb(1,165,154);
+    }
+
+    .btnvoview {
+        background-color: rgb(243,62,93);
+    }
+
+    .btnvideoview {
+        background-color: rgb(98,110,212);
+    }
+
+    .btnpaymentstatus {
+        
+        background-color: #f33f5d !important;
+        line-height: 2;
+        border-radius: 4px !important;
+        border-width: 0px !important;
+        color: white !important;
+    }
+
+    .btnInvoice {
+        background-color: rgb(1,165,154) !important;
+        line-height: 2;
+        border-radius: 4px !important;
+        border-width: 0px !important;
+        color: white !important;
+        text-transform: uppercase;
+    }
+</style>
+<div class="OrderDetailsArea">
+    <input type="hidden" value="@Model.OrderId" id="hdnOrderId" />
+    <table class="orderdetail" style="    text-align: center;    width: 100%;    min-width: 978px !important;">
+        <tr>
+            <td></td>
+            @if (Script_Required)
+            {
+                <td class="tbl-header"><div>Script</div></td>
+            }
+            @if (VO_Required)
+            {
+                <td class="tbl-header"><div>Voice Over</div></td>
+            }
+            <td class="tbl-header"><div>Animation</div></td>
+            @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+            {
+                <td class="tbl-header"><div>Project File</div></td>
+            }
+            @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 2)
+            {
+                <td class="tbl-header"><div>Project Link</div></td>
+            }
+        </tr>
+        @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 2)
+        {
+            <tr>
+                <td style="text-align:left">Mail To Artist</td>
+                @if (Script_Required)
+                {
+                    <td><div class="btn" onclick="_ArtistDetails(5,'Script Artist Details')">Choose</div></td>
+                }
+                @if (VO_Required)
+                {
+                    <td><div class="btn" onclick="_ArtistDetails(6,'Voice Artist Details')">Choose</div></td>
+                }
+                <td><div class="btn" onclick="_ArtistDetails(7,'Animation Artist Details')">Choose</div></td>
+                <td><div class="btn" onclick="popupV1('@Model.ProjectFileLink', 'Project Link', 'Info')">View</div></td>
+
+            </tr>
+
+        }
+        <tr>
+            <td style="text-align:left">Assigned To</td>
+            @if (Script_Required)
+            {
+                <td class="script-assignto tbldata">
+                    <select class="ddlassignuser form-control @disable" data-id="ScriptAssignedUserId">
+                        <option>Select</option>
+                        @foreach (var item in ViewBag.lstUser)
+                {
+                    if (item.RoleId == 5)
+                    {
+                        if (Model.ScriptAssignedUserId == item.UserID)
+                        {
+                                    <option selected value="@item.UserID">@item.FirstName @item.LastName</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.UserID">@item.FirstName @item.LastName</option>
+                                }
+
+                            }
+                        }
+                    </select>
+                    <button class="btnupdate btn btn-round btn-block waves-effect waves-light" data-usertype="script" style="display:none" onclick="AssignOrderToUser(@Model.OrderId)">Assign to</button>
+                    <input type="hidden" value="@Model.ScriptAssignedUserId" id="ScriptAssignedUserId" />
+                </td>
+            }
+            @if (VO_Required)
+            {
+                <td class="vo-assignto tbldata">
+                    <select class="ddlassignuser form-control @disable" data-id="VOAssignedUserId">
+                        <option>Select</option>
+                        @foreach (var item in ViewBag.lstUser)
+                {
+                    if (item.RoleId == 6)
+                    {
+                        if (Model.VOAssignedUserId == item.UserID)
+                        {
+                                    <option selected value="@item.UserID">@item.FirstName @item.LastName</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.UserID">@item.FirstName @item.LastName</option>
+                                }
+                            }
+                        }
+                    </select>
+                    <button class="btnupdate btn btn-round btn-block waves-effect waves-light" data-usertype="script" style="display:none" onclick="AssignOrderToUser(@Model.OrderId)">Assign to</button>
+                    <input type="hidden" value="@Model.VOAssignedUserId" id="VOAssignedUserId" />
+                </td>
+            }
+            <td class="video-assignto tbldata">
+                <select class="ddlassignuser form-control @disable" data-id="VideoAssignedUserId">
+                    <option>Select</option>
+                    @foreach (var item in ViewBag.lstUser)
+                    {
+                        if (item.RoleId == 7)
+                        {
+                            if (Model.VideoAssignedUserId == item.UserID)
+                            {
+                                <option selected value="@item.UserID">@item.FirstName @item.LastName</option>
+                            }
+                            else
+                            {
+                                <option value="@item.UserID">@item.FirstName @item.LastName</option>
+                            }
+                        }
+                    }
+                </select>
+                <button class="btnupdate btn btn-round btn-block waves-effect waves-light" data-usertype="script" style="display:none" onclick="AssignOrderToUser(@Model.OrderId)">Assign to</button>
+                <input type="hidden" value="@Model.VideoAssignedUserId" id="VideoAssignedUserId" />
+            </td>
+            @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+            {
+                <td><div class="btn btn-warning" onclick="_UpdateProjectFileLink(@Model.OrderId)">Submit</div></td>
+            }
+        </tr>
+
+        @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 2)
+        {
+            <tr>
+                <td style="text-align:left">Projected Date</td>
+                @if (Script_Required)
+                {
+                    <td>
+                        @if (Model.ScriptAssignedUserId == 0)
+                        {
+                            <span>-</span>
+                        }
+                        else
+                        {
+                            <span>@ViewBag.OrderDetails.Rows[0]["ScriptAssignedDate"] & @ViewBag.OrderDetails.Rows[0]["ScriptEndDate"]</span>
+                        }
+                    </td>
+                }
+                else
+                {
+                    <td>-</td>
+                }
+                @if (VO_Required)
+                {
+                    <td>
+                        @if (Model.VOAssignedUserId == 0)
+                        {
+                            <span>-</span>
+                        }
+                        else
+                        {
+                            <span>@ViewBag.OrderDetails.Rows[0]["VOAssignedDate"] & @ViewBag.OrderDetails.Rows[0]["VOEndDate"]</span>
+                        }
+                    </td>
+                }
+                else
+                {
+                    <td>-</td>
+                }
+                <td>
+                    @if (Model.VideoAssignedUserId == 0)
+                    {
+                        <span>-</span>
+                    }
+                    else
+                    {
+                        <span>@ViewBag.OrderDetails.Rows[0]["VideoAssignedDate"] & @ViewBag.OrderDetails.Rows[0]["VideoEndDate"]</span>
+                    }
+                </td>
+                <td></td>
+
+            </tr>
+        }
+
+        <tr>
+            <td style="text-align:left">Status</td>
+            @if (Script_Required)
+            {
+                <td>
+                    <div class="form-control">
+                        @if (Model.ScriptStatus == null || Model.ScriptStatus == 1)
+                {
+                            <span class="Projectstatus_script">YTS</span>
+                        }
+                        else if (Model.ScriptStatus == 2)
+                        {
+                            <span class="Projectstatus_script">WIP</span>
+                        }
+                        else if (Model.ScriptStatus == 5)
+                        {
+                            <span class="Projectstatus_script">DONE</span>
+                        }
+                        else if (Model.ScriptStatus == 7)
+                        {
+                            <span class="Projectstatus_script">APPROVED</span>
+                        }
+                    </div>
+
+                </td>
+            }
+            @if (VO_Required)
+            {
+                <td>
+                    <div class="form-control">
+                        @if (Model.VOStatus == null || Model.VOStatus == 1)
+                {
+                            <span class="Projectstatus_vo">YTS</span>
+                        }
+                        else if (Model.VOStatus == 2)
+                        {
+                            <span class="Projectstatus_vo">WIP</span>
+                        }
+                        else if (Model.VOStatus == 5)
+                        {
+                            <span class="Projectstatus_vo">DONE</span>
+                        }
+                        else if (Model.VOStatus == 7)
+                        {
+                            <span class="Projectstatus_vo">APPROVED</span>
+                        }
+                    </div>
+                </td>
+            }
+            <td>
+                <div class="form-control">
+                    @if (Model.VideoStatus == null || Model.VideoStatus == 1)
+                    {
+                        <span class="Projectstatus_video">YTS</span>
+                    }
+                    else if (Model.VideoStatus == 2)
+                    {
+                        <span class="Projectstatus_video">WIP</span>
+                    }
+                    else if (Model.VideoStatus == 5)
+                    {
+                        <span class="Projectstatus_video">DONE</span>
+                    }
+                    else if (Model.VideoStatus == 7)
+                    {
+                        <span class="Projectstatus_video">APPROVED</span>
+                    }
+                </div>
+            </td>
+            @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+            {
+                <td></td>
+            }
+        </tr>
+
+        <tr>
+            <td style="text-align:left">View File<span class="revision">(First Take)</span></td>
+            @if (Script_Required)
+            {
+                <td class="script-file">
+                    <div class="row">
+                        <div class="col-6 feedbackarea">
+                            <div class="form-control btnscriptview">
+                                @if (!string.IsNullOrEmpty(Model.ScriptFileName_1))
+                                {
+                                    <span onclick="ViewFile('@Model.ScriptFileName_1')">View</span>
+                                }
+                                else
+                                {
+                                    <span>-</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-6 feedbackarea">
+                            <div class="btn" onclick="_ViewFeedback(@Model.OrderId,@Model.ScriptAssignedUserId,'ScriptFileName_1','Feedback details')">Feedback</div>
+                        </div>
+                    </div>
+
+
+                </td>
+            }
+            @if (VO_Required)
+            {
+                <td class="vo-file">
+                    <div class="row">
+                        <div class="col-6 feedbackarea">
+                            <div class="form-control btnvoview">
+                                @if (!string.IsNullOrEmpty(Model.VOFileName_1))
+                                {
+                                    <span onclick="ViewFile('@Model.VOFileName_1')">View</span>
+                                }
+                                else
+                                {
+                                    <span>-</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-6 feedbackarea">
+                            <div class="btn" onclick="_ViewFeedback(@Model.OrderId,@Model.VOAssignedUserId,'VOFileName_1','Feedback details')">Feedback</div>
+                        </div>
+                    </div>
+
+
+                </td>
+            }
+            <td class="video-fil">
+                <div class="row">
+                    <div class="col-6 feedbackarea">
+                        <div class="form-control btnvideoview">
+                            @if (!string.IsNullOrEmpty(Model.VideoFileName_1))
+                            {
+                                <span onclick="ViewFile('@Model.VideoFileName_1')">View</span>
+                            }
+                            else
+                            {
+                                <span>-</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-6 feedbackarea">
+                        <div class="btn" onclick="_ViewFeedback(@Model.OrderId,@Model.VideoAssignedUserId,'VideoFileName_1','Feedback details')">Feedback</div>
+                    </div>
+                </div>
+            </td>
+            @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+            {
+                <td></td>
+            }
+        </tr>
+        <tr>
+            <td style="text-align:left">View File<span class="revision">(Revision 01)</span></td>
+            @if (Script_Required)
+            {
+                <td class="script-file">
+                    <div class="row">
+                        <div class="col-6 feedbackarea">
+                            <div class="form-control btnscriptview">
+                                @if (!string.IsNullOrEmpty(Model.ScriptFileName_2))
+                                {
+                                    <span onclick="ViewFile('@Model.ScriptFileName_2')">View</span>
+                                }
+                                else
+                                {
+                                    <span>-</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-6 feedbackarea">
+                            <div class="btn" onclick="_ViewFeedback(@Model.OrderId,@Model.ScriptAssignedUserId,'ScriptFileName_2','Feedback details')">Feedback</div>
+                        </div>
+                    </div>
+
+
+                </td>
+            }
+            @if (VO_Required)
+            {
+                <td class="vo-file">
+                    <div class="row">
+                        <div class="col-6 feedbackarea">
+                            <div class="form-control btnvoview">
+                                @if (!string.IsNullOrEmpty(Model.VOFileName_2))
+                                {
+                                    <span onclick="ViewFile('@Model.VOFileName_2')">View</span>
+                                }
+                                else
+                                {
+                                    <span>-</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-6 feedbackarea">
+                            <div class="btn" onclick="_ViewFeedback(@Model.OrderId,@Model.VOAssignedUserId,'VOFileName_2','Feedback details')">Feedback</div>
+                        </div>
+                    </div>
+
+
+                </td>
+            }
+            <td class="video-fil">
+                <div class="row">
+                    <div class="col-6 feedbackarea">
+                        <div class="form-control btnvideoview">
+                            @if (!string.IsNullOrEmpty(Model.VideoFileName_2))
+                            {
+                                <span onclick="ViewFile('@Model.VideoFileName_2')">View</span>
+                            }
+                            else
+                            {
+                                <span>-</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-6 feedbackarea">
+                        <div class="btn" onclick="_ViewFeedback(@Model.OrderId,@Model.VideoAssignedUserId,'VideoFileName_2','Feedback details')">Feedback</div>
+                    </div>
+                </div>
+            </td>
+            @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+            {
+                <td></td>
+            }
+        </tr>
+        <tr>
+            <td style="text-align:left">View File<span class="revision">(Revision 02)</span></td>
+            @if (Script_Required)
+            {
+                <td class="script-file">
+                    <div class="row">
+                        <div class="col-6 feedbackarea">
+                            <div class="form-control btnscriptview">
+                                @if (!string.IsNullOrEmpty(Model.ScriptFileName_3))
+                                {
+                                    <span onclick="ViewFile('@Model.ScriptFileName_3')">View</span>
+                                }
+                                else
+                                {
+                                    <span>-</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-6 feedbackarea">
+                            <div class="btn" onclick="_ViewFeedback(@Model.OrderId,@Model.ScriptAssignedUserId,'ScriptFileName_3','Feedback details')">Feedback</div>
+                        </div>
+                    </div>
+
+
+                </td>
+            }
+            @if (VO_Required)
+            {
+                <td class="vo-file">
+                    <div class="row">
+                        <div class="col-6 feedbackarea">
+                            <div class="form-control btnvoview">
+                                @if (!string.IsNullOrEmpty(Model.VOFileName_3))
+                                {
+                                    <span onclick="ViewFile('@Model.VOFileName_3')">View</span>
+                                }
+                                else
+                                {
+                                    <span>-</span>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-6 feedbackarea">
+                            <div class="btn" onclick="_ViewFeedback(@Model.OrderId,@Model.VOAssignedUserId,'VOFileName_3','Feedback details')">Feedback</div>
+                        </div>
+                    </div>
+
+
+                </td>
+            }
+            <td class="video-fil">
+                <div class="row">
+                    <div class="col-6 feedbackarea">
+                        <div class="form-control btnvideoview">
+                            @if (!string.IsNullOrEmpty(Model.VideoFileName_3))
+                            {
+                                <span onclick="ViewFile('@Model.VideoFileName_3')">View</span>
+                            }
+                            else
+                            {
+                                <span>-</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-6 feedbackarea">
+                        <div class="btn" onclick="_ViewFeedback(@Model.OrderId,@Model.VideoAssignedUserId,'VideoFileName_3','Feedback details')">Feedback</div>
+                    </div>
+                </div>
+            </td>
+            @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+            {
+                <td></td>
+            }
+        </tr>
+        @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 2)
+        {
+            <tr>
+                <td style="text-align:left">Payment Status</td>
+                @if (Script_Required)
+                {
+                    <td>
+
+                        @if (Model.IsScriptPaymentCleared == true)
+                    {
+                            <div class="btn btn-success btnpaymentstatus" style="">Cleared</div>
+                            @*<div class="btn" onclick="_PaymentDetails(@Model.OrderId,@Model.ScriptUserCharges)">View Details</div>*@
+                            <div class="btn btnInvoice" onclick="FreelancerInvoiceforAdmin(@Model.OrderId,'script',@Model.ScriptAssignedUserId)" data-IsInvoiceGenerate="@Model.ScriptIsInvoiceGenerated">View Details</div>
+                        }
+                        else
+                        {
+                            <div class="btn btnpaymentstatus">Pending</div>
+                            <div class="btn btnInvoice" onclick="FreelancerInvoiceforAdmin(@Model.OrderId,'script',@Model.ScriptAssignedUserId)" data-IsInvoiceGenerate="@Model.ScriptIsInvoiceGenerated">View Details</div>
+
+                        }
+
+                    </td>
+                }
+                @if (VO_Required)
+                {
+                    <td>
+                        @if (Model.IsVoicePaymentCleared == true)
+                    {
+                            <div class="btn btnpaymentstatus">Cleared</div>
+                            @*<div class="btn" onclick="_PaymentDetails(@Model.OrderId,@Model.VoiceOverCharges)">View Details</div>*@
+                            <div class="btn btnInvoice" onclick="FreelancerInvoiceforAdmin(@Model.OrderId,'vo',@Model.VOAssignedUserId)" data-IsInvoiceGenerate="@Model.VoiceIsInvoiceGenerated">View Details</div>
+                        }
+                        else
+                        {
+                            <div class="btn btnpaymentstatus">Pending</div>
+                            @*<div class="btn" onclick="_PaymentDetails(@Model.OrderId,@Model.VoiceOverCharges)">View Details</div>*@
+                            <div class="btn btnInvoice" onclick="FreelancerInvoiceforAdmin(@Model.OrderId,'vo',@Model.VOAssignedUserId)" data-IsInvoiceGenerate="@Model.VoiceIsInvoiceGenerated">View Details</div>
+                        }
+                    </td>
+                }
+                <td>
+                    @if (Model.IsVideoPaymentCleared == true)
+                {
+                        <div class="btn btnpaymentstatus" style="">Cleared</div>
+                        @*<div class="btn" onclick="_PaymentDetails(@Model.OrderId,@Model.VideoUserCharges)">View Details</div>*@
+                        <div class="btn btnInvoice" onclick="FreelancerInvoiceforAdmin(@Model.OrderId,'video',@Model.VideoAssignedUserId)" data-IsInvoiceGenerate="@Model.VideoIsInvoiceGenerated">View Details</div>
+                    }
+                    else
+                    {
+                        <div class="btn btnpaymentstatus">Pending</div>
+                        @*<div class="btn" onclick="_PaymentDetails(@Model.OrderId,@Model.VideoUserCharges)">View Details</div>*@
+                        <div class="btn btnInvoice" onclick="FreelancerInvoiceforAdmin(@Model.OrderId,'video',@Model.VideoAssignedUserId)" data-IsInvoiceGenerate="@Model.VideoIsInvoiceGenerated">View Details</div>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+    @*@if (Model.VideoStatus == 7)
+        {
+            <div class="DownloadYourVideo">
+                <div class="row" style="width: 364px;">
+                    <div class="col-md-12"><h3 style="color:black">Download Your Order</h3></div>
+                    <div class="col-md-12">
+                        <img class="img" src="/Content/Images/dashboard/downloadbutton.png" style="width: 20%;" onclick="ViewFile('@Model.VideoFileName')">
+                    </div>
+                </div>
+            </div>
+        }*@
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".disablectnrl").prop("disabled", true);
+        $(".ddlassignuser").change(function () {
+            $(this).siblings(".btnupdate").show();
+            var id = $(this).attr("data-id");
+            var val = $(this).val();
+            $("#" + id).val(val);
+        });
+
+        $(".btn[data-IsInvoiceGenerate='True']").css("background-color", "green").css("border-color", "green");
+    });
+</script>

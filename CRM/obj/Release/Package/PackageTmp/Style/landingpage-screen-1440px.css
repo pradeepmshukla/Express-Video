@@ -1,0 +1,11 @@
+﻿@media only screen and (max-width: 1440px) {
+    .bgmain {
+        width: 95%;
+        margin: 137px auto;
+    }
+
+    .section {
+        padding-top: 135px;
+        padding-bottom: 5px;
+    }
+}

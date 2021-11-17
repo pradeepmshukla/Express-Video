@@ -1,0 +1,279 @@
+/*@media only screen and (max-width: 768)*/
+@media (max-width: 768px) {
+    .imgOrderYourVideo {
+        width: 27%;
+        margin-top: 0px;
+    }
+
+    .page-title-box .page-title {
+        font-size: 27px;
+        /* margin: 10px; */
+        margin-top: 40px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .top-line {
+        width: 71%;
+        height: 343px;
+        background-size: 103% 100%;
+        margin-top: -68px;
+        margin-left: -54px;
+    }
+
+    #orderYourvideo {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .navbar-nav > li {
+        border-bottom: 0;
+        margin-left: 18px;
+    }
+
+    #videoContent {
+        width: 60%;
+    }
+
+
+    #videoLogo {
+        width: 40%;
+    }
+
+    .imgOrderYourVideo {
+        width: 83%;
+    }
+
+    .OrderYourVideo, .DownloadYourVideo {
+        width: 245px;
+        height: 95px;
+        padding: 6px;
+        margin: 0px;
+        float: right;
+        border-radius: 1px;
+        text-align: center;
+        color: black;
+        font-weight: bold;
+        margin-top: -83px;
+        margin-right: 35px;
+    }
+
+
+        .OrderYourVideo h3 {
+            line-height: 30px;
+            color: black;
+            font-weight: 700;
+            font-size: x-large;
+        }
+
+    .LatestOrder {
+        background-color: white;
+        padding: 7px;
+        border-radius: 2px;
+        margin-top: 26px;
+        max-height: 299px;
+        overflow-y: auto;
+    }
+
+
+    .footer {
+        border-top: 1px solid #e8ebf3;
+        bottom: -351px;
+        padding: 20px;
+        position: absolute;
+        right: 0;
+        left: 0;
+        color: #fff;
+    }
+
+    .customer_support {
+        color: #fff;
+    }
+
+    .dropdown {
+        color: #fff;
+    }
+
+    .profilephoto {
+        width: 90%;
+        margin-left: 0;
+        margin-top: 18px;
+        border-radius: 0;
+        padding: 0;
+        background-color: #d1d3d6;
+        border: 0px solid #122640;
+        border-radius: 0.25rem;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .page-wrapper {
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        padding: 0;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        margin-top: 72px;
+        width: 100%;
+    }
+
+
+
+    .announcement-notification h4 {
+        margin: 0px;
+    }
+
+    .announcement-notification p {
+        line-height: 1.6;
+        font-family: "Roboto",sans-serif;
+    }
+
+    .btnchangepassword {
+        margin-left: 0px;
+        margin-top: 0px;
+    }
+
+    .btnupdateprofile {
+    }
+
+    .page-title-box {
+        padding: 1px;
+        box-sizing: border-box;
+        margin-bottom: 38px;
+    }
+
+    .dashboard_section {
+        position: relative;
+        width: 100%;
+        padding-right: 6px;
+        padding-left: 6px;
+        margin-top: 0rem;
+    }
+
+    .mydaashboard {
+        background-color: #e0e3e8;
+        padding-top: 2px;
+        /* margin-bottom: 27px; */
+    }
+
+    #common-modal .modal-dialog {
+        width: 100%;
+    }
+
+    .viewsample-leftalign {
+        margin-left: 5px;
+    }
+
+    .uploadedsound audio {
+        width: 204px;
+    }
+
+    .deliverydays {
+        text-align: center;
+        background-color: #fcc012 !important;
+        width: 86%;
+        margin: 34px auto;
+        padding: 5px;
+    }
+
+    .newbtn {
+        position: absolute;
+        right: 17px;
+        z-index: 1;
+        top: -1px;
+        border-radius: 0.1rem;
+        padding: 3px 25px;
+        background: #fcc012;
+        /*top: 75px;*/
+    }
+
+
+    .footer-admin {
+        border-top: 1px solid #e8ebf3;
+        position: absolute;
+        right: 0;
+        left: 0;
+        color: #fff;
+        width: 100%;
+        padding: 21px 27px;
+        background-color: #0f0e0e;
+        z-index: 22;
+        /* bottom: -165px; */
+        bottom: -168px;
+    }
+
+    .profilearea {
+        width: 184px;
+        height: auto;
+    }
+
+    .profilearea {
+        width: 187px;
+        height: 292px;
+    }
+
+    .uploadprofileicon {
+        width: 40px;
+        margin-left: 85px;
+        margin-top: -202px;
+    }
+
+    .imageDetails {
+        position: relative;
+        bottom: 102px;
+        left: 29px;
+    }
+
+    .dashboardSection {
+        height: 180px;
+        margin-bottom: 45px;
+    }
+
+    .Review-box-1 {
+        padding: 9px 10px;
+        background-color: white;
+        margin: 10px 0;
+        border-radius: 20px;
+        height: 100%;
+    }
+
+    .announcement {
+        height: 89vh;
+    }
+
+    .top-line {
+        background-image: url(../Content/Images/dashboard/freelancer1.png);
+        background-repeat: no-repeat;
+        width: 41%;
+        transform: scaleX(-1) scale(1.5);
+        position: absolute;
+        height: 240px;
+        left: -4rem;
+        margin-left: 75px;
+        top: -2rem;
+    }
+
+    .cust-dash {
+        background-size: contain;
+        min-height: 154px;
+        position: relative;
+        background-image: url(../Content/Images/dashboard/dashboard-background.png);
+    }
+
+    .OrderYourVideo, .DownloadYourVideo {
+        width: 245px;
+        height: 95px;
+        padding: 11px;
+        margin: 0px;
+        float: right;
+        border-radius: 15px;
+        text-align: center;
+        color: black;
+        font-weight: bold;
+        margin-top: -13px;
+        margin-right: -16px;
+    }
+}

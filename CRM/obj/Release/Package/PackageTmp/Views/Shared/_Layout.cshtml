@@ -1,0 +1,716 @@
+﻿@using CRM.Models.GoogleCaptcha
+@{ 
+    List<DAL.SocialPage> objlist = CRM.Models.Global.GlobalFunctions.ConverDataTableToList<DAL.SocialPage>(new DAL.SocialPage()._Select("procSocialPage", "SELECT").Tables[0]);
+    ViewBag.FacebookLink = objlist.Where(x => x.SocialPageName == "Facebook").FirstOrDefault();
+    ViewBag.LinkedInLink = objlist.Where(x => x.SocialPageName == "LinkedIn").FirstOrDefault();
+}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="google-signin-clientid" content="244885658623-v91kcpeceh04b1882v6kp1rbbj95rq6f.apps.googleusercontent.com" />
+    <meta name="google-signin-cookiepolicy" content="single_host_origin" />
+    @*<meta name="google-signin-callback" content="signinCallback" />*@
+    <meta name="google-signin-requestvisibleactions" content="https://schema.org/AddAction" />
+    <meta name="google-signin-scope" content="https://www.googleapis.com/auth/plus.login" />
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js" integrity="sha512-CEiA+78TpP9KAIPzqBvxUv8hy41jyI3f2uHi7DGp/Y/Ka973qgSdybNegWFciqh6GrN2UePx2KkflnQUbUhNIA==" crossorigin="anonymous"></script>
+
+    <title>Express Video</title>
+    <link rel="icon" href="~/Content/Images/logo.jpg" type="image/x-icon">
+    <!-- Favicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <link rel="shortcut icon" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png">
+
+    <!-- Fonts -->
+
+    <link href='https://fonts.googleapis.com/css?family=Hind:400,500,600,700' rel='stylesheet' type='text/css'>
+
+    <!-- Styles -->
+    <link href="~/Content/Theme/revo_v1.0/HTML/css/style.css" rel="stylesheet" media="screen">
+    <style>
+    </style>
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/jquery.min.js"></script>
+    <script>
+
+    </script>
+    <link href="~/Style/landingpage.css" rel="stylesheet" />
+    <link href="~/Style/landingpage-screen-1024px.css" rel="stylesheet" />
+    <link href="~/Style/style-screen-1024px.css" rel="stylesheet" />
+    <link href="~/Style/style-screen-1440px.css" rel="stylesheet" />
+    <link href="~/Style/landingpage-screen-1440px.css" rel="stylesheet" />
+    <link href="~/Style/landingpage-screen-768px.css" rel="stylesheet" />
+
+    <link href="~/Style/style-screen-635px.css" rel="stylesheet" />
+    <link href="~/Style/landingpage-screen-600px.css" rel="stylesheet" />
+    <link href="~/Style/landscap-style-screen.css" rel="stylesheet" />
+
+    <link href="~/Style/style-screen-480px.css" rel="stylesheet" />
+    <link href="~/Style/style-screen-320px.css" rel="stylesheet" />
+
+
+    <style>
+        .hide-forSampleVideo {
+        }
+    </style>
+    <link href="~/scripts/dropzone/basic.css" rel="stylesheet" />
+    <link href="~/scripts/dropzone/dropzone.css" rel="stylesheet" />
+    <script src="~/scripts/dropzone/dropzone.js"></script>
+
+</head>
+<body>
+    <input type="hidden" id="hdnuserid" value="@CRM.Models.Global.GlobalFunctions.GetCookie("UserID")" />
+    <div class="layout" style="position:relative">
+
+        <!-- Loader -->
+
+        <div class="loader" style="">
+            <div class="loader-brand">
+                @*<img alt="" class="img-responsive center-block" src="~/Content/Theme/revo_v1.0/HTML/img/brand.png">*@
+                <img src="~/Content/Images/logo.jpg" class="img-responsive center-block" />
+            </div>
+        </div>
+
+        <!-- Header -->
+
+        <header id="top" class="navbar js-navbar-affix" style="font-family:MyriadPro-Bold">
+            <div class="container" style="width:100%; height:43px;">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="/Home" class="brand js-target-scroll web-name" style="font-family:Vonique64">
+                        <span>Express</span>Video
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="active menulistforhide  hide-forSampleVideo">
+                            <a href="/Home" class="js-target-scroll">Home</a>
+                        </li>
+                        <li class="mobilview hide-forSampleVideo">
+                            <a href="#our-services" class="js-target-scroll">OUR SERVICES</a>
+                        </li>
+                        <li class="mobilview hide-forSampleVideo">
+                            <a href="#ourprocess" class="js-target-scroll">OUR PROCESS</a>
+                        </li>
+                        <li class="mobilview hide-forSampleVideo">
+                            <a href="#whychooseus" class="js-target-scroll">WHY CHOOSE US</a>
+                        </li>
+                        <li class="menulistforhide menu-parent hide-forSampleVideo mnaboutus">
+                            <a href="#services" class="js-target-scroll" id="aboutus">
+                                About Us
+                                <img src="~/Content/Images/downarrow.png" style="width: 19px;" />
+                            </a>
+
+                            <ul class="childmenu">
+                                <li>
+                                    <a href="#our-services" class="js-target-scroll">OUR SERVICES</a>
+                                </li>
+                                <li>
+                                    <a href="#ourprocess" class="js-target-scroll">OUR PROCESS</a>
+                                </li>
+                                <li>
+                                    <a href="#whychooseus" class="js-target-scroll">WHY CHOOSE US</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="mnbog hide-forSampleVideo">
+                            <a href="/Blog" class="js-target-scroll">Blog</a>
+                        </li>
+
+
+                        <li class="menulistforhide hide-forSampleVideo">
+                            <a href="#contact" class="js-target-scroll">Contact Us</a>
+                        </li>
+                        <li class="mn_back" style="display:none">
+                            <a href="/Home/SampleVideo">BACK</a>
+                        </li>
+                        @if (string.IsNullOrEmpty(CRM.Models.Global.GlobalFunctions.GetCookie("UserID")))
+                        {
+                            <li>
+                                <a href="#" class="" data-toggle="modal" data-target="#Login">Login</a>
+                            </li>
+                            <li>
+                                <a href="#" class="UserRegister" data-toggle="modal" data-target="#UserRegister">Register</a>
+                            </li>
+                        }
+                        else
+                        {
+                            if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 4)
+                            {
+                                <li>
+                                    <a href="/Basket/MyCart" class="js-target-scroll"> MyCart</a>
+                                </li>
+
+                            }
+                            if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 2 || CRM.Models.Global.GlobalFunctions.GetRoleId() == 5 || CRM.Models.Global.GlobalFunctions.GetRoleId() == 6 || CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+                            {
+                                <li class="adminbacktodashboard" style="display:none">
+                                    <a href="/Dashboard" class="js-target-scroll"> Back</a>
+                                </li>
+                            }
+
+
+                            <li>
+                                <a href="/Dashboard" class="js-target-scroll">Dashboard</a>
+                            </li>
+                            <li class="mobilview hide-forSampleVideo">
+                                <a href="#" data-toggle="modal" data-target="#Confirmation">Logout</a>
+                            </li>
+                            <li class="menu-parent">
+                                <a href="#" id="logout">
+                                    @CRM.Models.Global.GlobalFunctions.GetCookie("UserName")
+                                <img style="width:20px;" src="@CRM.Models.Global.GlobalFunctions.GetCookie("GmailImageUrl")" onerror="this.src ='/Content/Images/defaultprofile.png'" class="img img-circle" onclick="callPage('/UserDetail/MyProfile', 'My Profile','')" />
+                            </a>
+
+                            <ul class="childmenuLogout">
+                                <li>
+                                    <a href="#" data-toggle="modal" data-target="#Confirmation">Logout</a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+
+                    </ul>
+                </div>
+
+            </div>
+        </header>
+
+        @RenderBody()
+        <footer id="footer" class="footer text-white" style="font-family:MyriadPro-Regular;">
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="web-name" style="font-size:2rem;font-family:Vonique64"><span>EXPRESS</span>VIDEO</div>
+                            <div>
+                                In today's digital world, video helps in creating an impact and build a connect with your customers.
+                                Videos are best to showcase your idea. It will not only gain competitive advantages, but are able to provide
+                                interesting information and versatility for your digitally hooked target audience who will then connect with you better.
+                                Even complex, technical and uncommon products/services can create a buzz in the minds of the consumer using effective
+                                business videos. By linking both creative and the business mind together can attract the masses and become one of
+                                the smartest ways of doing it.
+                            </div>
+                            <div class="web-name" style="font-family:Vonique64">
+                                <p style="font-size:3rem"><span>EXPRESS</span>VIDEO</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div>
+                                CONTACT
+                                <div class="spacer spacer-primary" style="margin-top: 1px;height: 1px;width: 17px;margin-left: 0px;"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-6">
+                                    <table>
+                                        <tr>
+                                            <td><span class="glyphicon glyphicon-envelope circle-border"></span></td>
+                                            <td style="padding-top: 15px;">
+                                                <h5 style="margin-bottom:-1px">EMAIL</h5>
+                                                <span>info@expressvideo.in</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="glyphicon glyphicon-phone circle-border"></span></td>
+                                            <td style="padding-top: 15px;">
+                                                <h5 style="margin-bottom:-1px">CUSTOMER SUPPORT NO.</h5>
+                                                <span>+91-9643083000</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-md-12 col-sm-6" id="dateandtimediv">
+                                    <table class="timing">
+                                        <tr>
+                                            <td>
+
+                                                <span>
+                                                    Mon - Fri, 9:30 am - 6.30 pm,<br />
+                                                    All Sat – 9:30 am – 2:00 pm<br />
+                                                    Closed on Sunday and all national holidays
+
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3  helpandsupport">
+                            <div>
+                                HELP AND SUPPORT
+                                <div class="spacer spacer-primary" style="margin-top: 1px;height: 1px;width: 17px;margin-left: 0px;"></div>
+                            </div>
+                            <div>
+                                <ul id="centerForMobile">
+                                    @if (CRM.Models.Global.GlobalFunctions.GetUserId() > 0)
+                                    {
+                                        <li><a href="/Dashboard">MY ACCOUNT</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="#" data-toggle="modal" data-target="#Login">MY ACCOUNT</a></li>
+                                    }
+                                    <li><a href="#" class="UserRegister" data-toggle="modal" data-target="#UserRegister">REGISTER</a></li>
+                                    @*<li><a href="#" onclick="viewfaq()">FAQ</a></li>
+                                        <li><a href="#" onclick="termandconditions()">TERMS OF USE</a></li>
+                                        <li><a href="#" onclick="privacypolicy()">PRIVACY POLICY</a></li>*@
+                                    <li><a href="/FaQ/faq" target="_blank">FAQ</a></li>
+                                    <li><a href="/Home/TermAndConditions" target="_blank">TERMS OF USE</a></li>
+                                    <li><a href="/Home/PrivacyPolicy" target="_blank">PRIVACY POLICY</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="container footer-bottom-1">
+                    <div class="copy">
+                        ExpressVideo © All Right Reserved 2020-21
+                    </div>
+                    <div class="social">
+                        @*<a href="https://www.facebook.com/Express-Video-113289570572571" target="_blank">
+                            <img src="~/Content/Images/social-media-icon-set/FB.png" />
+                        </a>
+                        <a href="https://www.linkedin.com/in/express-video-97a6a11b6/">
+                            <img src="~/Content/Images/social-media-icon-set/linkedin.png" style="border-radius:50%" />
+                        </a>*@
+                        <a href="@ViewBag.FacebookLink" target="_blank">
+                            <img src="~/Content/Images/social-media-icon-set/FB.png" />
+                        </a>
+                        <a href="@ViewBag.LinkedInLink" target="_blank">
+                            <img src="~/Content/Images/social-media-icon-set/linkedin.png" style="border-radius:50%" />
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modals -->
+
+
+    <div id="Login" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close" data-dismiss="modal" aria-label="Close">&times;</span>
+                    <h2 class="modal-title titlelogin">Login</h2>
+                </div>
+                <div class="modal-body text-center">
+                    <form class="form-request js-ajax-form">
+                        <div class="row-fields row">
+                            <div class="form-group col-field col-sm-12 divlogin">
+                                <input type="text" class="form-control form-control-white loginonenter" id="txtEmailId" name="username" placeholder="Email id / User Name" style="color:white">
+                            </div>
+                            <div class="form-group col-field col-sm-12 divlogin">
+                                <input type="password" class="form-control form-control-white loginonenter" id="txtPassword" name="password" placeholder="Password" style="color:white">
+                                <span><i class="fa fa-eye-slash password_hide"></i></span>
+                                <span><i class="fa fa-eye password_show"></i></span>
+
+
+                            </div>
+
+                            <div class="col-sm-4 divlogin">
+                                <div type="submit" class="btn btn-hvr-white btnLogin" data-text-hover="Submit">Login</div>
+                                @if (CRM.Models.Global.GlobalFunctions.IsEnabled("GoogleCaptcha"))
+                                {
+                                    <div class="g-recaptcha-design-login">
+
+                                        <div class="divlogin">
+                                            @Html.GoogleCaptcha()
+                                            @Html.InvalidGoogleCaptchaLabel("Captcha is not valid")
+                                        </div>
+                                    </div>
+                                }
+                                <div class="divforotpassword">
+                                    <span class="clickForgotPassword" style="cursor:pointer;">Forgot Password</span>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-8 divlogin">
+                                <div id="gSignIn"></div>
+                                @*<div class="google-btn" onclick="loginWithGmail()">
+                                        <div class="google-icon-wrapper">
+                                            <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+                                        </div>
+                                        <p class="btn-text"><b>Sign in with google</b></p>
+                                    </div>*@
+
+
+                            </div>
+                            <div class="col-sm-12 divloginmsg" style="position:relative">
+
+                                <span class="loginmsg" style="display: inline-block;"></span>
+
+                            </div>
+                            <div class="divforgotpassword">
+                                <div class="form-group col-field col-sm-8">
+                                    <input type="text" class="form-control form-control-white" id="txtMobileNo" name="txtmobileno" placeholder="Enter Mobile No" style="color:white">
+                                </div>
+                                <div class="col-md-4">
+                                    <div type="submit" class="btn btn-hvr-white btnForgotSentOTP" data-text-hover="Submit" style="margin-left:-22px;" onclick="SentOtpForgotPassword()">Send OTP</div>
+                                </div>
+                                <div class="col-md-12 form-group col-field">
+                                    <input type="text" class="form-control form-control-white" id="txtForgotPasswordOTP" name="txtForgotPasswordOTP" placeholder="Enter OTP" style="color:white">
+                                </div>
+                                <div class="col-md-12 form-group col-field">
+                                    <input type="password" class="form-control form-control-white" id="txtForgotPassword" name="password" placeholder="New Password" style="color:white">
+                                    <span><i class="fa fa-eye-slash password_hide"></i></span>
+                                    <span><i class="fa fa-eye password_show"></i></span>
+                                </div>
+                                <div class="col-md-12 form-group col-field">
+                                    <input type="password" class="form-control form-control-white" id="txtForgotConfirmPassword" name="password" placeholder="Confirm New Password" style="color:white">
+                                    <span><i class="fa fa-eye-slash password_hide"></i></span>
+                                    <span><i class="fa fa-eye password_show"></i></span>
+                                </div>
+                                <div class="col-md-4" style="padding-left:39px;">
+                                    <div type="submit" class="btn btn-hvr-white btnResetPassword" data-text-hover="Submit" style="margin-left:-22px;">Reset Password</div>
+                                </div>
+                                <div class="col-md-8">
+                                    <span class="clickbacktologin" style="cursor:pointer"> Click here to Login</span>
+
+                                </div>
+                                @if (CRM.Models.Global.GlobalFunctions.IsEnabled("GoogleCaptcha"))
+                                {
+                                    <div class="g-recaptcha-design col-sm-12">
+                                        <div>
+                                            @Html.GoogleCaptcha()
+                                            @Html.InvalidGoogleCaptchaLabel("Captcha is not valid")
+                                        </div>
+                                    </div>
+                                }
+                                <div class="col-md-12">
+                                    <span class="msgForgotPassword" style="display: block;padding: 10px;margin: 15px auto;"></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="UserRegister" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close" data-dismiss="modal" aria-label="Close">&times;</span>
+                    <h2 class="modal-title">New User Registration</h2>
+                </div>
+                <div class="modal-body text-center">
+                    <form class="form-request js-ajax-form">
+                        <div class="row-fields row">
+                            <div class="form-group col-field col-sm-12 Mobilenoarea">
+                                <input type="text" class="mb-4 form-control form-control-white" id="txtRegMobileNo" name="mobileno" required placeholder="Enter your mobile no" style="">
+                                <div class="btnProceed my-2 btn btn-hvr-white hvr-pulse-grow" id="regisBtn" onclick="validateUser()" style="margin-top:24px;">Continue</div>
+                                <p class="validatemsg" style="text-align:left"></p>
+                                <div class="VarifyOtp" style="display:none">
+                                    <input type="text" class="form-control form-control-white" id="txtOTP" name="txtOTP" required placeholder="Enter One Time Password" style="margin-bottom:17px ">
+                                    <div class="btn btn-hvr-white hvr-pulse-grow btnValidateOtp " onclick="VarifyOTP('txtRegMobileNo', 'txtOTP')">Validate</div>
+                                    <div class="btn btn-hvr-white hvr-pulse-grow btnResendOtp " onclick="SentOtp('txtRegMobileNo')">Resent</div>
+                                </div>
+
+
+                            </div>
+                            <div class="OtherData" style="display:none">
+                                <div class="form-group col-field col-sm-12">
+                                    <input type="text" class="form-control form-control-white" id="txtFirstName" name="firstname" required placeholder="First Name">
+                                </div>
+                                <div class="form-group col-field col-sm-12">
+                                    <input type="text" class="form-control form-control-white" id="txtLastName" name="lastname" required placeholder="Last Name">
+                                </div>
+                                <div class="form-group col-field col-sm-12">
+                                    <input type="text" class="form-control form-control-white" id="txtRegUserName" name="username" required placeholder="User Name">
+                                </div>
+
+                                <div class="form-group col-field col-sm-12">
+                                    <input type="text" class="form-control form-control-white" id="txtRegEmailId" name="emailid" required placeholder="Email id">
+                                </div>
+
+                                <div class="form-group col-field col-sm-12">
+                                    <input type="password" class="form-control form-control-white" id="txtRegPassword" name="password" required placeholder="Password">
+                                    <span><i class="fa fa-eye-slash password_hide"></i></span>
+                                    <span><i class="fa fa-eye password_show"></i></span>
+                                </div>
+                                <div class="form-group col-field col-sm-12">
+                                    <input type="password" class="form-control form-control-white" id="txtRegConfirmPassword" name="password" required placeholder="Confirm Password">
+                                    <span><i class="fa fa-eye-slash password_hide"></i></span>
+                                    <span><i class="fa fa-eye password_show"></i></span>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <span class="registermsg"></span>
+                                    <span id="registermsg"></span>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div type="submit" class="btn btn-hvr-white hvr-pulse-grow btnNewUser" data-text-hover="Submit">Register</div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="Confirmation" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close" data-dismiss="modal" aria-label="Close">&times;</span>
+                    <h2 class="modal-title"></h2>
+                </div>
+                <div class="modal-body text-center">
+                    <form class="form-request js-ajax-form">
+                        <div class="row-fields row">
+                            <h4 style="color:white">ARE YOU SURE YOU WANT TO LOGOUT?</h4><br />
+                            <div class="YNBtn">
+                                <div class="col-sm-6">
+                                    <div type="submit" class="btn btn-hvr-white btnLogout" data-text-hover="Yes" style="margin-left:78px">Yes</div>
+
+                                </div>
+                                <div class="col-sm-6">
+                                    <div type="submit" class="btn btn-hvr-white " data-text-hover="No" data-dismiss="modal" style="margin-right: 76px;">No</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="request" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close" data-dismiss="modal" aria-label="Close">&times;</span>
+                    <h2 class="modal-title">Start with us</h2>
+                </div>
+                <div class="modal-body text-center">
+                    <form class="form-request js-ajax-form">
+                        <div class="row-fields row">
+                            <div class="form-group col-field col-sm-6">
+                                <input type="text" class="form-control form-control-white" name="name" required placeholder="Name *">
+                            </div>
+                            <div class="form-group col-field col-sm-6">
+                                <input type="email" class="form-control form-control-white" name="email" required placeholder="Email *">
+                            </div>
+                            <div class="form-group col-field col-sm-12">
+                                <textarea class="form-control form-control-white" rows="3" name="message" placeholder="Message"></textarea>
+                            </div>
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-hvr-white hvr-pulse-grow" data-text-hover="Submit">Send request</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals success -->
+    <div id="common-modal" class="modal modal-message fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></span>
+                    <h2 class="modal-title">HELLO, JUST TO KNOW</h2>
+                    <div class="line"></div>
+                    <p class="modal-subtitle">Before ordering, you need to fill the “Video Form” in the STEP 02 section. It’s mandatory to understand your requirements.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="success" class="modal modal-message fade" role="dialog">
+        <div class="modal-dialog" style="border: 8px solid #ababab;border-radius: 6px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></span>
+                    <h2 class="modal-title">HELLO, JUST TO KNOW</h2>
+                    <div class="line"></div>
+                    <p class="modal-subtitle">Before ordering, you need to fill the “Video Form” in the <br />STEP 02 section. It’s mandatory to understand your requirements.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals error -->
+
+    <div id="error" class="modal modal-message fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></span>
+                    <h2 class="modal-title">Sorry</h2>
+                    <p class="modal-subtitle"> Something went wrong </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="ImageView" class="modal modal-message fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></span>
+                    <div class="modal-body-content"></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/bootstrap.min.js"></script>
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/jquery.viewport.js"></script>
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/smoothscroll.js"></script>
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/jquery.validate.min.js"></script>
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/jquery.ajaxchimp.min.js"></script>
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/jQuerySimpleCounter.js"></script>
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/wow.min.js"></script>
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/jquery.stellar.min.js"></script>
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/jquery.magnific-popup.js"></script>
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/owl.carousel.min.js"></script>
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/imagesloaded.pkgd.js"></script>
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/isotope.pkgd.min.js"></script>
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/interface.js"></script>
+
+    <!-- SLIDER REVOLUTION -->
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/rev-slider/jquery.themepunch.tools.min.js"></script>
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/rev-slider/jquery.themepunch.revolution.min.js"></script>
+
+    <!-- SLIDER REVOLUTION 5.0 EXTENSIONS   -->
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/rev-slider/revolution.extension.actions.min.js"></script>
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/rev-slider/revolution.extension.carousel.min.js"></script>
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/rev-slider/revolution.extension.kenburn.min.js"></script>
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/rev-slider/revolution.extension.layeranimation.min.js"></script>
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/rev-slider/revolution.extension.migration.min.js"></script>
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/rev-slider/revolution.extension.navigation.min.js"></script>
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/rev-slider/revolution.extension.parallax.min.js"></script>
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/rev-slider/revolution.extension.slideanims.min.js"></script>
+    <script src="~/Content/Theme/revo_v1.0/HTML/js/rev-slider/revolution.extension.video.min.js"></script>
+
+    <script src="~/Content/Controls/fine-uploader/jquery.fine-uploader.js"></script>
+    <script>
+        if (typeof $.fn.revolution !== 'undefined') {
+
+            $("#rev_slider").revolution({
+                sliderType: "standard",
+                sliderLayout: "fullscreen",
+                dottedOverlay: "none",
+                delay: 7000,
+                navigation: {
+                    keyboardNavigation: "off",
+                    keyboard_direction: "horizontal",
+                    onHoverStop: "off",
+                    touch: {
+                        touchenabled: "on",
+                        swipe_threshold: 75,
+                        swipe_min_touches: 1,
+                        swipe_direction: "horizontal",
+                        drag_block_vertical: false
+                    },
+                    bullets: {
+                        enable: true,
+                        hide_onmobile: true,
+                        hide_under: 767,
+                        style: "custom",
+                        hide_onmobile: true,
+                        hide_onleave: true,
+                        direction: "horizontal",
+                        h_align: "center",
+                        v_align: "bottom",
+                        h_offset: 0,
+                        v_offset: 40,
+                        space: 8,
+                        tmp: '<span class="tp-bullet-inner"></span>'
+                    }
+                },
+                viewPort: {
+                    enable: true,
+                    outof: "pause",
+                    visible_area: "80%"
+                },
+                responsiveLevels: [1240, 1024, 778, 480],
+                gridwidth: [800],
+                gridheight: [600],
+                lazyType: "none",
+                shadow: 0,
+                spinner: "off",
+                stopLoop: "on",
+                stopAfterLoops: 0,
+                shuffle: "off",
+                autoHeight: "off",
+                fullScreenAlignForce: "off",
+                fullScreenOffsetContainer: "",
+                fullScreenOffset: "",
+                disableProgressBar: "on",
+                hideThumbsOnMobile: "off",
+                hideSliderAtLimit: 0,
+                hideCaptionAtLimit: 0,
+                hideAllCaptionAtLilmit: 0,
+                debugMode: false,
+                fallbacks: {
+                    simplifyAll: "off",
+                    nextSlideOnWindowFocus: "off",
+                    disableFocusListener: false,
+                }
+            });
+        }
+        function checklogin() {
+            if ($("#hdnuserid").val() == "") {
+                window.location.replace(location.origin + "/Home");
+            }
+        }
+    </script>
+    <script src="~/scripts/landingpage.js"></script>
+
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+    <script type="text/javascript">
+        (function () {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/client.js?onload=onLoadCallback';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+
+    </script>
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KYX2WF96S8"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-KYX2WF96S8');
+    </script>
+
+
+
+</body>
+</html>
+@*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>*@

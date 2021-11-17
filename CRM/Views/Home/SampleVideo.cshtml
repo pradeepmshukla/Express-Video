@@ -1,0 +1,446 @@
+﻿@model DAL.Basket
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (Model != null)
+{
+    <style>
+        .layout {
+            background-color: rgb(231,234,239);
+        }
+
+        .steps {
+            background-color: white;
+            box-shadow: 1px 1px 20px 7px #d8d8d8;
+        }
+
+        .card-body {
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        
+        ol li, ul li {
+    margin-top: 0px;
+}
+       
+    </style>
+    <br /><br />
+    <div class="card-body">
+        <div class="container-fluid">
+            <div class="how-it-works">
+                <br />
+
+                <div>PLACE YOUR ORDER</div>
+
+            </div>
+            <div class="row steps">
+                <br />
+                <div class="col-md-3">
+                    <div class="step-no" style="background:url(../Content/Images/steps/Arrow_01.png)">Step 01</div>
+                    <div class="innerbox SampleVideo-area">
+                        <div class="steptitle">Choose your sample video:</div>
+
+                        <table class="tblfilechoose" border="1" style="border-color:#626ed4">
+                            <tr style="background-color:#626ed4">
+                                <td style="background-color:#626ed4"><a href="/Home/Videos" class="lnkvideo">Choose file</a></td>
+                                <td class="nofilechoosen" title="choose a new video">
+                                    @if (Model != null && Model.SampleVideoId > 0)
+                                    {
+                                        <span>@Model.SampleVideoName</span> <span class='removedvideo'>x</span>
+
+
+                                    }
+                                    else
+                                    {
+                                        <span>no file choosen</span>
+                                    }
+
+                                </td>
+                            </tr>
+                        </table>
+                        <div>
+                            Duration of the video:
+                        </div>
+                        <select class="form-control" id="ddVideoDuration" onchange="showSubmitButton('btnSampleVideo_Step1Save')" style="color:black">
+                        @*<select class="form-control" id="ddVideoDuration" style="color:black">*@
+                            <option value="">Select</option>
+                            @foreach (var item in ViewBag.PriceManagement)
+                            {
+                                string Selected = "";
+                                if (Model != null && Model.ED_VideoDuration == item.VideoDuration)
+                                {
+                                    Selected = "selected";
+                                }
+                                <option @Selected value="@item.VideoDuration" data-VideoCharges="@item.VideoCharges" data-ScriptCharges="@item.ScriptCharges" data-VOCharges_Regular="@item.VOCharges_Regular" data-VOCharges_Premium="@item.VOCharges_Premium">@item.VideoDuration</option>
+                            }
+                        </select>
+                        <div>VIDEO RESOLUTION</div>
+                        <select id="VideoResolution" class="form-control" data-value="@Model.VideoResolution"  onchange="showSubmitButton('btnSampleVideo_Step1Save')" style="color:black">
+                        @*<select id="VideoResolution" class="form-control" data-value="@Model.VideoResolution" style="color:black">*@
+                            <option value="Full HD(1920X1080)">Full HD(1920X1080)</option>
+                            <option value="HD Ready(1280X720)">HD Ready(1280X720)</option>
+                            <option value="Square Pixel(1920X1920)">Square Pixel(1920X1920)</option>
+                            <option value="Square Pixel(1200X1200)">Square Pixel(1200X1200)</option>
+                            <option value="Custom" data-width="0" data-height="0">Custom</option>
+                        </select>
+
+                        <div class="custom custom-resotution-text">CUSTOM RESOLUTION</div>
+                        <div class="form-control custom" style="height:70px; font-size:12px;color:black">
+                            <div style="padding:2px">Width&nbsp;&nbsp;:<input type="number" class="customwidth" min="0" max="1920" style="width:80px; text-align:center" value="0" onkeyup="showSubmitButton('btnSampleVideo_Step1Save')" /> pixel</div>
+                            <div>Height :<input type="number" class="customheight" min="0" max="1920" style="width:80px; text-align:center" value="0" onkeyup="showSubmitButton('btnSampleVideo_Step1Save')" /> pixel</div>
+                        </div>
+                        <div class="box btnSampleVideo_Step1Save" style="display:none; bottom:-3px">
+                            <div class="btn btn-round btn-block waves-effect waves-light" onclick="SampleVideo_Step1Save()">SUBMIT</div>
+                        </div>
+                        <div class="pricebox">
+                            @if (Model.SampleVideoPrice == null)
+                            {
+                                <span class="videoprice">₹ 0</span>
+                            }
+                            else
+                            {
+                                <span class="videoprice">₹ @Model.VideosPrice</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="step-no" style="background:url(../Content/Images/steps/Arrow_02.png)">Step 02</div>
+                    <div class="innerbox">
+                        <div class="steptitle">Script:</div>
+                        <div style="margin:50px auto">
+                            @if (Model.Script_Required == true)
+                            {
+                                <input id="ScriptRequiredYes" type="radio" name="ScriptRequired" checked /><span for="ScriptRequiredYes">&nbsp;&nbsp;Required</span>  <br />
+                                <input id="ScriptRequiredNo" type="radio" name="ScriptRequired" /><span for="ScriptRequiredNo">&nbsp;&nbsp;Not Required</span>
+                            }
+                            else
+                            {
+                                <input id="ScriptRequiredYes" type="radio" name="ScriptRequired" /><span for="ScriptRequiredYes">&nbsp;&nbsp;Required</span>  <br />
+                                <input id="ScriptRequiredNo" type="radio" name="ScriptRequired" checked /><span for="ScriptRequiredNo">&nbsp;&nbsp;Not Required</span>
+                            }
+
+                        </div>
+
+
+                        <div class="box" style="display:none">
+                            <div class="btn btn-round btn-block waves-effect waves-light" onclick="SampleVideo_Step2_Submit()">Submit</div>
+                        </div>
+                        <div class="pricebox">
+                            @if (Model.Script_Price == null)
+                            {
+                                <span class="scriptprice">₹ 0</span>
+                            }
+                            else
+                            {
+                                <span class="scriptprice">₹ @Model.Script_Price</span>
+                            }
+                            <span class="scriptprice ScriptNotRequired" style="display:none">₹ 0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="step-no" style="background:url(../Content/Images/steps/Arrow_03.png)">Step 03</div>
+                    <div class="innerbox">
+                        <div class="steptitle">Select Voice over Artist:</div>
+                        <div style="margin:50px auto">
+                            @if (Model.VO_Required == true)
+                            {
+                                <input id="VORequiredYes" type="radio" name="VORequired" checked /><span for="VORequiredYes">&nbsp;&nbsp;Required</span>
+                                <div class="btn btn_VORequirements" onclick="_VORequirements()">SELECT VOICE SAMPLE</div>
+                                <br />
+                                <input id="VORequiredNo" type="radio" name="VORequired" /><span for="VORequiredNo">&nbsp;&nbsp;Not Required</span>
+                            }
+                            else
+                            {
+                                <input id="VORequiredYes" type="radio" name="VORequired" /><span for="VORequiredYes">&nbsp;&nbsp;Required</span> <br />
+                                <div class="btn btn_VORequirements" onclick="_VORequirements()" style="display:none">SELECT VOICE SAMPLE</div>
+                                <br />
+                                <input id="VORequiredNo" type="radio" name="VORequired" checked /><span for="VORequiredNo">&nbsp;&nbsp;Not Required</span>
+                            }
+                        </div>
+                        <div class="box" style="display:none">
+                            @if (Model.VO_Required == true)
+                            {
+                                <a class="btn btn-round btn-block waves-effect waves-light VORequiredYes_1 " onclick="_VORequirements()">Submit</a>
+                                <div class="btn btn-round btn-block waves-effect waves-light VORequiredYes_2" style="display:none" onclick="SampleVideo_Step3Save_1()">Submit</div>
+
+                            }
+                            else
+                            {
+                                <a class="btn btn-round btn-block waves-effect waves-light VORequiredYes_1 " style="display:none" onclick="_VORequirements()">Submit</a>
+                                <div class="btn btn-round btn-block waves-effect waves-light VORequiredYes_2" onclick="SampleVideo_Step3Save_1()">Submit</div>
+
+                            }
+                        </div>
+                        @if (Model.VO_Required == true)
+                        {
+                            if (Model.VO_SampleId > 0)
+                            {
+                                <div class="ArtistSelectedArea">
+                                    <span>@Model.VO_SampleUserName </span>
+                                    <span class="remove removeartist" style="color:red" data-vo_Sampleid="@Model.VO_SampleId">x</span>
+                                </div>
+                            }
+                        }
+                        <div class="pricebox">
+                            @if (Model.VO_SamplePrice == null)
+                            {
+                                <span class="voprice">₹ 0</span>
+                            }
+                            else
+                            {
+                                <span class="voprice">₹ @Model.VO_SamplePrice</span>
+                            }
+                            <span class="voprice NotRequiredvoprice">₹ 0</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="step-no" style="background:url(../Content/Images/steps/Arrow_05.png)">Step 04</div>
+                    <div class="innerbox">
+                        <div class="steptitle">
+                            Order your video:
+                        </div>
+
+                        <div style="margin:50px auto">
+                            Fill your video requirement and then press 'Order Now'
+                        </div>
+                        <div class="fillvideoform">
+                            <div class="btn" onclick="_ScriptDetails()">*Fill Video Form</div>
+                        </div>
+                        <div class="box">
+                            <div class="btn  btnordernow" onclick="OrderNow()" style="">Order Now</div>
+                        </div>
+                        <div class="pricebox">
+                            <span class="ordertotal">0</span>
+                        </div>
+                    </div>
+                    <div class="deliverydays"></div>
+                </div>
+                <div class="col-md-12 notes">
+                    <p style="margin:0px">
+                        ** All price mentioned are based on the video duration of (0:31-1:00) minute. The prices will change depend on the duration of video selected. Background music is included in video price.
+                    </p>
+                    <p style="margin:0px">
+                        **We follow the standard calculation to measure the number of words required in the script.
+                    </p>
+
+                    <br/>
+                    <h4>For 1 minute video</h4>
+
+                    <ul>
+                        <li>100 words per minutes for <b>Slow video  speed</b></li>
+                        <li>130 words per minutes for <b>Average video  speed</b></li>
+                        <li>160 words per minutes for <b>Fast video  speed</b></li>
+                    </ul>
+                    <p style="margin:0px">
+                        
+
+</p>
+                    <p style="margin:0px;"></p>
+                    <p style="margin:0px;"></p>
+                </div>
+                <div class="col-md-12" style="margin-top:30px;margin-bottom:30px; text-align:center">
+                    <a href="/Dashboard" class="btn btn-round btn-block waves-effect waves-light">BACK</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" id="CustomerId" value="@ViewBag.CustomerId" />
+
+    /*Hidden for Video Details*/
+    <input type="hidden" id="hdnScript_VideoConcept" value="@Model.Script_VideoConcept" />
+    <input type="hidden" id="hdnScript_TargetAudience" value="@Model.Script_TargetAudience" />
+    <input type="hidden" id="hdnScript_ExlpainVideoRequirement" value="@Model.Script_ExlpainVideoRequirement" />
+    <input type="hidden" id="hdnScript_FillVideoRequirement" value="@Model.Script_FillVideoRequirement" />
+    <input type="hidden" id="hdnScript_BenifitesForCustomer" value="@Model.Script_BenifitesForCustomer" />
+    <input type="hidden" id="hdnScript_CompanyName" value="@Model.Script_CompanyName" />
+
+}
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<style>
+    .video-js {
+        width: 100%;
+    }
+</style>
+<script>
+
+    var _VO_SamplePrice_Regular = 0;
+    var _VO_SamplePrice_Premium = 0;
+    var VideoResolution = "Full HD(1920X1080)";
+    var VideoResolution_width = 0; VideoResolution_height = 0;
+    var VideoDays = '@Model.VideoDays';
+    var ScriptDays = '@Model.ScriptDays';
+    var VODays = '@Model.VODays';
+
+    $(document).ready(function () {
+        //$(".loader").hide();
+        priceCalculation();
+        $(".menulistforhide").hide();
+        var width = $($(".popup .content")[0]).width() - 350;
+        $(".popup input[type='text']").css("width", width + "px");
+        $(".popup textarea").css("width", width + "px");
+        $("#ddVideoDuration").change(function () {
+            var d = $("#ddVideoDuration").find("option:selected");
+            _Script_Price = $(d).attr("data-scriptcharges");
+            _VO_SamplePrice_Regular = $(d).attr("data-vocharges_regular");
+            _VO_SamplePrice_Premium = $(d).attr("data-vocharges_premium");
+        });
+        $(".custom").hide();
+        $("#VideoResolution").change(function () {
+            if ($(this).val().toLowerCase() == "custom") {
+                $(".custom").show();
+            }
+            else {
+                $(".custom").hide();
+            }
+            VideoResolution = $(this).val();
+
+        });
+        $(".customwidth").change(function () {
+            VideoResolution_width = $(".customwidth").val();
+            if (VideoResolution_width > 1920) {
+                VideoResolution_width = 1920;
+                $(this).val(VideoResolution_width);
+            }
+            VideoResolution = "Custom(" + VideoResolution_width + "X" + VideoResolution_height + ")"
+            $(".custom-resotution-text").html("CUSTOM RESOUTION(" + VideoResolution_width + "X" + VideoResolution_height + ")");
+        });
+        $(".customheight").change(function () {
+            VideoResolution_height = $(".customheight").val();
+            if (VideoResolution_height > 1920) {
+                VideoResolution_height = 1920;
+                $(this).val(VideoResolution_height);
+            }
+            VideoResolution = "Custom(" + VideoResolution_width + "X" + VideoResolution_height + ")"
+            $(".custom-resotution-text").html("CUSTOM RESOUTION(" + VideoResolution_width + "X" + VideoResolution_height + ")");
+        });
+        $(".removeartist").click(function () {
+            var vo_Sampleid = $(this).attr("data-vo_Sampleid");
+            RemoveVoiceOver(vo_Sampleid);
+            $(this).parent("div").remove();
+            window.location.reload();
+        });
+        setInterval(function () {
+            $(".hide-forSampleVideo").hide();
+        }, 10);
+
+        $("#ScriptRequiredYes,#ScriptRequiredNo").change(function () {
+            SampleVideo_Step2_Submit();
+            priceCalculation();
+        });
+
+        $("#VORequiredYes").change(function () {
+
+            if ($(this).is(":checked")) {
+                $(".VORequiredYes_1").show();
+                $(".VORequiredYes_2").hide();
+                $(".NotRequiredvoprice").hide();
+                $(".btn_VORequirements").show();
+                $(".ArtistSelectedArea").show();
+            }
+            else {
+
+                $(".VORequiredYes_1").hide();
+                $(".VORequiredYes_2").show();
+                $(".btn_VORequirements").hide();
+                $(".ArtistSelectedArea").hide();
+            }
+            priceCalculation();
+            SampleVideo_Step3Save_1();
+        });
+        $("#VORequiredNo").change(function () {
+
+            if ($(this).is(":checked")) {
+                $(".VORequiredYes_1").hide();
+                $(".VORequiredYes_2").show();
+                $(".btn_VORequirements").hide();
+                $(".ArtistSelectedArea").hide();
+            }
+            else {
+                $(".VORequiredYes_1").show();
+                $(".VORequiredYes_2").hide();
+                $(".btn_VORequirements").show();
+                $(".ArtistSelectedArea").show();
+            }
+            priceCalculation();
+            SampleVideo_Step3Save_1();
+        });
+
+        if (getUrlVars()["Edit"] == "VideoDetails") {
+            _ScriptDetails();
+        }
+        $(".removedvideo").click(function () {
+            $(this).parent("td").remove();
+        });
+
+        var vr = $("#VideoResolution").attr("data-value");
+        if (vr != "") {
+            try{
+                $("#VideoResolution").val(vr);
+                if (vr.indexOf("Custom") >= 0) {
+                    $("#VideoResolution").val("Custom");
+                    $("#VideoResolution").trigger("change");
+                    var width = vr.split("(")[1].split(")")[0].split("X")[0];
+                    var height = vr.split("(")[1].split(")")[0].split("X")[1];
+                    $(".customwidth").val(width);
+                    $(".customheight").val(height);
+                }
+                else {
+                    $("#VideoResolution").trigger("change");
+                }
+            }catch(err){}
+
+        }
+    });
+    function priceCalculation() {
+        //debugger;
+        var TotalDays = parseInt(VideoDays)+1;
+        if ($("#ScriptRequiredYes").is(":checked") == true) {
+            $(".scriptprice").show();
+            $(".ScriptNotRequired").hide();
+            TotalDays = parseInt(TotalDays) + parseInt(ScriptDays);
+        }
+        else {
+            $(".scriptprice").hide();
+            $(".ScriptNotRequired").show();
+        }
+
+        if ($("#VORequiredYes").is(":checked") == true) {
+            $(".voprice").show();
+            $(".NotRequiredvoprice").hide();
+            TotalDays = parseInt(TotalDays) + parseInt(VODays);
+        }
+        else {
+            $(".voprice").hide();
+            $(".NotRequiredvoprice").show();
+        }
+
+        var videoprice = $(".videoprice:visible").text().replace("₹", "").trim();
+        var scriptprice = $(".scriptprice:visible").text().replace("₹", "").trim();
+        var voprice = $(".voprice:visible").text().replace("₹", "").trim();
+
+        videoprice = parseFloat(videoprice);
+        scriptprice = parseFloat(scriptprice);
+        voprice = parseFloat(voprice);
+
+        if (isNaN(videoprice)) videoprice = 0;
+        if (isNaN(scriptprice)) scriptprice = 0;
+        if (isNaN(voprice)) voprice = 0;
+
+        var TotalPrice = videoprice + scriptprice + voprice;
+        $(".ordertotal").html("₹ " + TotalPrice);
+        if (isNaN(TotalDays)) {
+            TotalDays = 0;
+        }
+        $(".deliverydays").html("Video Delivery within " + TotalDays + " Days");
+    }
+    function showSubmitButton(btn) {
+        $("." + btn).show();
+    }
+</script>
+<link href="~/Content/samplevideo.css" rel="stylesheet" />

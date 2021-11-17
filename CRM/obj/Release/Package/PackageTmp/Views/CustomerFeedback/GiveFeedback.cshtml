@@ -1,0 +1,232 @@
+﻿@model DAL.CustomerFeedback
+@{
+    ViewBag.Title = "GiveFeedback";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>
+    function ratingFunction(cntr) {
+        var RatingValue = $(cntr).attr("data");
+        var Ratingtype = $(cntr).attr("data-type");
+
+        $("." + Ratingtype).parent(".rating").find(".selectedvalue").val(RatingValue);
+        var len = $("." + Ratingtype).length;
+        $("." + Ratingtype).removeClass("selected");
+        for (i = 1; i <= len; i++) {
+
+            if (i <= RatingValue) {
+                $("." + Ratingtype + "[data='" + i + "']").addClass("selected");
+
+            }
+            else {
+                $("." + Ratingtype + "[data='" + i + "']").removeClass("selected");
+            }
+        }
+
+    }
+    function starratingFunction() {
+
+        var scriptValue = $("#scriptValue").val();
+        var voiceValue = $("#voiceValue").val();
+        var videoValue = $("#videoValue").val();
+        var overallValue = $("#overallValue").val();
+        var comment = $("#comment").val().trim();
+        var OrderId = $("#OrderId").val().trim();
+
+        var msg = "";
+        if (scriptValue == "") {
+            msg = "Please select Script Rating";
+
+        }
+        else if (voiceValue == "") {
+
+            msg = "Please select Voice Over Rating";
+        }
+        else if (videoValue == "") {
+
+            msg = "Please select video   Rating";
+        }
+        else if (overallValue == "") {
+
+            msg = "Please select overall Rating";
+        }
+        else if (comment == "") {
+
+            msg = "Please Fill Comment";
+        }
+
+
+        if (msg != "") {
+            $(".output").html(msg).css("color", "white");
+            return;
+        }
+        else {
+            $(".output").html("");
+
+        }
+
+        var data = {
+            ScriptRating: parseFloat(scriptValue),
+            VoiceOverRating: parseFloat(voiceValue),
+            VideoRating: parseFloat(videoValue),
+            OverAllRating: parseFloat(overallValue),
+            Comments: comment,
+            OrderId: OrderId
+        }
+        SaveFeedback(data);
+
+    }
+</script>
+<style>
+    .mainDiv {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .mainDiv .centerDiv {
+            width: 100%;
+            height: auto;
+            background: #1E4854;
+            padding: 10px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mainDiv .rating {
+            display: inline-block;
+            margin: auto;
+        }
+
+        .mainDiv label {
+            text-align: center;
+            margin: 0px 5px;
+            color: white;
+        }
+
+        .mainDiv span {
+            margin: 0px 5px;
+            color: white;
+            width: 150px;
+            display: inline-block;
+        }
+
+        .mainDiv li {
+            font-size: 24px;
+            margin: 5px 0px;
+            color: white;
+        }
+
+        .mainDiv textarea {
+            background: white;
+        }
+
+        .mainDiv h2 {
+            text-align: center;
+            margin: 20px 0px;
+            color: white;
+        }
+
+        .mainDiv ul {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .mainDiv #comment {
+            margin: auto;
+            height: 60px;
+            width: 25%;
+            border-radius: 5px;
+            padding: 0px 5px;
+        }
+
+        .mainDiv textarea {
+            border-radius: 5px;
+            margin: 12px 0px;
+            padding: 3px 8px;
+        }
+
+        .mainDiv #submit {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 0px;
+            text-align: center;
+            width: 25%;
+            transition: all 0.5s;
+            border: none;
+            outline: none;
+        }
+
+            .mainDiv #submit:hover {
+                background: #da2525;
+                color: white;
+                border: 1px solid white;
+            }
+
+        .mainDiv .selected {
+            color: orange;
+        }
+</style>
+<div class="mainDiv">
+    @if (Model != null)
+    {
+    <div class="centerDiv">
+        <h2>Feedback Form</h2>
+        <input type="hidden" id="OrderId" value="@Model.OrderId" />
+        <hr>
+        <ul>
+            <li>
+                <span>Script</span>
+                <div class="rating scriptPart">
+                    <i class="fa fa-star script" id="script-star1" onclick="ratingFunction(this)" data="1" data-type="script"></i>
+                    <i class="fa fa-star script" id="script-star2" onclick="ratingFunction(this)" data="2" data-type="script"></i>
+                    <i class="fa fa-star script" id="script-star3" onclick="ratingFunction(this)" data="3" data-type="script"></i>
+                    <i class="fa fa-star script" id="script-star4" onclick="ratingFunction(this)" data="4" data-type="script"></i>
+                    <i class="fa fa-star script" id="script-star5" onclick="ratingFunction(this)" data="5" data-type="script"></i>
+                    <input type="hidden" class="selectedvalue" id="scriptValue" name="scriptValue" value="">
+                </div>
+            </li>
+            <li>
+                <span>Voice over</span>
+                <div class="rating voice">
+                    <i class="fa fa-star voice" id="star1" onclick="ratingFunction(this)" data="1" data-type="voice"></i>
+                    <i class="fa fa-star voice" id="star1" onclick="ratingFunction(this)" data="2" data-type="voice"></i>
+                    <i class="fa fa-star voice" id="star1" onclick="ratingFunction(this)" data="3" data-type="voice"></i>
+                    <i class="fa fa-star voice" id="star1" onclick="ratingFunction(this)" data="4" data-type="voice"></i>
+                    <i class="fa fa-star voice" id="star1" onclick="ratingFunction(this)" data="5" data-type="voice"></i>
+                    <input type="hidden" id="voiceValue" class="selectedvalue" name="voiceValue" value="">
+                </div>
+            </li>
+            <li>
+                <span>Video</span>
+                <div class="rating video">
+                    <i class="fa fa-star video" id="star1" onclick="ratingFunction(this)" data="1" data-type="video"></i>
+                    <i class="fa fa-star video" id="star1" onclick="ratingFunction(this)" data="2" data-type="video"></i>
+                    <i class="fa fa-star video" id="star1" onclick="ratingFunction(this)" data="3" data-type="video"></i>
+                    <i class="fa fa-star video" id="star1" onclick="ratingFunction(this)" data="4" data-type="video"></i>
+                    <i class="fa fa-star video" id="star1" onclick="ratingFunction(this)" data="5" data-type="video"></i>
+                    <input type="hidden" id="videoValue" name="videoValue" class="selectedvalue" value="">
+                </div>
+            </li>
+            <li>
+                <span>OverAll</span>
+                <div class="rating">
+                    <i class="fa fa-star overall" id="star1" onclick="ratingFunction(this)" data="1" data-type="overall"></i>
+                    <i class="fa fa-star overall" id="star1" onclick="ratingFunction(this)" data="2" data-type="overall"></i>
+                    <i class="fa fa-star overall" id="star1" onclick="ratingFunction(this)" data="3" data-type="overall"></i>
+                    <i class="fa fa-star overall" id="star1" onclick="ratingFunction(this)" data="4" data-type="overall"></i>
+                    <i class="fa fa-star overall" id="star1" onclick="ratingFunction(this)" data="5" data-type="overall"></i>
+                    <input type="hidden" id="overallValue" name="overallValue" class="selectedvalue" value="">
+                </div>
+            </li>
+        </ul>
+        <textarea id="comment" name="w3review" rows="4" cols="60"></textarea>
+        <input type="button" value="submit" id="submit" onclick="starratingFunction()">
+        <p class="output"></p>
+    </div>
+    }
+</div>

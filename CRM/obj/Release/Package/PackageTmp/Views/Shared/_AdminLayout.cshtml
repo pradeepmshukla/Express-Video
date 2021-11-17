@@ -1,0 +1,687 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Express Video</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/Content/Images/EV.png" type="image/x-icon">
+    <!-- App css -->
+    <link href="~/Content/Theme/Crovex_v1.0/HTML/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Theme/Crovex_v1.0/HTML/assets/css/jquery-ui.min.css" rel="stylesheet">
+    <link href="~/Content/Theme/Crovex_v1.0/HTML/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Theme/Crovex_v1.0/HTML/assets/css/metisMenu.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Theme/Crovex_v1.0/HTML/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- DataTables -->
+    <link href="~/Content/Theme/Crovex_v1.0/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/Content/Theme/Crovex_v1.0/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <!-- Responsive datatable examples -->
+    <link href="~/Content/Theme/Crovex_v1.0/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    @*<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">*@
+
+    <link href="~/Style/new/style.css" rel="stylesheet" />
+    <link href="~/Style/new/responsive.css" rel="stylesheet" />
+    
+    <style>
+        .ProfileImage {
+            width: 100%;
+            text-align: center;
+            color: white;
+            margin-top: -24px;
+        }
+
+            .ProfileImage img {
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                margin: 0 auto;
+            }
+
+            .ProfileImage .user-name {
+                font-size: 1.4rem;
+            }
+
+            .ProfileImage .user-designation {
+                color: #e2e2e2;
+            }
+
+            .ProfileImage .user-emailid {
+                color: #e2e2e2;
+            }
+
+        .btn {
+            background-color: orange;
+            border: 1px solid orange;
+        }
+
+        .modal-content {
+            position: relative;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+            flex-direction: column;
+            width: 100%;
+            pointer-events: auto;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid rgba(0,0,0,0.2);
+            border-radius: 0rem;
+            outline: 0;
+        }
+
+        .left-sidenav-menu li.mm-active > a {
+            -webkit-box-shadow: 0px 0px 0px 0 rgba(23,97,253,0.4);
+            box-shadow: 0px 0px 0px 0 rgba(23,97,253,0.4);
+        }
+
+        .left-sidenav-menu li > a:hover {
+            color: #fcc012;
+        }
+
+            .left-sidenav-menu li > a:hover i {
+                color: #fcc012;
+            }
+
+        .modal-header {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: start;
+            -ms-flex-align: start;
+            align-items: flex-start;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+            padding: 1rem 1rem;
+            border-bottom: 0px solid #eaf0f7;
+            border-top-left-radius: 0rem;
+            border-top-right-radius: 0rem;
+            background-color: #fcc012;
+        }
+
+        .remove {
+            color: red;
+            font-weight: bold;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        .filename {
+            text-align: left;
+            font-size: 13px;
+        }
+
+            .filename div {
+                padding: 4px 1px;
+            }
+
+        .navbar-custom {
+            padding-right: 52px;
+        }
+
+        .emailPart {
+            padding: 4px 5px !important;
+        }
+
+        .circle-border {
+            border-radius: 50%;
+            border: 2px solid white;
+            padding: 4px 7px;
+            margin: 0px 9px;
+        }
+
+        .mobileNmber {
+            margin-left: 51px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- Top Bar Start -->
+    <div class="topbar">
+
+        <!-- LOGO -->
+        <div class="topbar-left">
+            <a href="/Home" class="logo" style=" font-family:Vonique64;">
+                <span style="color:orange">EXPRESS</span><span style="color:white">VIDEO</span>
+            </a>
+        </div>
+        <!--end logo-->
+        <!-- Navbar -->
+        <nav class="navbar-custom">
+
+            <ul class="list-unstyled topbar-nav float-right navbar_text" style="text-transform:uppercase">
+
+                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 4)
+                {
+                    <li class="dropdown">
+                        <a class="nav-link waves-effect waves-light nav-user" href="/Basket/MyCart" role="button"
+                           aria-haspopup="false" aria-expanded="false">
+                            <span class="ml-1 nav-user-name hidden-sm" style="color:white;font-weight:bold">My Cart </span>
+                        </a>
+                    </li>
+                }
+                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() != 4)
+                {
+                    <li class="dropdown">
+                        <a class="nav-link waves-effect waves-light nav-user" href="/Home/Videos?s=admin" role="button"
+                           aria-haspopup="false" aria-expanded="false">
+                            <span class="ml-1 nav-user-name" style="color:white;font-weight:bold">Sample Videos</span>
+                        </a>
+                    </li>
+                }
+                <li class="dropdown">
+                    <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="false" aria-expanded="false">
+                        @*<img src="~/Content/Theme/Crovex_v1.0/HTML/assets/images/users/user-1.png" alt="profile-user" class="rounded-circle" style="border:1px solid orange;padding: 2px;" />*@
+                        <span class="ml-1 nav-user-name" style="color:white;font-weight:bold">@CRM.Models.Global.GlobalFunctions.GetCookie("UserName")<i class="mdi mdi-chevron-down"></i> </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <span class="dropdown-item" data-toggle="modal" data-target="#Confirmation"><i class="ti-power-off text-muted mr-2"></i> Logout</span>
+                    </div>
+                </li>
+            </ul><!--end topbar-nav-->
+
+            <ul class="list-unstyled topbar-nav mb-0 three_dot">
+
+                <li>
+                    <button class="nav-link button-menu-mobile waves-effect waves-light">
+                        <i class="ti-menu nav-icon" style="color:orange"></i>
+                    </button>
+                </li>
+                <li class="hide-phone app-search" style="display:none">
+                    <form role="search" class="">
+                        <input type="text" id="AllCompo" placeholder="Search..." class="form-control">
+                        <a href=""><i class="fas fa-search"></i></a>
+                    </form>
+                </li>
+            </ul>
+        </nav>
+        <!-- end navbar-->
+    </div>
+    <!-- Top Bar End -->
+    <!-- Left Sidenav -->
+    <div class="main-dflex">
+
+        <div class="left-sidenav">
+            <div class="ProfileImage">
+                @if (!string.IsNullOrEmpty(CRM.Models.Global.GlobalFunctions.GetCookie("GmailImageUrl")))
+                {
+                    <img src="@CRM.Models.Global.GlobalFunctions.GetCookie("GmailImageUrl")" onerror="this.src ='../Content/Images/defaultprofile.png'" class="img img-circle" onclick="callPage('/UserDetail/MyProfile', 'My Profile','')" />
+                }
+                else if (!string.IsNullOrEmpty(CRM.Models.Global.GlobalFunctions.GetCookie("ProfilePhoto")))
+                {
+                    <img src="~/Uploads/@CRM.Models.Global.GlobalFunctions.GetCookie("ProfilePhoto")" onerror="this.src ='../Content/Images/defaultprofile.png'" class="img img-circle" onclick="callPage('/UserDetail/MyProfile', 'My Profile','')" />
+                }
+                else
+                {
+                    <img src="~/Content/Images/defaultprofile.png" class="img img-circle" onerror="this.src ='../Content/Images/defaultprofile.png'" onclick="callPage('/UserDetail/MyProfile', 'My Profile','')" />
+                }
+
+                <div class="user-name" onclick="callPage('/UserDetail/MyProfile', 'My Profile','')">@CRM.Models.Global.GlobalFunctions.GetCookie("FirstName") @CRM.Models.Global.GlobalFunctions.GetCookie("LastName")</div>
+                <div class="user-designation">@CRM.Models.Global.GlobalFunctions.GetCookie("RoleName")</div>
+                <div class="user-emailid">@CRM.Models.Global.GlobalFunctions.GetCookie("EmailID")</div>
+            </div>
+
+            <ul class="metismenu left-sidenav-menu">
+                <li onclick="callPage('/Dashboard/dashboard', '','')">
+                    <a href="javascript: void(0);" class="active"><i class="ti-bar-chart"></i><span>Dashboard</span></a>
+
+                </li>
+                <li onclick="callPage('/UserDetail/MyProfile', 'My Profile','')">
+                    <a href="javascript: void(0);"><i class="ti-bar-chart"></i><span>My Profile</span></a>
+                </li>
+
+                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 5)
+                {
+                    <li onclick="callPage('/Orders/NewJobs', 'New Project','')">
+                        <a href="javascript: void(0);"><i class="ti-bar-chart"></i><span>New Project</span></a>
+                    </li>
+                    <li onclick="callPage('/OrderStatus/MyProject', 'Project Details', '')">
+                        <a href="javascript: void(0);"><i class="ti-bar-chart"></i><span>Project Details</span></a>
+                    </li>
+                }
+                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 6)
+                {
+                    <li onclick="callPage('/Orders/NewJobs', 'New Project','')">
+                        <a href="javascript: void(0);"><i class="ti-bar-chart"></i><span>New Project</span></a>
+                    </li>
+                    <li onclick="callPage('/OrderStatus/MyProject', 'Project Details', '')">
+                        <a href="javascript: void(0);"><i class="ti-bar-chart"></i><span>Project Details</span></a>
+                    </li>
+                }
+                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+                {
+                    <li onclick="callPage('/Orders/NewJobs', 'New Project','')">
+                        <a href="javascript: void(0);"><i class="ti-bar-chart"></i><span>New Project</span></a>
+                    </li>
+                    <li onclick="callPage('/OrderStatus/MyProject', 'Project Details', '')">
+                        <a href="javascript: void(0);"><i class="ti-bar-chart"></i><span>Project Details</span></a>
+                    </li>
+                }
+
+
+                @if (CRM.Models.Global.GlobalFunctions.GetCookie("RoleId") == "4")
+                {
+                    <li onclick="callPage('/Orders/MyOrder', 'Orders Details', '')">
+                        <a href="javascript: void(0);"><i class="ti-bar-chart"></i><span>Orders Details</span></a>
+                    </li>
+                }
+                @if (CRM.Models.Global.GlobalFunctions.GetCookie("RoleId") == "2")
+                {
+                    <li onclick="callPage('/Basket/AdminBasketList', 'Pending Orders','')">
+                        <a href="javascript: void(0);"><i class="ti-layers-alt"></i><span>Pending Orders</span></a>
+                    </li>
+                    <li onclick="callPage('/Orders/AdminOrder', 'Order Details', '')">
+                        <a href="javascript: void(0);"><i class="ti-bar-chart"></i><span>Orders Details</span></a>
+                    </li>
+                    <li onclick="callPage('/SampleVideo/Index', 'List Of Sample Video','')">
+                        <a href="javascript: void(0);"><i class="ti-layers-alt"></i><span>Sample Video</span> </a>
+
+                    </li>
+                    @*<li onclick="callPage('/TopUpPayment/Index', 'Top Up Request', '')">
+                        <a href="javascript: void(0);"><i class="ti-bar-chart"></i><span>Top Up Request</span></a>
+                    </li>*@
+                    <li onclick="callPage('/PriceManagement/PriceManage', 'Price Management', '')">
+                        <a href="javascript: void(0);"><i class="ti-bar-chart"></i><span>Price Management</span></a>
+                    </li>
+                    <li onclick="callPage('/EmailManagement/Index', 'Email Management', '')">
+                        <a href="javascript: void(0);"><i class="ti-bar-chart"></i><span>Email Management</span></a>
+                    </li>
+                    <li class="ms-active active">
+                        <a href="javascript: void(0);"><i class="ti-bar-chart"></i><span>Users Data</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                        <ul class="nav-second-level" aria-expanded="false">
+                            <li class="nav-item" onclick="setUser('Manager'); callPage('/UserDetail/UsersList', 'Managers', '8')"><a href="javascript: void(0);"><i class="ti-control-record"></i><span>Manager</span></a></li>
+                            <li class="nav-item" onclick="setUser('Customer'); callPage('/UserDetail/UsersList', 'Customer', '4')"><a class="nav-link" href="javascript: void(0);"><i class="ti-control-record"></i>Customer</a></li>
+
+                            <li class="ms-active active">
+                                <a href="javascript: void(0);"><i class="ti-bar-chart"></i><span>Staff</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                                <ul class="nav-second-level" aria-expanded="false">
+                                    <li class="nav-item" onclick="setUser('ScriptWriter'); callPage('/UserDetail/UsersList', 'Script Writer', '5');"><a href="javascript: void(0);"><i class="ti-control-record"></i><span>Script Writer</span></a></li>
+                                    <li class="nav-item" onclick="setUser('VoiceArtist'); callPage('/UserDetail/UsersList', 'Voice Over', '6')"><a href="javascript: void(0);"><i class="ti-control-record"></i><span>Voice Over</span></a></li>
+                                    <li class="nav-item" onclick="setUser('VideoArtist'); callPage('/UserDetail/UsersList', 'Animation', '7')"><a href="javascript: void(0);"><i class="ti-control-record"></i><span>Animation</span></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="ms-active active">
+                        <a href="javascript: void(0);"><i class="ti-bar-chart"></i><span>Agreement</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                        <ul class="nav-second-level" aria-expanded="false">
+                            <li class="nav-item" onclick="_FreelancerAGREEMENT_ForScriptWriter()"><a href="javascript: void(0);"><i class="ti-control-record"></i><span>Script AGR</span></a></li>
+                            @*<li class="nav-item" onclick="_FreelancerWorkAGREEMENT_ForScriptWriter(0)"><a href="javascript: void(0);"><i class="ti-control-record"></i><span>Script W AGR</span></a></li>*@
+                            <li class="nav-item" onclick="_FreelancerAGREEMENT_ForVoiceOver()"><a href="javascript: void(0);"><i class="ti-control-record"></i><span>Voice AGR</span></a></li>
+                            @*<li class="nav-item" onclick="_FreelancerWorkAGREEMENT_ForVoiceOver0()"><a href="javascript: void(0);"><i class="ti-control-record"></i><span>Voice W AGR</span></a></li>*@
+                            <li class="nav-item" onclick="_FreelancerAGREEMENT_ForVideo()"><a href="javascript: void(0);"><i class="ti-control-record"></i><span>Video AGr</span></a></li>
+                            @*<li class="nav-item" onclick="_FreelancerWorkAGREEMENT_ForVideo(0)"><a href="javascript: void(0);"><i class="ti-control-record"></i><span>Video W AGR</span></a></li>*@
+
+
+                        </ul>
+                    </li>
+
+
+
+                    <li onclick="callPage('/Faq/Index', 'FAQ Management', '')">
+                        <a href="javascript: void(0);"><i class="ti-bar-chart"></i><span>FAQ Management</span></a>
+                    </li>
+                    <li onclick="callPage('/SocialPage/Index', 'Social Management', '')">
+                        <a href="javascript: void(0);"><i class="ti-bar-chart"></i><span>Social Management</span></a>
+                    </li>
+                }
+                <li>
+                    @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 5)
+                    {
+                        <a href="javascript: void(0);" onclick="_FreelancerAGREEMENT_ForScriptWriter()"><i class="ti-bar-chart"></i><span>View Agreement</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                    }
+                    @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 6)
+                    {
+                        <a href="javascript: void(0);" onclick="_FreelancerAGREEMENT_ForVoiceOver()"><i class="ti-bar-chart"></i><span>View Agreement</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                    }
+                    @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+                    {
+                        <a href="javascript: void(0);" onclick="_FreelancerAGREEMENT_ForVideo()"><i class="ti-bar-chart"></i><span>View Agreement</span><span class="menu-arrow"><i class="mdi mdi-chevron-right"></i></span></a>
+                    }
+                </li>
+
+            </ul>
+
+        </div>
+        <!-- end left-sidenav-->
+
+        <div class="page-wrapper">
+            <!-- Page Content-->
+            <div class="page-content">
+                <!-- Page Loader -->
+                <div class="page-loader-wrapper" style="height:100vh">
+                    <div class="loader" style="margin: 192px auto;">
+                        <div class="preloader">
+                            <div class="spinner-layer pl-red">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="font-size:2rem; text-align:center">Please wait...</p>
+                    </div>
+                </div>
+                <!-- #END# Page Loader -->
+                <div class="container-fluid container_part">
+                    <br />
+                    <div class="card shadow-lg">
+                        <div class="card-body">
+                            <!-- Page-Title -->
+                            @RenderBody()
+                            <!-- end page title end breadcrumb -->
+                        </div>
+                    </div>
+                </div><!-- container -->
+                <!--end footer-->
+            </div>
+            <!-- end page content -->
+        </div>
+    </div>
+    <footer class="text-center text-white footer-admin" style="">
+        <div class="row">
+            <div class="col-md-4 col-sm-12" style="">
+                <a href="/Home" class="logo">
+                    <span style="color:orange">EXPRESS</span><span style="color:white">VIDEO</span>
+                </a>
+
+                <div class="reservedby">Express Video © All Right Reserved 2020-21</div>
+            </div>
+            <div class="col-md-4 col-sm-12 my-4 m-auto">
+                <table>
+                    <tr>
+                        @*<td><span class="glyphicon glyphicon-phone circle-border"></span></td>*@
+
+                        <td style="padding-top:0px; text-align:left; margin:0px;" class="customer_part">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-6">
+                                    <table>
+                                        <tr>
+                                            @*<td><span class="glyphicon glyphicon-envelope circle-border"></span></td>*@
+                                            <td><span class="circle-border emailPart"><i class="far fa-envelope"></i></span></td>
+                                            <td style="padding-top:5px;text-align:left">
+                                                <h5 style="margin-bottom:-1px;color:#fff; ">EMAIL</h5>
+                                                <span>info@expressvideo.in</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            @*<td><span class="glyphicon glyphicon-phone circle-border"></span></td>*@
+                                            <td><span class="circle-border"><i class="fas fa-mobile-alt"></i></span></td>
+                                            <td style="padding-top:5px; text-align:left;">
+                                                <h5 style="margin-bottom:-1px;color:#fff;">CUSTOMER SUPPORT NO.</h5>
+                                                <span>+91-9643083000</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <span class="mobileNmber">+91-9643083000</span>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="col-md-4 col-sm-12 my-3 text-left">
+                <table class="timing">
+                    <tr>
+                        <td>
+
+                            <span>
+                                Mon - Fri, 9:30 am - 6.30 pm,<br />
+                                All Sat – 9:30 am – 2:00 pm<br />
+                                Closed on Sunday and all national holidays
+
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </footer>
+    <a id="link" href="no-script.html">
+
+    </a>
+    <input type="hidden" id="hdnuserid" value="@CRM.Models.Global.GlobalFunctions.GetCookie("UserID")" />
+    <input type="hidden" id="hdnroleid" value="@CRM.Models.Global.GlobalFunctions.GetRoleId()" />
+    @*Model popup*@
+    <div class="modal fade" id="viewpopup" tabindex="-1" role="dialog" aria-labelledby="viewpopup" aria-hidden="true" style="width:100%;z-index:1041">
+        <div class="modal-dialog  modal-dialog-centered" role="document" id="viewpopupmodaltype">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#fcc012">
+                    <h5 class="modal-title feedbackPopup-heading" id="viewpopup-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                @*<div class="modal-footer" style="background-color:white;border-color:#080707">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="viewpopup1" tabindex="-1" role="dialog" aria-labelledby="viewpopup1" aria-hidden="true" style="width:100%; z-index:100000">
+        <div class="modal-dialog  modal-dialog-centered" role="document" id="viewpopup1modaltype">
+            <div class="modal-content" style="background: rgba(0,0,0,0.9);color:white;padding: 8px 1px;text-align:center">
+                @*<div class="modal-header" style="background-color:#fcc012">
+                        <h5 class="modal-title feedbackPopup-heading" id="viewpopup1-title"  style="text-align: center;font-size: 21px;color:white"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>*@
+                <div class="modal-body">
+                    <h5 class="modal-title feedbackPopup-heading" id="viewpopup1-title" style="text-align: center;font-size: 21px;color:white"></h5>
+                    <div style="width: 29%;margin: -9px auto;height: 3px;background: rgba(0,0,0,0.7);"></div>
+                    <br /><br />
+                    <div class="modal-body-content" style="font-size:18px;font-size: 18px;padding: 1px 1px;"></div>
+                </div>
+                <div class="modal-footer" style="background: rgba(0,0,0,0.1);border-color:rgba(0,0,0,0.1);">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="viewpopup2" tabindex="-1" role="dialog" aria-labelledby="viewpopup2" aria-hidden="true" style="width:100%;z-index:1050">
+        <div class="modal-dialog  modal-dialog-centered modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#fcc012">
+                    <h5 class="modal-title feedbackPopup-heading"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                @*<div class="modal-footer" style="background-color:white;border-color:#080707">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="viewpopup3" tabindex="-1" role="dialog" aria-labelledby="viewpopup3" aria-hidden="true" style="width:100%;z-index:1050">
+        <div class="modal-dialog  modal-dialog-centered modal-lg" role="document" id="viewpopup3modaltype">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#fcc012">
+                    <h5 class="modal-title feedbackPopup-heading" id="viewpopup3-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                @*<div class="modal-footer" style="background-color:white;border-color:#080707">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="viewconfirmpopup" tabindex="-1" role="dialog" aria-labelledby="viewpopup" aria-hidden="true" style="width:100%">
+        <div class="modal-dialog  modal-dialog-centered" role="document" id="viewpopupmodaltype">
+            <div class="modal-content" style="background-color:black;color:white;padding: 8px 1px;">
+                @*<div class="modal-header" style="background-color:#fcc012">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>*@
+                <div class="modal-body">
+                    <h5 class="modal-title feedbackPopup-heading" id="viewpopup-title" style="text-align: center;font-size: 21px;color:white"></h5>
+                    <div style="width: 29%;margin: -9px auto;height: 3px;background-color: #fcc012;"></div>
+                    <br /><br />
+                    <div class="modal-body-content" style="font-size:18px;font-size: 18px;padding: 10px 24px;"></div>
+                </div>
+                <div class="modal-footer" style="background-color:black;border-color:black">
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-secondary btnconfirm" style="float:right;padding: 1px 45px;" data-dismiss="modal" onclick="popupconfirm()">YES</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="float:left;padding: 1px 45px;">NO</button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="Confirmation" tabindex="-1" role="dialog" aria-labelledby="viewpopup" aria-hidden="true" style="width:100%;z-index:1041">
+        <div class="modal-dialog  modal-dialog-centered" role="document" id="Confirmation">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#fcc012">
+                    <h5 class="modal-title feedbackPopup-heading" id="viewpopup-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4 class="message">ARE YOU SURE YOU WANT TO LOGOUT?</h4><br />
+                    <div class="row" style="    margin-bottom: 22px;">
+                        <div class="col-6">
+                            <div type="submit" class="btn btnLogout btnlogout-left" data-text-hover="Yes" style="">Yes</div>
+
+                        </div>
+                        <div class="col-6">
+                            <div type="submit" class="btn btnlogout-right" data-text-hover="No" data-dismiss="modal" style="">No</div>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="modal-footer" style="background-color:white;border-color:#080707">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+
+    <!-- end page-wrapper -->
+    <!-- jQuery  -->
+
+    <script src="~/Content/Theme/Crovex_v1.0/HTML/assets/js/jquery.min.js"></script>
+
+    <script>
+        var CurrentUser = "";
+        function setUser(usertype) {
+            CurrentUser = usertype;
+        }
+        $(document).ready(function () {
+            callPage('/Dashboard/dashboard', '', '');
+            $(".btnLogout").click(function () {
+                var data = {};
+                $.ajax({
+                    type: "POST",
+                    url: "/UserDetail/Logout",
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+
+                        location.reload();
+
+
+                    }
+                });
+
+            });
+            if ($("#hdnuserid").val() == "") {
+                window.location.replace(location.origin + "/Home");
+            }
+            if ('@CRM.Models.Global.GlobalFunctions.GetIsAgreementAccept().ToLower()' == 'false' || '@CRM.Models.Global.GlobalFunctions.GetIsAgreementAccept().ToLower()' == '') {
+                if (@CRM.Models.Global.GlobalFunctions.GetRoleId() == 5) {
+                    _FreelancerAGREEMENT_ForScriptWriter();
+                }
+                if (@CRM.Models.Global.GlobalFunctions.GetRoleId() == 6) {
+                    _FreelancerAGREEMENT_ForVoiceOver();
+                }
+                if (@CRM.Models.Global.GlobalFunctions.GetRoleId() == 7) {
+                    _FreelancerAGREEMENT_ForVideo();
+                }
+            }
+        });
+
+    </script>
+
+    <script src="~/Content/Theme/Crovex_v1.0/HTML/assets/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/HTML/assets/js/metismenu.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/HTML/assets/js/waves.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/HTML/assets/js/feather.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/HTML/assets/js/jquery.slimscroll.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/HTML/assets/js/jquery-ui.min.js"></script>
+    <!-- App js -->
+    <!-- Required datatable js -->
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples -->
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/dataTables.buttons.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/buttons.bootstrap4.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/jszip.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/pdfmake.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/vfs_fonts.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/buttons.html5.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/buttons.print.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/buttons.colVis.min.js"></script>
+    <!-- Responsive examples -->
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/dataTables.responsive.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/responsive.bootstrap4.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/HTML/assets/pages/jquery.datatable.init.js"></script>
+
+    <script src="~/Content/Theme/Crovex_v1.0/HTML/assets/js/app.js"></script>
+    @*<link href="~/Style/style.css?v=1" rel="stylesheet" />
+        <link href="~/Style/style-screen-1440px.css?v=1" rel="stylesheet" />
+        <link href="~/Style/style-screen-1024px.css?v=1" rel="stylesheet" />
+        <link href="~/Style/style-screen-768px.css?v=1" rel="stylesheet" />
+        <link href="~/Style/style-screen-600px.css?v=1" rel="stylesheet" />
+        <link href="~/Style/style-screen-480px.css?v=1" rel="stylesheet" />
+        <link href="~/Style/style-screen-320px.css?v=1" rel="stylesheet" />*@
+
+
+
+    @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 5 || CRM.Models.Global.GlobalFunctions.GetRoleId() == 6 || CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+    {
+        <link href="../Style/Style-Artist.css" rel="stylesheet" />
+    }
+
+    @*new style sheet 01-11-2021*@
+    <script src="~/scripts/CommonScripts.js"></script>
+    <script src="~/scripts/CRM.js"></script>
+    <script src="~/scripts/DesignScript.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,281 @@
+﻿@model  System.Data.DataTable
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;// "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@*<!-- DataTables -->
+<link href="../../plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="../../plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<!-- Responsive datatable examples -->
+<link href="../../plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />*@
+
+<div class="row">
+    <div class="col-lg-12 col-sm-12">
+        <div class="card">
+            <div class="card-body table-responsive">
+                @*<h5 class="header-title">Row Border Bottom Example</h5>
+            <p class="text-muted mb-3">DataTables has most features enabled by default, so all you need to do to use it with your own ables is to call the construction function: <code>$().DataTable();</code> and border bottom.</p>*@
+                <div class="modal fade modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="width:100%">
+                    <div class="modal-dialog  modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title feedbackPopup-heading" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="feedbackPopup">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-sm-12 col-md-12 viewfeedbackdetails">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                @*<button type="button" class="btn btn-primary">Save changes</button>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <table id="datatable2" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead>
+                            <tr>
+                                @foreach (System.Data.DataColumn col in Model.Columns)
+                                {
+                                    if (col.ColumnName == "OrderStatusId")
+                                    {
+                                        <th>Script Details</th>
+                                    }
+                                    else if(col.ColumnName== "Script")
+                                    {
+                                        <th>Script/VO</th>
+                                    }
+                                    else
+                                    {
+                                        if (col.ColumnName != "VideoStatus" && col.ColumnName != "VideoFileName" && col.ColumnName != "FileName" && col.ColumnName != "ScriptFile" && col.ColumnName != "VOFile")
+                                        {
+                                            <th>@col.ColumnName</th>
+                                        }
+                                    }
+                                }
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow row in Model.Rows)
+                            {
+                                <tr>
+                                    @foreach (System.Data.DataColumn col in Model.Columns)
+                                    {
+                                        if (col.ColumnName == "Script")
+                                        {
+                                            <td>
+                                                @if (String.IsNullOrEmpty(Convert.ToString(row["ScriptFile"])))
+                                                {
+                                                    <div style="color:red"><a href="#">Script file not uploaded</a></div>
+                                                }
+                                                else
+                                                {
+                                                    <div style="color:green"><a href="../Uploads/@row["ScriptFile"]" target="_blank">View Script File</a></div>
+                                                 
+                                                }
+
+                                                @if (String.IsNullOrEmpty(Convert.ToString(row["VOFile"])))
+                                                {
+                                                    <div style="color:red"><a href="#">Voice Artist file not uploaded</a></div>
+                                                }
+                                                else
+                                                {
+                                                    <div style="color:green"><a href="../Uploads/@row["VOFile"]" target="_blank">View VO Artist file</a></div>
+
+                                                }
+                                                </td>
+
+                                        }
+                                        else if (col.ColumnName == "Update Status")
+                                        {
+                                            <td class="update-area">
+                                                <select class="form-control updatestatus" data-VideoStatus="@row["VideoStatus"]">
+                                                    <option value="1">YTS</option>
+                                                    <option value="2">WIP</option>
+                                                    <option value="5">Done</option>
+                                                </select>
+                                                <div class="btn btn-round btn-block waves-effect waves-light updatebtn" style="display:none" data-orderid="@row["Order ID"]" data-VideoFileName="@row["VideoFileName"]">Update</div>
+                                            </td>
+                                        }
+                                        else if (col.ColumnName == "Client Feedback")
+                                        {
+                                            <td><div class="btn btn-sm btn-round btn-block waves-effect waves-light" onclick="ViewFeedback(@row["Order ID"])" data-toggle="modal" data-target="#exampleModal">View</div></td>
+                                        }
+                                        else if (col.ColumnName == "Upload File")
+                                        {
+                                            <td class="tdfileupload">
+                                                <p>@row["FileName"]</p>
+                                                <div class="Uploadedfile"></div>
+                                                <input type="file" class="UploadVideoFile" id="fileupload_@row["Order ID"]" data-fileurl="FileUrl_@row["Order ID"]" />
+                                                <input type="hidden" id="FileUrl_@row["Order ID"]" />
+                                                <div class="btn btn-sm btn-round btn-block waves-effect waves-light btnUpload" style="display:none" data-orderid="@row["Order ID"]" data-fileuploadid="fileupload_@row["Order ID"]" data-fileurl="FileUrl_@row["Order ID"]" data-VideoFileName="@row["VideoFileName"]" data-VideoStatus="@row["VideoStatus"]">Upload </div>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            if (col.ColumnName == "OrderStatusId")
+                                            {
+                                                <td>
+                                                    <div class="btn btn-sm btn-round btn-block waves-effect waves-light">Script Details</div>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                if (col.ColumnName != "VideoStatus" && col.ColumnName != "VideoFileName" && col.ColumnName != "FileName" && col.ColumnName != "ScriptFile" && col.ColumnName != "VOFile")
+                                                {
+                                                    <td>@row[col.ColumnName]</td>
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    </tr>
+                            }
+                            </tbody>
+                            </table>
+                        </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<!-- Required datatable js -->
+<script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+<!-- Buttons examples -->
+<script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/dataTables.buttons.min.js"></script>
+<script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/buttons.bootstrap4.min.js"></script>
+<script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/jszip.min.js"></script>
+<script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/pdfmake.min.js"></script>
+<script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/vfs_fonts.js"></script>
+<script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/buttons.html5.min.js"></script>
+<script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/buttons.print.min.js"></script>
+<script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/buttons.colVis.min.js"></script>
+<!-- Responsive examples -->
+<script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/dataTables.responsive.min.js"></script>
+<script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/responsive.bootstrap4.min.js"></script>
+<script src="~/Content/Theme/Crovex_v1.0/HTML/assets/pages/jquery.datatable.init.js"></script>*@
+
+<script>
+    $(document).ready(function () {
+
+        $(".updatestatus").each(function () {
+            var status = $(this).attr("data-videostatus");
+            $(this).val(status);
+
+        });
+
+        $(".updatestatus").change(function () {
+
+          $(this).siblings(".updatebtn").show();
+
+        });
+
+        $(".updatebtn").click(function () {
+            $(this).hide();
+            var OrderId = $(this).attr("data-orderid");
+            var VideoStatus = $(this).siblings(".updatestatus").val();
+            var VideoFileName = $(this).attr("data-VideoFileName");
+            UpdateVideoStatus(OrderId, VideoStatus, VideoFileName);
+
+        });
+
+        $(".UploadVideoFile").change(function(){
+            var filename=$(this).val();
+            var name=filename.split('\\');
+            name=name[name.length-1];
+            $(this).siblings(".Uploadedfile").html("<div>"+name+" <span style='color:red;cursor:pointer' onclick='RemoveFile(this)'>Remove</span></div>");
+            $(this).siblings(".btnUpload").show();
+            $(this).hide();
+            var fileuploadid = $(this).attr("id");
+            var fileurl = $(this).attr("data-fileurl");
+            if (fileValidation(fileuploadid, 'image')) {
+                var fileurl = $(this).attr("data-fileurl");
+                var r = UploadFile(fileuploadid, fileurl);
+            }
+        });
+        $(".btnUpload").click(function(){
+            var OrderId=$(this).attr("data-orderid");
+            var VideoFileName = $("#FileUrl_" + OrderId).val();
+            var VideoStatus = $(this).attr("data-VideoStatus");
+            UpdateVideoStatus(OrderId, VideoStatus, VideoFileName);
+
+        });
+
+    });
+    function UpdateVideoStatus(OrderId, VideoStatus, VideoFileName) {
+        var data = {
+            OrderId: OrderId,
+            VideoStatus: VideoStatus,
+            VideoFileName: VideoFileName
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/OrderStatus/UpdateVideoStatus",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                callPage('/OrderStatus/VideoArtist', 'Video Artist Panel', '');
+            }
+        });
+    }
+    function ViewFeedback(OrderId) {
+        $(".viewfeedbackdetails").html("Not yet any feedback ");
+        $(".feedbackPopup-heading").html("Client Feedbacks");
+        var data = {
+
+
+            OrderId: OrderId,
+            FeedbackType: 'Video Artist',
+
+        }
+        $.ajax({
+            type: "POST",
+            url: "/FeedbackDetails/ViewFeedbackArtist",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                var html = "";
+                for (var i = 0; i < data.length; i++) {
+                    html += '<div class="fd">' +
+                        '<div class="comment"><span style="font-weight:bold">['+data[i].ClientStatus+']</span> <span>'+ data[i].FeedbackComment +'</span></div>' +
+                        '<span class="dt">'+ data[i].DateTime + '</span>';
+                    if (data[i].FilesUploaded != "") {
+                        html += '<span class="attachment"><a href="' + data[i].FilesUploaded + '" target="_blank">View file</a>';
+                    } else {
+                        html += '<span class="attachment"></span>';
+                    }
+
+                    html += "</div>";
+
+                }
+                if (html != "") {
+                    $(".viewfeedbackdetails").html(html);
+                }
+            }
+        });
+    }
+    function RemoveFile(btnremove){
+        $(btnremove).parents(".tdfileupload").find("input[type='file']").val("");
+        $(btnremove).parents(".tdfileupload").find("input[type='file']").show();
+        $(btnremove).parents(".tdfileupload").find(".btnUpload").hide();
+        $(btnremove).parent("div").remove();
+    }
+</script>

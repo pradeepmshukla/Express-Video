@@ -1,0 +1,16 @@
+D:\Client Project\PriyankaGasService\DAL\bin\Release\DAL.dll
+D:\Client Project\PriyankaGasService\DAL\bin\Release\DAL.pdb
+D:\Client Project\PriyankaGasService\DAL\obj\Release\DAL.csprojResolveAssemblyReference.cache
+D:\Client Project\PriyankaGasService\DAL\obj\Release\DAL.dll
+D:\Client Project\PriyankaGasService\DAL\obj\Release\DAL.pdb
+D:\Client Project\Expressvideo\CRM\DAL\bin\Release\DAL.dll
+D:\Client Project\Expressvideo\CRM\DAL\bin\Release\DAL.pdb
+D:\Client Project\Expressvideo\CRM\DAL\obj\Release\DAL.csprojResolveAssemblyReference.cache
+D:\Client Project\Expressvideo\CRM\DAL\obj\Release\DAL.dll
+D:\Client Project\Expressvideo\CRM\DAL\obj\Release\DAL.pdb
+F:\Client Project\Expressvideo\CODE\CRM\DAL\bin\Release\DAL.dll
+F:\Client Project\Expressvideo\CODE\CRM\DAL\bin\Release\DAL.pdb
+F:\Client Project\Expressvideo\CODE\CRM\DAL\obj\Release\DAL.csproj.AssemblyReference.cache
+F:\Client Project\Expressvideo\CODE\CRM\DAL\obj\Release\DAL.csproj.CoreCompileInputs.cache
+F:\Client Project\Expressvideo\CODE\CRM\DAL\obj\Release\DAL.dll
+F:\Client Project\Expressvideo\CODE\CRM\DAL\obj\Release\DAL.pdb

@@ -1,0 +1,124 @@
+﻿@model  DAL.Basket
+@{
+    Layout = null;
+ }
+<style>
+    .ScriptDetails .hint {
+        font-size: 11px;
+    }
+    .tablePart{
+        width:100%;
+        overflow-x:auto;
+    }
+</style>
+<div class="ScriptDetails">
+    @*<h3>VO Requirement</h3>*@
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label>Select Language</label>
+                <div>
+                    @if (string.IsNullOrEmpty(Model.VO_Language) || (!string.IsNullOrEmpty(Model.VO_Language) && Model.VO_Language == "Hindi"))
+                    {
+                        <input type="radio" value="Hindi" name="voicelanguage" data-language="Hindi" class="VO_Language" checked/> <label>Hindi</label>
+                        <input type="radio" value="English" name="voicelanguage" data-language="English" class="VO_Language" /> <label>English</label>
+                    }
+                    else
+                    {
+                        <input type="radio" value="Hindi" name="voicelanguage" data-language="Hindi" class="VO_Language" /> <label>Hindi</label>
+                        <input type="radio" value="English" name="voicelanguage" data-language="English" class="VO_Language" checked/> <label>English</label>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label>Select Gender</label>
+                <div>
+                    @if (string.IsNullOrEmpty(Model.VO_Gender) || (!string.IsNullOrEmpty(Model.VO_Gender) && Model.VO_Gender == "Male"))
+                    {
+                        
+                    <input type="radio" value="Male" name="gender" data-Gender="Male" class="VO_Gender" checked/> <label>Male</label>
+                    <input type="radio" value="Female" name="gender" data-Gender="Female" class="VO_Gender" /> <label>Female</label>
+                    }
+                    else
+                    {
+                        <input type="radio" value="Male" name="gender" data-Gender="Male" class="VO_Gender" /> <label>Male</label>
+                        <input type="radio" value="Female" name="gender" data-Gender="Female" class="VO_Gender" checked/> <label>Female</label>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="tablePart">
+                <table class="table">
+                    <caption></caption>
+                    <tr>
+                        <th><u>Artist Code</u></th>
+                        <th><u>Sample 01</u></th>
+                        <th><u>Price</u></th>
+                    </tr>
+                    @if (ViewBag.VoiceArtistSounds != null)
+                {
+
+                    foreach (var item in ViewBag.VoiceArtistSounds)
+                    {
+                            <tr class="row-sounds" data-soundfind="@item.Gender-@item.SoundLanguage">
+                                <td>
+                                    @if (Model.VO_SampleId != null && Model.VO_SampleId == item.VoiceArtistSoundsId)
+                                {
+                                        <input type="radio" name="sounds" data-VoiceArtistSoundsId="@item.VoiceArtistSoundsId" class="VoiceArtistSounds" checked /> @item.UserName
+                                }
+                                else
+                                {
+                                        <input type="radio" name="sounds" data-VoiceArtistSoundsId="@item.VoiceArtistSoundsId" class="VoiceArtistSounds" /> @item.UserName
+                                }
+                                </td>
+                                <td>
+                                    <audio controls="controls">
+                                        <source src="~/Uploads/@item.SoundFileName" type="audio/mpeg" />
+                                    </audio>
+                                </td>
+                                <td>
+                                    Rs @item.Price
+                                </td>
+                            </tr>
+                    }
+                }
+                </table>
+            </div>
+        </div>
+
+        <div class="col-12" style="text-align:center; padding-top:10px; padding-bottom:10px">
+            <div class="btn" onclick="SampleVideo_Step3Save_2(this)">SAVE</div>
+        </div>
+
+    </div>
+
+</div>
+<script>
+    $(document).ready(function () {
+        showhideSound();
+        $(".VO_Gender").change(function () {
+            showhideSound();
+        });
+        $(".VO_Language").change(function () {
+            showhideSound();
+        });
+    })
+    function showhideSound() {
+
+        var language = $(".VO_Language:checked").attr("data-language");
+        var gender = $(".VO_Gender:checked").attr("data-gender");
+        var classname = gender + '-' + language;
+        $(".row-sounds").hide();
+        if ($(".row-sounds[data-soundfind='" + classname + "']").length > 0) {
+            $(".row-sounds[data-soundfind='" + classname + "']").show();
+        }
+        else {
+            $(".row-sounds").hide();
+        }
+
+
+    }
+</script>

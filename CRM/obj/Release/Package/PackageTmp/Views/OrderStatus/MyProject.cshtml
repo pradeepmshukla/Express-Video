@@ -1,0 +1,305 @@
+﻿/@model  System.Data.DataTable
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;// "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@*<!-- DataTables -->
+    <link href="../../plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+    <!-- Responsive datatable examples -->
+    <link href="../../plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />*@
+<style>
+    .table {
+        text-align: center;
+    }
+
+    .FileStatus {
+        height: 40px;
+        width: 92px;
+        float: left;
+        margin-right: 5px;
+        margin: 21px auto;
+        margin-left: 48px;
+    }
+
+    .btnsavefeedback {
+        display: none;
+        margin-top: 15px;
+        padding: 0px;
+    }
+
+    .Update-Message {
+        line-height: 4;
+        color: green;
+    }
+
+    .form-control-1 {
+        border: 0.1rem solid #a4a6a7;
+        height: 30px;
+        border-radius: 0.10rem;
+        font-size: 0.7rem;
+        width: 92px;
+        float: left;
+        margin-right: 5px;
+        margin-top: 16px;
+    }
+
+    .file-upload .file-select {
+        display: block;
+        border: 2px solid #dce4ec;
+        color: #34495e;
+        cursor: pointer;
+        height: 30px;
+        line-height: 30px;
+        text-align: left;
+        background: #FFFFFF;
+        overflow: hidden;
+        position: relative;
+    }
+
+        .file-upload .file-select .file-select-button {
+            background: #dce4ec;
+            padding: 0px 7px;
+            display: inline-block;
+            height: 100%;
+            line-height: inherit;
+        }
+
+    .projectdetails {
+        text-align: center;
+    }
+
+        .projectdetails .divtitle {
+            margin-bottom: 1px;
+        }
+
+        .projectdetails .divline {
+            width: 85%;
+            height: 2px;
+            background-color: #fcc012;
+            margin: 0px auto;
+            margin-bottom: 11px;
+        }
+
+    .btnUpload {
+        padding: 0px;
+        width: 61% !important;
+        margin: 0 auto;
+    }
+
+    .invoice-header {
+        margin-bottom: 11px;
+        padding: 2px;
+        margin-top: 36px;
+        background-color: #fcc012;
+        width: 177px;
+        color: black;
+    }
+
+    .myinfo {
+        font-weight: bold;
+        font-size: 25px;
+        color: black;
+    }
+
+    .myinfo1 {
+        font-size: 13px;
+        color: black;
+    }
+
+    .myinfo2 {
+        font-weight: bold;
+        font-size: 16px;
+        border-bottom: 3px solid #afacac;
+        padding-top: 10px;
+        margin-bottom: 7px;
+    }
+
+    .BillTo {
+        color: black;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12 col-sm-12">
+        <div class="card">
+            <div class="card-body table-responsive">
+                <div class="">
+                    <table id="datatable2" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead>
+                            <tr>
+                                @foreach (System.Data.DataColumn col in Model.Columns)
+                                {
+                                    if (col.ColumnName == "Order No")
+                                    {
+                                        <th>Order No.</th>
+                                        <th></th>
+                                        <th></th>
+                                    }
+                                    else if (col.ColumnName == "Total Amt")
+                                    {
+                                        <th>Total Amt.</th>
+                                    }
+                                    else if (col.ColumnName == "OrderStatusId")
+                                    {
+                                        <th>Script Details</th>
+                                    }
+                                    else
+                                    {
+                                        if (col.ColumnName != "ScriptStatus" && col.ColumnName != "ScriptFileName" && col.ColumnName != "FileName" && col.ColumnName!= "InvoiceStatus")
+                                        {
+
+                                            <th>@col.ColumnName</th>
+
+                                        }
+                                    }
+                                }
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (System.Data.DataRow row in Model.Rows)
+                            {
+                                <tr>
+                                    @foreach (System.Data.DataColumn col in Model.Columns)
+                                    {
+
+                                        if (col.ColumnName == "Project Details")
+                                        {
+
+                                            <td>
+                                                <div class="btn btn-warning" onclick="_UpdateProjectStatusByArtist(@row["Order No"])">View</div>
+                                            </td>
+                                        }
+
+                                        else
+                                        {
+                                            if (col.ColumnName == "OrderStatusId")
+                                            {
+                                                <td>
+                                                    <div class="btn btn-warning">Script Details</div>
+
+                                                </td>
+                                            }
+                                            else if (col.ColumnName == "Status")
+                                            {
+                                                <td>
+
+                                                    @if (Convert.ToString(row[col.ColumnName]) == "0")
+                                                    {
+                                                        <span>Pending</span>
+                                                    }
+                                                    else if (Convert.ToString(row[col.ColumnName]) == "5")
+                                                    {
+                                                        <span>Delivered</span>
+                                                    }
+                                                    else if (Convert.ToString(row[col.ColumnName]) == "7")
+                                                    {
+                                                        <span>Active</span>
+                                                    }
+                                                </td>
+                                            }
+                                            else if (col.ColumnName == "Invoice")
+                                            {
+                                                if (Convert.ToString(row["InvoiceStatus"]) == "1")
+                                                {
+                                                    <td> <div class="btn btn-warning" onclick="FreelancerInvoice(@row["Order No"])">View</div></td>
+                                                }
+                                                else
+                                                {
+
+                                                    if (Convert.ToString(row["Status"]) == "5")
+                                                    {
+                                                        @*<td> <div class="btn btn-warning" onclick="GenerateInvoice(@row["Order No"])" data-toggle="modal" data-target="#exampleModal_GenerateInvoice">View</div></td>*@
+                                                        <td> <div class="btn btn-warning" onclick="FreelancerInvoice(@row["Order No"])">View</div></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td><div class="btn btn-warning disabled" style="cursor:not-allowed">View</div></td>
+                                                    }
+                                                }
+
+                                            }
+                                            else if (col.ColumnName == "Rating")
+                                            {
+                                                <td>
+                                                    @if (Convert.ToString(row[col.ColumnName]) == "-1")
+                                                    {
+                                                        <span>-</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>@row[col.ColumnName]</span>
+                                                    }
+                                                </td>
+                                            }
+                                            else
+                                            {
+
+                                                if (col.ColumnName != "ScriptStatus" && col.ColumnName != "ScriptFileName" && col.ColumnName != "FileName" && col.ColumnName!= "InvoiceStatus")
+                                                {
+                                                if (col.ColumnName == "Total Amt")
+                                                {
+                                                    <td>₹ @row[col.ColumnName]</td>
+                                                }
+                                                else
+                                                {
+                                                    if (col.ColumnName == "Order No")
+                                                    {
+                                                        <td>@row[col.ColumnName]</td>
+                                                        <td>
+                                                            @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 5)
+                                                            {
+                                                                <div class="btn" onclick="_FreelancerWorkAGREEMENT_ForScriptWriter('@row[col.ColumnName]')">Agreement</div>
+                                                            }
+                                                            @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 6)
+                                                            {
+                                                                <div class="btn" onclick="_FreelancerWorkAGREEMENT_ForVoiceOver('@row[col.ColumnName]')">Agreement</div>
+                                                            }
+                                                            @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+                                                            {
+                                                                <div class="btn" onclick="_FreelancerWorkAGREEMENT_ForVideo('@row[col.ColumnName]')">Agreement</div>
+                                                            }
+
+
+                                                        </td>
+                                                        <td><div class="btn btn-warning" onclick="ScriptDetails(@row[col.ColumnName])">Video Form</div></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>@row[col.ColumnName]</td>
+                                                    }
+                                                }
+                                                }
+
+                                            }
+                                        }
+                                    }
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<!-- Required datatable js -->
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+    <!-- Buttons examples -->
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/dataTables.buttons.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/buttons.bootstrap4.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/jszip.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/pdfmake.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/vfs_fonts.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/buttons.html5.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/buttons.print.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/buttons.colVis.min.js"></script>
+    <!-- Responsive examples -->
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/dataTables.responsive.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/plugins/datatables/responsive.bootstrap4.min.js"></script>
+    <script src="~/Content/Theme/Crovex_v1.0/HTML/assets/pages/jquery.datatable.init.js"></script>*@

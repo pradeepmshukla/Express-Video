@@ -1,0 +1,749 @@
+﻿
+
+@model  DAL.OrderStatus
+@{
+    Layout = null;
+}
+<style>
+    .UpdateProjectStatus .form-control {
+        width: 85%;
+        margin: 0px auto;
+        height: 38px;
+        margin-top: 20px;
+    }
+
+    .UpdateProjectStatus .file-upload .file-select {
+        display: block;
+        border: 2px solid #dce4ec;
+        color: #34495e;
+        cursor: pointer;
+        height: 40px;
+        line-height: 40px;
+        text-align: left;
+        background: #FFFFFF;
+        overflow: hidden;
+        position: relative;
+        width: 85%;
+        margin: 0 auto;
+    }
+
+    .UpdateProjectStatus td {
+        padding: 10px 0px;
+    }
+
+    .revision {
+        color: red;
+        font-size: 12px;
+    }
+
+    .feedbackarea {
+        text-align: center;
+    }
+
+        .feedbackarea .form-control {
+            width: 60px;
+        }
+
+        .feedbackarea .btn {
+            font-size: small;
+            float: left;
+            margin-left: -20px;
+        }
+
+    .btnupdate {
+        display: none;
+    }
+
+    .tbldata {
+        text-align: center;
+    }
+
+        .tbldata div {
+            margin: 0.6rem auto;
+            width: 83%;
+        }
+            .tbl-header{
+                text-transform:uppercase;
+            }
+    .tbl-header div {
+        border-bottom: 2px solid orange;
+        text-align: center;
+        /* font-weight: 500; */
+        padding-bottom: 1px;
+        margin-bottom: 8px;
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .not-assigned {
+        color: red;
+    }
+
+    .ddlassignuser {
+        width: 83%;
+        margin: 0 auto;
+        border: 1px solid solid;
+        color: black;
+    }
+
+    .btnupdate {
+        display: none;
+        left: 15%;
+        margin-top: 5px;
+        width: 72%;
+        border-radius: 0;
+    }
+
+    .clientFeedback {
+        width: 55% !important;
+        float: left !important;
+    }
+
+    .ViewclientFeedback {
+        float: left !important;
+        margin-top: 25px !important;
+        margin-left: 2px;
+    }
+
+    .feedbackdetails {
+        text-align: left !important;
+    }
+
+    .GiveFeedback {
+        display: none;
+    }
+
+    .filename {
+        text-align: left;
+        font-size: 13px;
+        padding-left: 38px;
+    }
+    .files{
+        padding-left:28px;
+    }
+    .btnViewFile,.ViewclientFeedback{
+        line-height: 2;
+        border-radius: 4px !important;
+        border-width: 0px !important;
+        color: white !important;
+        text-transform:uppercase;
+          background-color: rgb(1,165,154) !important;
+    }
+    .ViewclientFeedback{
+        background-color: rgb(243,62,93) !important;
+    }
+    .UpdateProjectStatus_parent{
+        min-width:1000px;
+
+    }
+    .modal-body{
+        overflow:auto;
+    }
+</style>
+
+@*<h5><mark>ORDER DETAILS</mark></h5>*@
+<div class="UpdateProjectStatus_parent">
+    <input type="hidden" id="OrderId" value="@Model.OrderId" />
+    <table class="UpdateProjectStatus" style="width:100%;text-align:center">
+        <tr>
+
+            @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 6 || CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+        {
+            if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 6)
+            {
+                    <td class="tbl-header"><div>Script</div></td>
+            }
+            else
+            {
+                    <td class="tbl-header"><div>Script/VO</div></td>
+            }
+
+        }
+            <td class="tbl-header"><div>Update Status</div></td>
+            <td class="tbl-header"><div>Upload File</div></td>
+            <td class="tbl-header"><div>Client Feedback</div></td>
+            @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 6 || CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+        {
+                <td class="tbl-header"><div>Project File</div></td>
+        }
+        </tr>
+        <tr>
+            @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 6 || CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+        {
+                <td style="padding-top: 33px;padding-bottom: 0;">
+                    <div class="btn" onclick="ViewFile('@Model.ScriptFileName')">View</div>
+                    <div>Script</div>
+                </td>
+        }
+            <td>
+                <div>
+
+                    @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 5)
+            {
+                        <select class="form-control ArtistprojectStatus" id="ddScriptStatus_1" data-id="ScriptStatus_1" data-value="@Model.ScriptStatus_1">
+                            <option value="1">YTS</option>
+                            <option value="2">WIP</option>
+                            <option value="5">DONE</option>
+                        </select>
+            }
+                    @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 6)
+            {
+                        <select class="form-control ArtistprojectStatus" id="ddVOStatus_1" data-id="VOStatus_1" data-value="@Model.VOStatus_1">
+                            <option value="1">YTS</option>
+                            <option value="2">WIP</option>
+                            <option value="5">DONE</option>
+                        </select>
+            }
+                    @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+            {
+                        <select class="form-control ArtistprojectStatus" id="ddVideoStatus_1" data-id="VideoStatus_1" data-value="@Model.VideoStatus_1">
+                            <option value="1">YTS</option>
+                            <option value="2">WIP</option>
+                            <option value="5">DONE</option>
+                        </select>
+            }
+                    <input type="hidden" id="ScriptStatus_1" value="@Model.ScriptStatus_1" />
+                    <input type="hidden" id="VOStatus_1" value="@Model.VOStatus_1" />
+                    <input type="hidden" id="VideoStatus_1" value="@Model.VideoStatus_1" />
+                </div>
+            </td>
+            <td>
+                <span>First Take</span>
+                <input type="hidden" value="@Model.ScriptFileName_1" id="ScriptFileName_1" />
+                <input type="hidden" value="@Model.VOFileName_1" id="VOFileName_1" />
+                <input type="hidden" value="@Model.VideoFileName_1" id="VideoFileName_1" />
+
+                @*<input type="hidden" value="@Model.VOFileName_1" id="VOFileName_1" />
+                    <input type="hidden" value="@Model.ScriptFileName_1" id="ScriptFileName_1" />
+                    <input type="hidden" value="@Model.VideoFileName_1" id="VideoFileName_1" />
+
+                    <input type="hidden" value="@Model.VideoFileName_1" id="VideoFileName_1" />
+                    <input type="hidden" value="@Model.ScriptFileName_1" id="ScriptFileName_1" />
+                    <input type="hidden" value="@Model.VOFileName_1" id="VideoFileName_1" />*@
+                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 5)
+            {
+                if (!string.IsNullOrEmpty(@Model.ScriptFileName_1))
+                {
+                        <span class="btn ViewFile btnViewFile" onclick="ViewFile('@Model.ScriptFileName_1')" style="margin-left: 12px;">View File</span>
+                }
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="file-upload">
+                                <div class="file-select">
+                                    <div class="file-select-button" id="fileName">Choose File</div>
+                                    <div class="file-select-name" id="noFile">No file chosen...</div>
+                                    <input type="file" name="chooseFile" id="fu_ScriptFileName_1" onchange="UploadFile('fu_ScriptFileName_1', 'ScriptFileName_1', 'all')">
+
+                                </div>
+                                <div class="error-message" style="color:red"></div>
+                                <div class="filename">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-2">
+                            <div class="btn" onclick="UpdateProjectStatusByArtist(1)" style="margin-left:-50px">Submit</div>
+                        </div>
+                    </div>
+            }
+                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 6)
+            {
+                if (!string.IsNullOrEmpty(@Model.VOFileName_1))
+                {
+                        <span class="btn ViewFile btnViewFile" onclick="ViewFile('@Model.VOFileName_1')" style="margin-left: 12px;">View File</span>
+                }
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="file-upload">
+                                <div class="file-select">
+                                    <div class="file-select-button" id="fileName">Choose File</div>
+                                    <div class="file-select-name" id="noFile">No file chosen...</div>
+                                    <input type="file" name="chooseFile" id="fu_VOFileName_1" onchange="UploadFile('fu_VOFileName_1', 'VOFileName_1', 'audio')">
+
+                                </div>
+                                <div class="error-message" style="color:red"></div>
+                                <div class="filename">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-2">
+                            <div class="btn" onclick="UpdateProjectStatusByArtist(1)" style="margin-left:-50px">Submit</div>
+                        </div>
+                    </div>
+
+            }
+                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+            {
+                if (!string.IsNullOrEmpty(@Model.VideoFileName_1))
+                {
+                        <span class="btn ViewFile btnViewFile" onclick="ViewFile('@Model.VideoFileName_1')" style="margin-left: 12px;">View File</span>
+                }
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="file-upload">
+                                <div class="file-select">
+                                    <div class="file-select-button" id="fileName">Choose File</div>
+                                    <div class="file-select-name" id="noFile">No file chosen...</div>
+                                    <input type="file" name="chooseFile" id="fu_VideoFileName_1" onchange="UploadFile('fu_VideoFileName_1', 'VideoFileName_1', 'video')">
+
+                                </div>
+                                <div class="error-message" style="color:red"></div>
+                                <div class="filename">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-2">
+                            <div class="btn" onclick="UpdateProjectStatusByArtist(1)" style="margin-left:-50px">Submit</div>
+                        </div>
+                    </div>
+
+            }
+            </td>
+            <td>
+                <div class="clientFeedback">
+                    @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 5)
+                {
+                        <select class="form-control ddclientfeedback" data-value="@Model.ClientScriptStatus_1" disabled>
+                            <option>-</option>
+                            <option value="6">Correction</option>
+                            <option value="7">Approved</option>
+                        </select>
+                }
+                    @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 6)
+                {
+                        <select class="form-control ddclientfeedback" data-value="@Model.ClientVOStatus_1" disabled>
+                            <option>-</option>
+                            <option value="6">Correction</option>
+                            <option value="7">Approved</option>
+                        </select>
+                }
+                    @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+                {
+                        <select class="form-control ddclientfeedback" data-value="@Model.ClientVideoStatus_1" disabled>
+                            <option>-</option>
+                            <option value="6">Correction</option>
+                            <option value="7">Approved</option>
+                        </select>
+                }
+
+                </div>
+                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 5)
+            {
+                    <div class="btn ViewclientFeedback" onclick="_ViewFeedback(@Model.OrderId,@Model.ScriptAssignedUserId,'ScriptFileName_1','Feedback details')">View</div>
+            }
+                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 6)
+            {
+                    <div class="btn ViewclientFeedback" onclick="_ViewFeedback(@Model.OrderId,@Model.VOAssignedUserId,'VOFileName_1','Feedback details')">View</div>
+            }
+                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+            {
+                    <div class="btn ViewclientFeedback" onclick="_ViewFeedback(@Model.OrderId,@Model.VideoAssignedUserId,'VideoFileName_1','Feedback details')">View</div>
+            }
+            </td>
+            @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+        {
+                <td><div class="btn btn-warning" onclick="_UpdateProjectFileLink(@Model.OrderId)">Submit</div></td>
+        }
+        </tr>
+        <tr>
+            @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 6 || CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+        {
+                <td style="padding-top: 33px;padding-bottom: 0;">
+                    @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+                {
+                        <div class="btn" onclick="ViewFile('@Model.VOFileName')">View</div>
+                        <div>VO</div>
+                }
+                </td>
+        }
+            <td>
+                <div>
+                    @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 5)
+            {
+                        <select class="form-control ArtistprojectStatus" id="ddScriptStatus_2" data-id="ScriptStatus_2" data-value="@Model.ScriptStatus_2">
+                            <option value="1">YTS</option>
+                            <option value="2">WIP</option>
+                            <option value="5">DONE</option>
+                        </select>
+                }
+                    @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 6)
+            {
+                        <select class="form-control ArtistprojectStatus" id="ddVOStatus_2" data-id="VOStatus_2" data-value="@Model.VOStatus_2">
+                            <option value="1">YTS</option>
+                            <option value="2">WIP</option>
+                            <option value="5">DONE</option>
+                        </select>
+                }
+                    @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+            {
+                        <select class="form-control ArtistprojectStatus" id="ddVideoStatus_2" data-id="VideoStatus_2" data-value="@Model.VideoStatus_2">
+                            <option value="1">YTS</option>
+                            <option value="2">WIP</option>
+                            <option value="5">DONE</option>
+                        </select>
+                }
+                    <input type="hidden" id="ScriptStatus_2" value="@Model.ScriptStatus_2" />
+                    <input type="hidden" id="VOStatus_2" value="@Model.VOStatus_2" />
+                    <input type="hidden" id="VideoStatus_2" value="@Model.VideoStatus_2" />
+                </div>
+            </td>
+            <td>
+                <span>Revision 01</span>
+                <input type="hidden" value="@Model.ScriptFileName_2" id="ScriptFileName_2" />
+                <input type="hidden" value="@Model.VOFileName_2" id="VOFileName_2" />
+                <input type="hidden" value="@Model.VideoFileName_2" id="VideoFileName_2" />
+
+                @*<input type="hidden" value="@Model.VOFileName_2" id="VOFileName_2" />
+                    <input type="hidden" value="@Model.ScriptFileName_2" id="ScriptFileName_2" />
+                    <input type="hidden" value="@Model.VideoFileName_2" id="VideoFileName_2" />
+
+                    <input type="hidden" value="@Model.VideoFileName_2" id="VideoFileName_2" />
+                    <input type="hidden" value="@Model.ScriptFileName_2" id="ScriptFileName_2" />
+                    <input type="hidden" value="@Model.VOFileName_2" id="VideoFileName_2" />*@
+                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 5)
+            {
+                if (!string.IsNullOrEmpty(@Model.ScriptFileName_2))
+                {
+                        <span class="btn ViewFile btnViewFile" onclick="ViewFile('@Model.ScriptFileName_2')">View File</span>
+                }
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="file-upload">
+                                <div class="file-select">
+                                    <div class="file-select-button" id="fileName">Choose File</div>
+                                    <div class="file-select-name" id="noFile">No file chosen...</div>
+                                    <input type="file" name="chooseFile" id="fu_ScriptFileName_2" onchange="UploadFile('fu_ScriptFileName_2', 'ScriptFileName_2', 'all')">
+
+                                </div>
+                                <div class="error-message" style="color:red"></div>
+                                <div class="filename">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="co-2">
+                            <div class="btn" onclick="UpdateProjectStatusByArtist(2)" style="margin-left:-16px">Submit</div>
+                        </div>
+                    </div>
+
+            }
+                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 6)
+            {
+                if (!string.IsNullOrEmpty(@Model.VOFileName_2))
+                {
+                        <span class="btn ViewFile btnViewFile" onclick="ViewFile('@Model.VOFileName_2')">View File</span>
+                }
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="file-upload">
+                                <div class="file-select">
+                                    <div class="file-select-button" id="fileName">Choose File</div>
+                                    <div class="file-select-name" id="noFile">No file chosen...</div>
+                                    <input type="file" name="chooseFile" id="fu_VOFileName_2" onchange="UploadFile('fu_VOFileName_2', 'VOFileName_2', 'audio')">
+
+                                </div>
+                                <div class="error-message" style="color:red"></div>
+                                <div class="filename">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-2">
+                            <div class="btn" onclick="UpdateProjectStatusByArtist(2)" style="margin-left:-50px">Submit</div>
+                        </div>
+                    </div>
+
+            }
+                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+            {
+                if (!string.IsNullOrEmpty(@Model.VideoFileName_2))
+                {
+                        <span class="btn ViewFile btnViewFile" onclick="ViewFile('@Model.VideoFileName_2')">View File</span>
+                }
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="file-upload">
+                                <div class="file-select">
+                                    <div class="file-select-button" id="fileName">Choose File</div>
+                                    <div class="file-select-name" id="noFile">No file chosen...</div>
+                                    <input type="file" name="chooseFile" id="fu_VideoFileName_2" onchange="UploadFile('fu_VideoFileName_2', 'VideoFileName_2', 'video')">
+
+                                </div>
+                                <div class="error-message" style="color:red"></div>
+                                <div class="filename">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-2">
+                            <div class="btn" onclick="UpdateProjectStatusByArtist(2)" style="margin-left:-50px">Submit</div>
+                        </div>
+                    </div>
+
+            }
+            </td>
+            <td>
+
+                <div class="clientFeedback">
+                    @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 5)
+                {
+                        <select class="form-control ddclientfeedback" data-value="@Model.ClientScriptStatus_2" disabled>
+                            <option>-</option>
+                            <option value="6">Correction</option>
+                            <option value="7">Approved</option>
+                        </select>
+                }
+                    @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 6)
+                {
+                        <select class="form-control ddclientfeedback" data-value="@Model.ClientVOStatus_2" disabled>
+                            <option>-</option>
+                            <option value="6">Correction</option>
+                            <option value="7">Approved</option>
+                        </select>
+                }
+                    @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+                {
+                        <select class="form-control ddclientfeedback" data-value="@Model.ClientVideoStatus_2" disabled>
+                            <option>-</option>
+                            <option value="6">Correction</option>
+                            <option value="7">Approved</option>
+                        </select>
+                }
+
+                </div>
+                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 5)
+            {
+                    <div class="btn ViewclientFeedback" onclick="_ViewFeedback(@Model.OrderId,@Model.ScriptAssignedUserId,'ScriptFileName_2','Feedback details')">View</div>
+            }
+                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 6)
+            {
+                    <div class="btn ViewclientFeedback" onclick="_ViewFeedback(@Model.OrderId,@Model.VOAssignedUserId,'VOFileName_2','Feedback details')">View</div>
+            }
+                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+            {
+                    <div class="btn ViewclientFeedback" onclick="_ViewFeedback(@Model.OrderId,@Model.VideoAssignedUserId,'VideoFileName_2','Feedback details')">View</div>
+            }
+            </td>
+            @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+        {
+                <td></td>
+        }
+        </tr>
+        <tr>
+            @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 6 || CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+        {
+                <td></td>
+        }
+            <td>
+                <div>
+
+                    @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 5)
+            {
+                        <select class="form-control ArtistprojectStatus" id="ddScriptStatus_3" data-id="ScriptStatus_3" data-value="@Model.ScriptStatus_3">
+                            <option value="1">YTS</option>
+                            <option value="2">WIP</option>
+                            <option value="5">DONE</option>
+                        </select>
+                }
+                    @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 6)
+            {
+                        <select class="form-control ArtistprojectStatus" id="ddVOStatus_3" data-id="VOStatus_3" data-value="@Model.VOStatus_3">
+                            <option value="1">YTS</option>
+                            <option value="2">WIP</option>
+                            <option value="5">DONE</option>
+                        </select>
+                }
+                    @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+            {
+                        <select class="form-control ArtistprojectStatus" id="ddVideoStatus_3" data-id="VideoStatus_3" data-value="@Model.VideoStatus_3">
+                            <option>YTS</option>
+                            <option>WIP</option>
+                            <option>DONE</option>
+                        </select>
+                }
+                    <input type="hidden" id="ScriptStatus_3" value="@Model.ScriptStatus_3" />
+                    <input type="hidden" id="VOStatus_3" value="@Model.VOStatus_3" />
+                    <input type="hidden" id="VideoStatus_3" value="@Model.VideoStatus_3" />
+                </div>
+            </td>
+            <td>
+                <span>Revision 02</span>
+                <input type="hidden" value="@Model.ScriptFileName_3" id="ScriptFileName_3" />
+                <input type="hidden" value="@Model.VOFileName_3" id="VOFileName_3" />
+                <input type="hidden" value="@Model.VideoFileName_3" id="VideoFileName_3" />
+
+                @*<input type="hidden" value="@Model.VOFileName_3" id="VOFileName_3" />
+                    <input type="hidden" value="@Model.ScriptFileName_3" id="ScriptFileName_3" />
+                    <input type="hidden" value="@Model.VideoFileName_3" id="VideoFileName_3" />
+
+                    <input type="hidden" value="@Model.VideoFileName_3" id="VideoFileName_3" />
+                    <input type="hidden" value="@Model.ScriptFileName_3" id="ScriptFileName_3" />
+                    <input type="hidden" value="@Model.VOFileName_3" id="VideoFileName_3" />*@
+                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 5)
+            {
+                if (!string.IsNullOrEmpty(@Model.ScriptFileName_3))
+                {
+                        <span class="btn ViewFile btnViewFile" onclick="ViewFile('@Model.ScriptFileName_3')">View File</span>
+                }
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="file-upload">
+                                <div class="file-select">
+                                    <div class="file-select-button" id="fileName">Choose File</div>
+                                    <div class="file-select-name" id="noFile">No file chosen...</div>
+                                    <input type="file" name="chooseFile" id="fu_ScriptFileName_3" onchange="UploadFile('fu_ScriptFileName_3', 'ScriptFileName_3', 'all')">
+
+                                </div>
+                                <div class="error-message" style="color:red"></div>
+                                <div class="filename">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-2">
+                            <div class="btn" onclick="UpdateProjectStatusByArtist(3)" style="margin-left:-50px">Submit</div>
+                        </div>
+                    </div>
+
+            }
+                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 6)
+            {
+                if (!string.IsNullOrEmpty(@Model.VOFileName_3))
+                {
+                        <span class="btn ViewFile btnViewFile" onclick="ViewFile('@Model.VOFileName_3')">View File</span>
+                }
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="file-upload">
+                                <div class="file-select">
+                                    <div class="file-select-button" id="fileName">Choose File</div>
+                                    <div class="file-select-name" id="noFile">No file chosen...</div>
+                                    <input type="file" name="chooseFile" id="fu_VOFileName_3" onchange="UploadFile('fu_VOFileName_3', 'VOFileName_3', 'audio')">
+
+                                </div>
+                                <div class="error-message" style="color:red"></div>
+                                <div class="filename">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-2">
+                            <div class="btn" onclick="UpdateProjectStatusByArtist(3)" style="margin-left:-50px">Submit</div>
+                        </div>
+                    </div>
+
+            }
+                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+            {
+                if (!string.IsNullOrEmpty(@Model.VideoFileName_3))
+                {
+                        <span class="btn ViewFile btnViewFile" onclick="ViewFile('@Model.VideoFileName_3')">View File</span>
+                }
+                    <div class="row">
+                        <div class="col-10">
+                            <div class="file-upload">
+                                <div class="file-select">
+                                    <div class="file-select-button" id="fileName">Choose File</div>
+                                    <div class="file-select-name" id="noFile">No file chosen...</div>
+                                    <input type="file" name="chooseFile" id="fu_VideoFileName_3" onchange="UploadFile('fu_VideoFileName_3', 'VideoFileName_3', 'video')">
+
+                                </div>
+                                <div class="error-message" style="color:red"></div>
+                                <div class="filename">
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-2">
+                            <div class="btn" onclick="UpdateProjectStatusByArtist(3)" style="margin-left:-50px">Submit</div>
+                        </div>
+                    </div>
+
+            }
+            </td>
+            <td>
+                <div class="clientFeedback">
+                    @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 5)
+                {
+                        <select class="form-control ddclientfeedback" data-value="@Model.ClientScriptStatus_3" disabled>
+                            <option>-</option>
+                            <option value="6">Correction</option>
+                            <option value="7">Approved</option>
+                        </select>
+                }
+                    @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 6)
+                {
+                        <select class="form-control ddclientfeedback" data-value="@Model.ClientVOStatus_3" disabled>
+                            <option>-</option>
+                            <option value="6">Correction</option>
+                            <option value="7">Approved</option>
+                        </select>
+                }
+                    @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+                {
+                        <select class="form-control ddclientfeedback" data-value="@Model.ClientVideoStatus_3" disabled>
+                            <option>-</option>
+                            <option value="6">Correction</option>
+                            <option value="7">Approved</option>
+                        </select>
+                }
+
+                </div>
+                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 5)
+            {
+                    <div class="btn ViewclientFeedback" onclick="_ViewFeedback(@Model.OrderId,@Model.ScriptAssignedUserId,'ScriptFileName_3','Feedback details')">View</div>
+            }
+                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 6)
+            {
+                    <div class="btn ViewclientFeedback" onclick="_ViewFeedback(@Model.OrderId,@Model.VOAssignedUserId,'VOFileName_3','Feedback details')">View</div>
+            }
+                @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+            {
+                    <div class="btn ViewclientFeedback" onclick="_ViewFeedback(@Model.OrderId,@Model.VideoAssignedUserId,'VideoFileName_3','Feedback details')">View</div>
+            }
+            </td>
+            @if (CRM.Models.Global.GlobalFunctions.GetRoleId() == 7)
+        {
+                <td></td>
+        }
+        </tr>
+
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+        $(".ArtistprojectStatus").each(function(){
+            var status = $(this).attr("data-value");
+            console.log(status);
+            if(status!=null)
+            {
+                $(this).val(status);
+            }
+
+        });
+        $(".ArtistprojectStatus").change(function () {
+            var id = $(this).attr("data-id");
+            var status = $(this).val();
+            $("#" + id).val(status);
+        });
+
+        $(".ddclientfeedback").each(function () {
+            var val = $(this).attr("data-value");
+            //debugger;
+            $(this).val(val);
+
+        });
+        $(".ViewFile").next(".row").hide();
+    });
+</script>

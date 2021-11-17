@@ -1,0 +1,195 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<style>
+    .top-line {
+        
+        width: 100%;
+        height: 400px;
+        background-size: 100% 100%;
+    }
+
+    .Total-earning {
+        width: 244px;
+        /* height: 248px; */
+        background-color: rgb(235,203,20);
+        color: black;
+        text-align: center;
+        padding: 2rem;
+        border-radius: 24px;
+        font-size: 2rem;
+        float: right;
+        font-weight: bold;
+    }
+
+        .Total-earning .this-month {
+            font-size: 1rem;
+            background-color: rgb(243,231,157);
+            border-radius: 8px;
+            width: 80%;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+    .details {
+        background-color: white;
+        border-radius: 20px;
+        text-align: RIGHT;
+        padding: 11px;
+        margin-bottom: 17px;
+    }
+
+    .chartdetails h3 {
+        margin-left: 10px 0;
+    }
+
+    .dashboard {
+    }
+
+    .card {
+        -webkit-box-shadow: 0px 2px 4px rgba(31,30,47,0);
+        box-shadow: 0px 2px 4px rgba(31,30,47,0);
+        background-color: rgb(227,228,233);
+    }
+
+    .chartarea {
+        background-color: white;
+        margin-bottom: 22px;
+    }
+
+        .chartarea h3 {
+            padding-left: 10px;
+            font-size: 1rem;
+        }
+
+    .detail-heading {
+        font-size: 1.7rem;
+        color: black;
+    }
+
+    .detais-description {
+        color: rgb(37,37,35);
+        line-height: 1rem;
+    }
+
+    
+
+   
+    .OrderYourVideo:hover{
+        background-color:white;
+    }
+
+    .LatestOrder {
+        background-color: white;
+        padding: 7px;
+        border-radius: 16px;
+        margin-bottom:54px;
+    }
+</style>
+<div class="row greybg dashboard">
+    <div class="col-md-8">
+        <div class="col-md-12 cust-dash">
+            <div class="top-line"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="/Home/SampleVideo">
+                        <div class="OrderYourVideo">
+                            <div class="row" id="orderYourvideo">
+                                <div class="col-md-8 col-sm-3" id="videoContent"><h3>ORDER YOUR VIDEO</h3></div>
+                                <div class="col-md-4 col-sm-3" id="videoLogo">
+                                    <img class="img imgOrderYourVideo" src="~/Content/Images/dashboard/videobutton.png" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-12">
+                    <div class="DownloadYourVideo" style="display:none">
+                        <div class="row">
+                            <div class="col-md-8"><h3 style="color:black">Download Your Order</h3></div>
+                            <div class="col-md-4">
+                                <img class="img" src="~/Content/Images/dashboard/downloadbutton.png" style="width:80%" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="LatestOrder">
+                <h4>My Orders</h4>
+                <div class="card-body table-responsive">
+                    <table id="datatable2" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%; text-align:center">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Status</th>
+                                <th>Total</th>
+                                <th>Date Of Order</th>
+                                <th>Date Of Delivery</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var row in ViewBag.CustomerLatestOrder.Rows)
+                            {
+                            <tr>
+                                @foreach (var col in ViewBag.CustomerLatestOrder.Columns)
+                                    {
+                                    <td>@Html.Raw(row[col.ColumnName])</td>
+                                    }
+                            </tr>
+                            @*<tr>
+                                    <td>@item.OrderId</td>
+                                    <td>
+                                        @if (item.Status == "Active")
+                                        {
+                                        <lable class="badge badge-success">@item.Status</lable>
+                                        }
+                                        else if (item.Status ==  "Order Cancelled")
+                                        {
+                                        <lable class="badge badge-danger">@item.Status</lable>
+                                        }
+                                        else
+                                        {
+                                            @item.Status
+                                        }
+
+                                    </td>
+                                    <td>@item.Total</td>
+                                    <td>@item.DateofOrder</td>
+                                    <td>@item.DateofDelivery</td>
+                                </tr>*@
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="col-md-4">
+        <div class="announcement">
+            <h3 class="announcement-heading">ANNOUNCEMENTS</h3>
+            <div class="announcement-list">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        GetAnnouncement();
+        setTimeout(function () {
+            $(".footer-admin").css("bottom", "80px");
+        }, 10);
+    });
+
+
+</script>

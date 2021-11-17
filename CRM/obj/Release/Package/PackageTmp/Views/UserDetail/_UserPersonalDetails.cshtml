@@ -1,0 +1,137 @@
+﻿
+@model  DAL.UserDetails
+@{
+    Layout = null;
+}
+<style>
+    .divUserPersonalDetails .row .col-md-4 {
+        padding: 10px;
+    }
+</style>
+@if (Model != null)
+{
+    <div class="divUserPersonalDetails">
+        <div class="row">
+            <div class="col-md-4">
+                Date Of Birth
+                <div class="form-control">@Model.DateOfBirth</div>
+            </div>
+            <div class="col-md-4">
+                Alternate Mobile No
+                <div class="form-control">@Model.AlternateMobileNo</div>
+            </div>
+            <div class="col-md-4">
+                Password
+                <div class="form-control">@Model.Password</div>
+            </div>
+        </div>
+        @if (Model.RoleId != 4)
+        {
+        <div class="row">
+            <div class="col-md-4">
+                Pan Card No:
+                @if (Model.IsPancardApproved == true && !string.IsNullOrEmpty(Model.PanCard))
+                {
+                    <span style="color:green">Approved</span>
+                }
+                else
+                {
+
+                    <span style="color:red">Not Approved</span>
+                }
+                <div class="form-control">@Model.PanCard_text</div>
+              
+                @if (!string.IsNullOrEmpty(Model.PanCard))
+                {
+                    <div class="row">
+                        <div class="col-5 text-center my-1">
+                            <div class="btn" onclick="ViewFile('@Model.PanCard')">View</div>
+                        </div>
+                        <div class="col-5 text-center my-1 mr-2">
+                            <a href="~/Uploads/@Model.PanCard" class="btn" download="~/Uploads/@Model.PanCard">Download</a>
+                        </div>
+                    </div>
+
+                }
+                else
+                {
+                    <span>File not attached</span>
+                }
+
+            </div>
+
+            <div class="col-md-4">
+                Aadhar Card No:
+                @if (Model.IsAadharCardApproved == true && !string.IsNullOrEmpty(Model.AadharCard))
+                {
+                    <span style="color:green">Approved</span>
+                }
+                else
+                {
+
+                    <span style="color:red">Not Approved</span>
+                }
+                <div class="form-control">@Model.AadharCard_text</div>
+                @if (!string.IsNullOrEmpty(Model.AadharCard))
+                {
+                    <div class="row">
+                        <div class="col-5 text-center my-4">
+                            <div class="btn" onclick="ViewFile('@Model.AadharCard')">View</div>
+                        </div>
+                        <div class="col-5 text-center my-4 mr-2">
+                            <a href="~/Uploads/@Model.AadharCard" class="btn" download="~/Uploads/@Model.AadharCard">Download</a>
+                        </div>
+                    </div>
+
+
+
+                }
+                else
+                {
+                    <span>File not attached</span>
+                }
+
+            </div>
+
+            <div class="col-md-4">
+                Bank Details:
+                     @if (Model.IsBankDetailsApproved == true && !string.IsNullOrEmpty(Model.BankAccountDetails))
+                     {
+                        <span style="color:green">Approved</span>
+                     }
+                     else
+                     {
+
+                        <span style="color:red">Not Approved</span>
+                     }
+                <div class="form-control">@Model.AccountHolderName - @Model.AccountNumber</div>
+                
+                @if (!string.IsNullOrEmpty(Model.BankAccountDetails))
+                {
+                    <div class="row">
+                        <div class="col-5 text-center my-4">
+                            <div class="btn" onclick="ViewFile('@Model.BankAccountDetails')">View</div>
+                        </div>
+                        <div class="col-5 text-center my-4 mr-2">
+                            <a href="~/Uploads/@Model.BankAccountDetails" class="btn" download="~/Uploads/@Model.BankAccountDetails">Download</a>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <span>File not attached</span>
+                }
+
+            </div>
+
+            
+        </div>
+        <div class="row">
+            <div class="col-12" style="text-align:center; padding:20px">
+                <div style="margin-right:25px; background-color:rgb(25,209,209);border-color:rgb(25,209,209)" class="btn" onclick="ApproveDocument(@Model.UserID)">Approve</div>
+                <div style="margin-left:25px; background-color:rgb(252,83,18);border-color:rgb(252,83,18)" class="btn" onclick="DeclineDocument(@Model.UserID)">Decline</div>
+            </div>
+        </div>
+        }
+    </div>
+}

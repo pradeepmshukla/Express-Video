@@ -1,0 +1,274 @@
+﻿@model DAL.UserDetails
+@{
+    ViewBag.Title = "New Staff";
+    Layout = null;// "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <input type="hidden" id="UserID" value="@Model.UserID" />
+    <div class="col-md-4 col-sm-12">
+        <div class="form-group">
+            <label for="username">User Name</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="UserName" placeholder="Enter User Name" value="@Model.UserName" />
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <div class="form-group">
+            <label for="username">First Name</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="FirstName" placeholder="Enter FirstName" value="@Model.FirstName">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <div class="form-group">
+            <label for="username">Last Name</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="LastName" placeholder="Enter LastName" value="@Model.LastName" />
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <div class="form-group">
+            <label for="username">Email ID</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="EmailID" placeholder="Enter Email ID" value="@Model.EmailID" />
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <div class="form-group">
+            <label for="username">Mobile No</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="MobileNo" placeholder="Enter Mobile No" value="@Model.MobileNo" />
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-12">    
+        <div class="form-group">
+            <label for="username">Date Of Birth</label>
+            <div class="input-group mb-3">
+                <input type="date" class="form-control" id="DateOfBirth" placeholder="DD-MM-YYYY" value="@Model.DateOfBirth" />
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-12">
+        <div class="form-group">
+            <label for="username">Gender</label>
+            <div class="input-group mb-3">
+                <input type="radio" id="rdbGenderMale" class="radio" name="Gender" checked style="width:26px;height:26px; margin:6px;"/> 
+                <label for="rdbGenderMale" style="line-height: 38px;">Male</label>
+                <input type="radio" id="rdbGenderFemale" class="radio" name="Gender" style="width:26px;height:26px;margin:6px; margin-left:20px;"/> 
+                <label for="rdbGenderFemale" style="line-height: 38px;">Female</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <div class="form-group">
+            <label for="username">Password</label>
+            <div class="input-group mb-3" style="position:relative">
+                <input type="password" class="form-control" id="Password" placeholder="Enter user password" value="@Model.Password" />
+                <span><i class="fa fa-eye-slash password_hide"></i></span>
+                <span><i class="fa fa-eye password_show"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <div class="form-group">
+            <label for="username">User Type</label>
+            <div class="input-group mb-3">
+                <input type="hidden" class="form-control" id="RoleId" placeholder="Enter user password" value="@Model.RoleId" />
+                <select class="form-control RolesList">
+                    <option selected>Select Role</option>
+                    <option value="5">Script Writer</option>
+                    <option value="6">Voice Artist</option>
+                    <option value="7">Animation Artist</option>
+                    <option value="4">Customer</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div style="clear:both"></div>
+    <div class="col-md-12 col-sm-12">
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <button class="btn btn-round btn-block waves-effect waves-light" id="btnSubmit">Submit</button>
+                &nbsp;&nbsp; 
+                <div onclick="callPage('/UserDetail/UsersList', 'Script Writer', '5')" class="btn btn-sm btn-round btn-block waves-effect waves-light backtolist backScriptWriter">Back to List</div>
+                <div onclick="callPage('/UserDetail/UsersList', 'Voice Over', '6')" class="btn btn-sm btn-round btn-block waves-effect waves-light backtolist backVoiceArtist">Back to List</div>
+                <div onclick="callPage('/UserDetail/UsersList', 'Animation', '7')" class="btn btn-sm btn-round btn-block waves-effect waves-light backtolist backVideoArtist">Back to List</div>
+                <div onclick="callPage('/UserDetail/UsersList', 'Customer', '4')" class="btn btn-sm btn-round btn-block waves-effect waves-light backtolist backCustomerArtist">Back to List</div>
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    var _RoleId = 0;
+    $(document).ready(function () {
+        $(".password_hide").click(function () {
+            $(this).parents(".form-group").find("input").attr("type", "text");
+            $(this).parents(".form-group").find(".password_show").show();
+            $(this).hide();
+        });
+        $(".password_show").click(function () {
+            $(this).parents(".form-group").find("input").attr("type", "password");
+            $(this).parents(".form-group").find(".password_hide").show();
+            $(this).hide();
+        });
+        $(".backtolist").hide();
+        if (CurrentUser == "ScriptWriter") {
+            $(".backScriptWriter").show();
+            _RoleId = 5;
+        }
+        if (CurrentUser == "VoiceArtist") {
+            $(".backVoiceArtist").show();
+            _RoleId = 6;
+        }
+        if (CurrentUser == "VideoArtist") {
+            $(".backVideoArtist").show();
+            _RoleId = 7;
+        }
+        if (CurrentUser == "Customer") {
+            $(".backCustomerArtist").show();
+            _RoleId = 4;
+        }
+        $("#btnSubmit").click(function () {
+            SaveData();
+        });        
+        $(".RolesList").change(function () {
+            $("#RoleId").val($(this).val());
+            _RoleId = $(this).val();
+        });
+        if ($("#RoleId").val() != "" &&$("#RoleId").val()!=null) {
+            $(".RolesList").val($("#RoleId").val());
+        }
+        if (_RoleId > 0)
+        {
+            $(".RolesList").val(_RoleId);
+            $("#RoleId").val(_RoleId);
+        }
+        $(".img-eye").click(function () {
+            var type = $(this).siblings().attr("type");
+            if (type == "password") {
+                $(this).siblings().attr("type", "text");
+            } else {
+                $(this).siblings().attr("type", "password");
+            }
+
+        });
+    });
+    function SaveData() {
+        var UserID = $("#UserID").val().trim();
+        var UserName = $("#UserName").val().trim();
+        var FirstName = $("#FirstName").val().trim();
+        var LastName = $("#LastName").val().trim();
+        var EmailID = $("#EmailID").val().trim();
+        var MobileNo = $("#MobileNo").val().trim();
+        var DateOfBirth = $("#DateOfBirth").val().trim();
+        var Gender = ($("#rdbGenderMale").is(":checked")) ? "Male" : "Female";
+        var Password = $("#Password").val();
+        var RoleId = $("#RoleId").val();
+        var IsActive = true;//$("#IsActive").is(":checked");
+
+        
+        var data = {
+            UserID:UserID,
+            UserName: UserName,
+            FirstName: FirstName,
+            LastName: LastName,
+            EmailID: EmailID,
+            MobileNo: MobileNo,
+            DateOfBirth: DateOfBirth,
+            Gender: Gender,
+            RoleId: RoleId,
+            Password:Password,
+            IsActive: IsActive
+        }
+        if (isvalidate(data)) {
+            $.ajax({
+                type: "POST",
+                url: "/UserDetail/SaveData",
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                   popupV1(data, "Message", "");
+                   if (CurrentUser == 'Customer') {
+                       setUser('Customer'); callPage('/UserDetail/UsersList', 'Customer', '4')
+                   }
+                   if (CurrentUser == 'ScriptWriter') {
+                       setUser('ScriptWriter'); callPage('/UserDetail/UsersList', 'Script Writer', '5');
+                   }
+                   if (CurrentUser == 'VoiceArtist') {
+                       setUser('VoiceArtist'); callPage('/UserDetail/UsersList', 'Voice Over', '6')
+                   }
+                   if (CurrentUser == 'VideoArtist') {
+                       setUser('VideoArtist'); callPage('/UserDetail/UsersList', 'Animation', '7')
+                   }
+                   if (CurrentUser == 'Manager') {
+                       setUser('Manager'); callPage('/UserDetail/UsersList', 'Managers', '8')
+                   }
+                }
+            });
+        }
+    }
+    function isvalidate(d) {
+        var isvalid = true;
+        var msg = [];
+        if (_RoleId != 4) {
+
+            if (d.UserName == "") {
+                msg.push("Please Enter User Name");
+            }
+            if (d.FirstName == "") {
+                msg.push("Please Enter First Name");
+            }
+           
+            if (d.EmailID == "") {
+                msg.push("Please Enter Email Id");
+            }
+            if (d.MobileNo == "") {
+                msg.push("Please Enter Mobile no");
+            }
+           
+            if (d.Password == "") {
+                msg.push("Please Enter Password");
+            }
+        }
+        else {
+            if (d.UserName == "") {
+                msg.push("Please Enter User Name");
+            }
+            if (d.FirstName == "") {
+                msg.push("Please Enter First Name");
+            }
+           
+            if (d.MobileNo == "") {
+                msg.push("Please Enter Mobile no");
+            }
+            
+            if (d.Password == "") {
+                msg.push("Please Enter Password");
+            }
+        }
+
+        if (msg.length > 0) {
+            var error = "<ul style='text-align:left'>";
+            for (var i = 0; i < msg.length; i++) {
+                error += "<li>"+msg[i]+"</li>";
+            }
+            error += "</ul>";
+            popupV1(error, "Warning", "warning")
+            isvalid = false;
+        }
+        return isvalid;
+    }
+</script>

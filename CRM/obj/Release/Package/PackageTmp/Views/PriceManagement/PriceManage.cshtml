@@ -1,0 +1,309 @@
+﻿@{
+    Layout = null;
+}
+<style>
+    .pricearea td {
+        text-align: center;
+    }
+
+    .txtnumber {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .bgcolor1 {
+        background-color: aquamarine;
+    }
+
+    .bgcolor2 {
+        background-color: burlywood;
+    }
+</style>
+<div class="row clstable">
+    <div class="col-lg-12 col-sm-12">
+        <div class="card">
+            <div class="card-body table-responsive">
+                <div class="">
+
+                    <table class="table table-responsive" id="tblPriceMangement">
+                        <thead>
+                            <tr>
+                                <th colspan="2" style="background-color:white;border-top:0"></th>
+                                <th colspan="3" style="background-color:white;border-top:0"><h3 style="color:red">Order Price Calculation</h3></th>
+                                <th colspan="3" style="background-color:white;border-top:0"><h3 style="color:red">Order Expense Calculation</h3></th>
+                                <th colspan="4" style="background-color:white;border-top:0"><h3 style="color:red">Order Days Calculation</h3></th>
+                            </tr>
+                            <tr>
+                                <th>Video Price (as per duration)</th>
+                                <th>Percentage</th>
+                                <th class="bgcolor1">Video charges (On base price Rs.3000)</th>
+                                <th class="bgcolor1">Script Charges</th>
+                                <th class="bgcolor1">VO Charge (Regular)</th>
+                                <th class="bgcolor1" style="display:none">VO Charge (Premium)</th>
+                                <th class="bgcolor2">Video charges (50%)</th>
+                                <th class="bgcolor2">Script Charges (75%)</th>
+                                <th class="bgcolor2">VO Charges Regular (75%)</th>
+                                <th class="bgcolor2" style="display:none">VO charges Premium (75%)</th>
+                                <th class="bgcolor3">Video Level 01</th>
+                                <th class="bgcolor3">Video Level 02</th>
+                                <th class="bgcolor3">Video Level 03</th>
+                                <th class="bgcolor3">Scipt</th>
+                                <th class="bgcolor3">VO</th>
+                                <th></th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.objList)
+            {
+                                <tr class="pricearea" data-PriceManagementId="@item.PriceManagementId">
+                                    <td><input type="text" value="@item.VideoDuration" class="VideoDuration form-control" /></td>
+                                    <td><input type="text" value="@item.AmountPercentage" class="AmountPercentage txtnumber form-control" /></td>
+                                    <td class="bgcolor1"><input type="text" value="@item.VideoCharges" class="VideoCharges txtnumber form-control charges" disabled /></td>
+                                    <td class="bgcolor1"><input type="text" value="@item.ScriptCharges" class="ScriptCharges txtnumber form-control charges" disabled /></td>
+                                    <td class="bgcolor1"><input type="text" value="@item.VOCharges_Regular" class="VOCharges_Regular txtnumber form-control charges" disabled /></td>
+                                    <td class="bgcolor1" style="display:none"><input type="text" value="@item.VOCharges_Premium" class="VOCharges_Premium txtnumber form-control charges" disabled /></td>
+                                    <td class="bgcolor2"><input type="text" value="@item.VideoCharges_Distribute" class="VideoCharges_Distribute txtnumber form-control " disabled /></td>
+                                    <td class="bgcolor2"><input type="text" value="@item.ScriptCharges_Distribute" class="ScriptCharges_Distribute txtnumber form-control " disabled /></td>
+                                    <td class="bgcolor2"><input type="text" value="@item.VOCharges_Regular_Distribute" class="VOCharges_Regular_Distribute txtnumber form-control" disabled /></td>
+                                    <td class="bgcolor2" style="display:none"><input type="text" value="@item.VOCharges_Premium_Distribute" class="VOCharges_Premium_Distribute txtnumber form-control" disabled /></td>
+
+                                    <td class="bgcolor3"><input type="text" value="@item.VideoDays_Level01" class="VideoDays_Level01 form-control" /></td>
+                                    <td class="bgcolor3"><input type="text" value="@item.VideoDays_Level02" class="VideoDays_Level02 form-control" /></td>
+                                    <td class="bgcolor3"><input type="text" value="@item.VideoDays_Level03" class="VideoDays_Level03 form-control" /></td>
+                                    <td class="bgcolor3"><input type="text" value="@item.ScriptDays" class="ScriptDays form-control" /></td>
+                                    <td class="bgcolor3"><input type="text" value="@item.VODays" class=" VODays form-control" /></td>
+                                    <td>
+                                        <div class="btn btn-sm btn-round btn-block waves-effect waves-light btn-delete" onclick="RemoveRow(this)">X</div>
+                                    </td>
+                                </tr>
+
+                            }
+                        </tbody>
+
+                    </table>
+                    <div class="btn btn-sm btn-round btn-block waves-effect waves-light" onclick="AddRow()">Add Row</div>
+                    <div class="btnPriceSave btn btn-sm btn-round btn-block waves-effect waves-light" onclick="PriceSave()">Save</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    var video_charge = 0;// $(".VideoCharges").val();
+    var script_charge = 0;// $(".ScriptCharges").val();
+    var vo_charge_r = 0;//$(".VOCharges_Regular").val();
+    var vo_charge_p = 0;// $(".VOCharges_Premium ").val();
+    var IsHundred = false;
+
+    var video_charge_percentage = 50;
+    var script_charge_percentage = 75;
+    var vo_charge_r_percentage = 75;
+    var vo_charge_p_percentage = 75;
+    $(document).ready(function () {
+        AutoCalculate();
+
+        $(".AmountPercentage").each(function () {
+            if ($(this).val() == 100) {
+                $(this).parents(".pricearea").find(".charges").removeAttr("disabled");
+
+            }
+        });
+        $(".form-control").mouseover(function () {
+            $(this).parent("td").attr("title", $(this).val());
+        })
+        bindEvent();
+    });
+    function AutoCalculate() {
+        $(".VideoCharges").keyup(function () {
+            var videovalue = $(this).val();
+            var fiftyper = (videovalue * 50) / 100;
+            $(this).parents(".pricearea").find(".VideoCharges_Distribute").val(fiftyper);
+            AmountPercentage();
+        });
+        $(".ScriptCharges").keyup(function () {
+            var scriptvalue = $(this).val();
+            var swenty_five_per = (scriptvalue * 75) / 100;
+            $(this).parents(".pricearea").find(".ScriptCharges_Distribute").val(swenty_five_per);
+            AmountPercentage();
+        });
+        $(".VOCharges_Regular").keyup(function () {
+            var vo_charge_r_value = $(this).val();
+            var swenty_five_per = (vo_charge_r_value * 75) / 100;
+            $(this).parents(".pricearea").find(".VOCharges_Regular_Distribute").val(swenty_five_per);
+            AmountPercentage();
+        });
+        $(".VOCharges_Premium").keyup(function () {
+            //debugger;
+            var vo_charge_p_value = $(this).val();
+            var swenty_five_per = (vo_charge_p_value * 75) / 100;
+            $(this).parents(".pricearea").find(".VOCharges_Premium_Distribute").val(swenty_five_per);
+            AmountPercentage();
+        });
+        $(".AmountPercentage").keyup(function () {
+            AmountPercentage();
+        });
+    }
+    function AmountPercentage() {
+        $(".AmountPercentage").each(function () {
+            if ($(this).val() == 100) {
+                IsHundred = true;
+                video_charge = $(this).parents(".pricearea").find(".VideoCharges").val();
+                script_charge = $(this).parents(".pricearea").find(".ScriptCharges").val();
+                vo_charge_r = $(this).parents(".pricearea").find(".VOCharges_Regular").val();
+                vo_charge_p = $(this).parents(".pricearea").find(".VOCharges_Premium").val();
+            }
+        });
+        $(".AmountPercentage").each(function () { 
+        if (IsHundred == true) {
+
+            var myvalue = $(this).val();
+            var diff = myvalue - 100;
+            var value = parseFloat((video_charge * diff) / 100);
+            var video_charges = parseFloat(video_charge) + parseFloat(value);
+            $(this).parents(".pricearea").find(".VideoCharges").val(video_charges);
+
+
+            value = parseFloat((script_charge * diff) / 100);
+            var script_charges = parseFloat(script_charge) + parseFloat(value);
+            $(this).parents(".pricearea").find(".ScriptCharges").val(script_charges);
+
+
+            value = parseFloat((vo_charge_r * diff) / 100);
+            var vo_charge_regu = parseFloat(vo_charge_r) + parseFloat(value);
+            $(this).parents(".pricearea").find(".VOCharges_Regular").val(vo_charge_regu);
+
+
+            value = parseFloat((vo_charge_p * diff) / 100);
+            var vo_charge_pre = parseFloat(vo_charge_p) + parseFloat(value);
+            $(this).parents(".pricearea").find(".VOCharges_Premium").val(vo_charge_pre);
+
+
+            var video_charge_value = $(this).parents(".pricearea").find(".VideoCharges").val();
+            var calculation = (video_charge_value * video_charge_percentage) / 100;
+            $(this).parents(".pricearea").find(".VideoCharges_Distribute").val(calculation);
+
+
+            var script_charge_value = $(this).parents(".pricearea").find(".ScriptCharges").val();
+            var calculation = (script_charge_value * script_charge_percentage) / 100;
+            $(this).parents(".pricearea").find(".ScriptCharges_Distribute").val(calculation);
+
+
+            var vo_charge_r_value = $(this).parents(".pricearea").find(".VOCharges_Regular").val();
+            var calculation = (vo_charge_r_value * vo_charge_r_percentage) / 100;
+            $(this).parents(".pricearea").find(".VOCharges_Regular_Distribute").val(calculation);
+
+
+            var vo_charge_p_value = $(this).parents(".pricearea").find(".VOCharges_Premium").val();
+            var calculation = (vo_charge_p_value * vo_charge_p_percentage) / 100;
+            $(this).parents(".pricearea").find(".VOCharges_Premium_Distribute").val(calculation);
+
+        }
+        });
+    }
+    function AddRow() {
+        var html = '<tr class="pricearea" data-PriceManagementId="0">' +
+            '<td class="bgcolor1"><input type="text" class="VideoDuration form-control"/></td>' +
+            '<td class="bgcolor1"><input type="text" class="AmountPercentage txtnumber form-control"/></td>' +
+            '<td class="bgcolor1"><input type="text" class="VideoCharges txtnumber form-control"/></td>' +
+            '<td class="bgcolor1"><input type="text" class="ScriptCharges txtnumber form-control"/></td>' +
+            '<td class="bgcolor2"><input type="text" class="VOCharges_Regular txtnumber form-control"/></td>' +
+            '<td class="bgcolor2" style="display:none"><input type="text" class="VOCharges_Premium txtnumber form-control"/></td>' +
+            '<td class="bgcolor2"><input type="text" class="VideoCharges_Distribute txtnumber form-control"/></td>' +
+            '<td class="bgcolor2"><input type="text" class="ScriptCharges_Distribute txtnumber form-control"/></td>' +
+            '<td class="bgcolor2"><input type="text" class="VOCharges_Regular_Distribute txtnumber form-control"/></td>' +
+            '<td class="bgcolor2" style="display:none"><input type="text" class="VOCharges_Premium_Distribute txtnumber form-control"/></td>' +
+            '<td class="bgcolor3"><input type="text" value="" class="VideoDays_Level01 form-control" /></td>' +
+            '<td class="bgcolor3"><input type="text" value="" class="VideoDays_Level02 form-control" /></td>' +
+            '<td class="bgcolor3"><input type="text" value="" class="VideoDays_Level03 form-control" /></td>' +
+            '<td class="bgcolor3"><input type="text" value="" class="ScriptDays form-control" /></td>' +
+            '<td class="bgcolor3"><input type="text" value="" class="VODays form-control"/></td>' +
+            '<td><div class="btn btn-sm btn-round btn-block waves-effect waves-light btn-delete" onclick="RemoveRow(this)">X</div></td>'+
+            '</tr>';
+
+        $("#tblPriceMangement").find("tbody").append(html);
+        bindEvent();
+    }
+    function RemoveRow(btn) {
+        $(btn).parents("tr").remove();
+    }
+    function bindEvent() {
+        $(".VideoDays,.ScriptDays,.VODays").keyup(function () {
+            var pricearea = $(this).parents(".pricearea");
+            var VideoDays = $(pricearea).find(".VideoDays").val();
+            var ScriptDays = $(pricearea).find(".ScriptDays").val();
+            var VODays = $(pricearea).find(".VODays").val();
+
+            VideoDays = (VideoDays == "") ? 0 : VideoDays;
+            ScriptDays = (ScriptDays == "") ? 0 : ScriptDays;
+            VODays = (VODays == "") ? 0 : VODays;
+
+            var TotalDays = parseInt(VideoDays) + parseInt(ScriptDays) + parseInt(VODays);
+            $(pricearea).find(".TotalDays").val(TotalDays);
+        });
+    }
+    function PriceSave() {
+
+        $(".pricearea").each(function () {
+            var PriceManagementId = $(this).attr("data-PriceManagementId");
+            var VideoDuration = $(this).find(".VideoDuration").val();
+            var AmountPercentage = $(this).find(".AmountPercentage").val();
+            var VideoCharges = $(this).find(".VideoCharges").val();
+            var ScriptCharges = $(this).find(".ScriptCharges").val();
+            var VOCharges_Regular = $(this).find(".VOCharges_Regular").val();
+            var VOCharges_Premium = $(this).find(".VOCharges_Premium").val();
+
+            var VideoCharges_Distribute = $(this).find(".VideoCharges_Distribute").val();
+            var ScriptCharges_Distribute = $(this).find(".ScriptCharges_Distribute").val();
+            var VOCharges_Regular_Distribute = $(this).find(".VOCharges_Regular_Distribute").val();
+            var VOCharges_Premium_Distribute = $(this).find(".VOCharges_Premium_Distribute").val();
+
+            var VideoDays_Level01 = $(this).find(".VideoDays_Level01").val();
+            var VideoDays_Level02 = $(this).find(".VideoDays_Level02").val();
+            var VideoDays_Level03 = $(this).find(".VideoDays_Level03").val();
+
+            var ScriptDays = $(this).find(".ScriptDays").val();
+            var VODays = $(this).find(".VODays").val();
+
+
+            VideoDays_Level01 = (VideoDays_Level01 == "") ? 0 : VideoDays_Level01;
+            VideoDays_Level02 = (VideoDays_Level02 == "") ? 0 : VideoDays_Level02;
+            VideoDays_Level03 = (VideoDays_Level03 == "") ? 0 : VideoDays_Level03;
+            ScriptDays = (ScriptDays == "") ? 0 : ScriptDays;
+            VODays = (VODays == "") ? 0 : VODays;
+
+
+            var data = {
+                PriceManagementId: PriceManagementId,
+                VideoDuration: VideoDuration,
+                AmountPercentage: AmountPercentage,
+                VideoCharges: VideoCharges,
+                ScriptCharges: ScriptCharges,
+                VOCharges_Regular: VOCharges_Regular,
+                VOCharges_Premium: VOCharges_Premium,
+                VideoCharges_Distribute: VideoCharges_Distribute,
+                ScriptCharges_Distribute: ScriptCharges_Distribute,
+                VOCharges_Regular_Distribute: VOCharges_Regular_Distribute,
+                VOCharges_Premium_Distribute: VOCharges_Premium_Distribute,
+                VideoDays_Level01: VideoDays_Level01,
+                VideoDays_Level02: VideoDays_Level02,
+                VideoDays_Level03: VideoDays_Level03,
+                ScriptDays: ScriptDays,
+                VODays: VODays
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/PriceManagement/PriceSave",
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+
+                }
+            });
+        });
+        callPage('/PriceManagement/PriceManage', 'Price Management', '');
+    }
+</script>

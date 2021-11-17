@@ -1,0 +1,59 @@
+﻿@model DAL.Faq
+@{
+    Layout = null;
+}
+<head>
+    <script src="~/Content/Theme/Admin/plugins/ckeditor/ckeditor.js"></script>
+</head>
+<div class="row">
+    <input type="hidden" id="FaqId" value="@Model.FaqId" />
+    <div class="col-md-4 col-sm-12">
+        <div class="form-group">
+            <label for="username">Question</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="Question" placeholder="Enter Question" value="@Model.Question" />
+            </div>
+        </div>
+    </div>
+   
+    <div class="col-md-12 col-sm-12">
+        <div class="form-group">
+            <label for="username">Answer</label>
+            <textarea class="form-control" id="Answer">@Model.Answer</textarea>
+        </div>
+        <button class="btn" onclick="SaveFaQ()">Save</button>
+    </div>
+    
+</div>
+
+<script>
+    $(document).ready(function () {
+        CKEDITOR.replace('Answer', {
+            fullPage: true,
+            extraPlugins: 'docprops',
+            allowedContent: true,
+            height: 320
+        });
+
+
+
+    });
+    function SaveFaQ() {
+        var data = {
+            FaqId: $("#FaqId").val(),
+            Question: $("#Question").val().trim(),
+            Answer: CKEDITOR.instances.Answer.getData()
+        };
+        $.ajax({
+            type: "POST",
+            url: "/Faq/SaveFaQ",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                callPage('/Faq/Index', 'Faq', '');
+            }
+        });
+
+    }
+    </script>

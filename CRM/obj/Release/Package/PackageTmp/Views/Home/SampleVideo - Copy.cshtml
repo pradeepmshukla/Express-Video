@@ -1,0 +1,970 @@
+﻿@model DAL.Basket
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="https://vjs.zencdn.net/7.8.4/video-js.css" rel="stylesheet" />
+<!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+<script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+<script src="https://vjs.zencdn.net/7.8.4/video.js"></script>
+
+<style>
+    .layout {
+        background-color: rgb(231,234,239);
+    }
+
+    .steps {
+        background-color: white;
+        box-shadow: 1px 1px 20px 7px #d8d8d8;
+    }
+
+    .card-body {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .pricebox {
+        background: url(../Content/Images/steps/price.png);
+        width: 26rem;
+        height: 13rem;
+        background-size: contain;
+        position: absolute;
+        bottom: -118px;
+        background-position: 20px;
+        background-repeat: no-repeat;
+    }
+
+        .pricebox span {
+            position: absolute;
+            top: 5.5rem;
+            left: 12rem;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #3b3838;
+            line-height: 5.5rem;
+        }
+
+    .tblfilechoose {
+        background-color: transparent;
+        width: 100%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+        .tblfilechoose td {
+            border: 2px solid #9c9696;
+            color: black;
+        }
+
+    .addtocart:hover {
+        text-decoration: none;
+    }
+    .removedvideo{
+        color:red;
+        font-weight:bold;
+        cursor:pointer;
+    }
+    .lnkvideo:hover{
+        text-decoration:none;
+    }
+    
+</style>
+<script src="~/Content/Plugins/dropzone-5.7.0/dist/dropzone.js"></script>
+<link href="~/Content/Plugins/dropzone-5.7.0/dist/dropzone.css" rel="stylesheet" />
+<link href="~/Content/Plugins/dropzone-5.7.0/dist/basic.css" rel="stylesheet" />
+<br /><br />
+<div class="card-body">
+    <div class="container-fluid">
+
+        <div class="how-it-works">
+            <br />
+
+            <div>PLACE YOUR ORDER</div>
+
+        </div>
+
+        <div class="row steps">
+            <br />
+            <div class="col-md-3">
+                <div class="step-no" style="background:url(../Content/Images/steps/Arrow_01.png)">Step 01</div>
+                <div class="innerbox SampleVideo-area">
+                    <div>Choose your sample video:</div>
+                    <a href="/Home/Videos" class=lnkvideo>
+                        <table class="tblfilechoose" border="1">
+                            <tr>
+                                <td style="background-color:rgb(189,190,192)">Choose file</td>
+                                <td class="nofilechoosen">no file choosen</td>
+                            </tr>
+                        </table>
+                    </a>
+                    <div>
+                        Duration of the video:
+                    </div>
+                    <select class="form-control" id="ddVideoDuration">
+                        <option value="">Select</option>
+                        @foreach (var item in ViewBag.PriceManagement)
+                        {
+                            <option value="@item.VideoDuration" data-VideoCharges="@item.VideoCharges" data-ScriptCharges="@item.ScriptCharges" data-VOCharges_Regular="@item.VOCharges_Regular" data-VOCharges_Premium="@item.VOCharges_Premium">@item.VideoDuration</option>
+                        }
+                    </select>
+                    <div>VIDEO RESOLUTION</div>
+                    <select id="VideoResolution" class="form-control" >
+                        <option value="Full HD(1920X1080)">Full HD(1920X1080)</option>
+                        <option value="HD Ready(1280X720)">HD Ready(1280X720)</option>
+                        <option value="Square Pixel(1920X1920)">Square Pixel(1920X1920)</option>
+                        <option value="Square Pixel(1200X1200)">Square Pixel(1200X1200)</option>
+                        <option value="Custom" data-width="0" data-height="0">Custom</option>
+                    </select>
+
+                    <div class="custom custom-resotution-text">CUSTOM RESOLUTION</div>
+                    <div class="form-control custom" style="height:70px; font-size:12px">
+                        <div style="padding:2px">Width&nbsp;&nbsp;:<input type="number" class="customwidth" min="0" style="width:80px; text-align:center" value="0" /> pixel</div>
+                        <div>Height :<input type="number" class="customheight" min="0" style="width:80px; text-align:center" value="0" /> pixel</div>
+                    </div>
+                    <div class="box">
+                        @*<a class="" href="/Home/Videos">Select</a>*@
+                        <div class="btn btn-round btn-block waves-effect waves-light">SUBMIT</div>
+                    </div>
+                    <div class="pricebox">
+                        <span class="videoprice">₹ 0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="step-no" style="background:url(../Content/Images/steps/Arrow_02.png)">Step 02</div>
+                <div class="innerbox">
+                    <div>Script:</div>
+                    <div style="margin:50px auto">
+                        <input id="ScriptRequiredYes" type="radio" name="ScriptRequired" /><span for="ScriptRequiredYes">&nbsp;&nbsp;Required</span>  <br />
+                        <input id="ScriptRequiredNo" type="radio" name="ScriptRequired" checked /><span for="ScriptRequiredNo">&nbsp;&nbsp;Not Required</span>
+                    </div>
+                    <div style="text-align:center;margin:110px auto">
+                        <a class="btn btn-round btn-block waves-effect waves-light " href="#ScriptRequirementForm">Fill Video Form</a>
+                    </div>
+
+                    <div class="box">
+                        <div class="btn btn-round btn-block waves-effect waves-light" >Submit</div>
+                    </div>
+                    <div class="pricebox">
+                        <span class="scriptprice">0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="step-no" style="background:url(../Content/Images/steps/Arrow_03.png)">Step 03</div>
+                <div class="innerbox">
+                    <div>Select Voice over Artist:</div>
+                    <div style="margin:50px auto">
+                        <input id="VORequiredYes" type="radio" name="VORequired" /><span for="VORequiredYes">&nbsp;&nbsp;Required</span> <br />
+                        <input id="VORequiredNo" type="radio" name="VORequired" checked /><span for="VORequiredNo">&nbsp;&nbsp;Not Required</span>
+                    </div>
+                    <div class="box">
+                        <a class="btn btn-round btn-block waves-effect waves-light VORequiredYes_1 " style="display:none" href="#VORequirementForm">Submit</a>
+                        <div class="btn btn-round btn-block waves-effect waves-light VORequiredYes_2">Submit</div>
+                    </div>
+                    <div class="pricebox">
+                        <span class="voiceoverprice">0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="step-no" style="background:url(../Content/Images/steps/Arrow_05.png)">Step 04</div>
+                <div class="innerbox">
+                    <div>
+                        Order your video:
+                    </div>
+
+                    <div style="margin:50px auto">
+                        Click on order now and  confirm  your video details.
+                    </div>
+                    <div class="box">
+                        <div class="btn btn-round btn-block waves-effect waves-light addtocart">Order Now</div>
+                    </div>
+                    <div class="pricebox">
+                        <span class="ordertotal">0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" style="margin-top:46px;">
+                <p>
+                    ** All price mentioned are based on the minimum duration of the video. The price will be change depend upon the duration of video. Background music is included in video price.
+                </p>
+            </div>
+            <div class="col-md-12" style="margin-top:30px;margin-bottom:30px; text-align:center">
+                <a href="/Dashboard" class="btn btn-round btn-block waves-effect waves-light">BACK</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="SampleVideoForm" class="overlay">
+        <div class="popup" style="height:80%;width: 80%;padding: 5px;">
+            <h2>Sample Video </h2>
+            <a class="close" href="#">&times;</a>
+            <div class="content" style="">
+                <div class="SampleVideoForm">
+
+
+                </div>
+            </div>
+            <br />
+            <a class="btn btn-round btn-block waves-effect waves-light btnsave" href="#">Save</a>
+        </div>
+    </div>
+    <div id="ScriptRequirementForm" class="overlay">
+        <div class="popup">
+            <h2>Your script requirements</h2>
+            <a class="close" href="#">&times;</a>
+            <div class="content">
+                <div class="ScriptRequirementForm">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="username">Video Concept</label>
+                            <div class="input-group mb-3">
+                                <textarea class="form-control" placeholder="Enter video concept" id="txtVideoConcept"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="username">Purpose of Video</label>
+                            <div class="input-group mb-3">
+                                <textarea class="form-control" placeholder="Enter purpose of video" id="txtPurposeOfVideo"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="username">About Company</label>
+                            <div class="input-group mb-3">
+                                <textarea class="form-control" placeholder="Enter about your company" id="txtAboutCompany"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="username">Benifits for customers</label>
+                            <div class="input-group mb-3">
+                                <textarea class="form-control" placeholder="Enter benifits for customer" id="txtBenifitesForCustomer"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="username">Target Audience</label>
+                            <div class="input-group mb-3">
+                                <input type="text" id="txtTargetAudience" class="form-control" placeholder="Enter Target audinece" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="username">Company Name</label>
+                            <div class="input-group mb-3">
+                                <input type="text" id="txtCompanyName" class="form-control" placeholder="Enter company name" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="username">Company Website</label>
+                            <div class="input-group mb-3">
+                                <input type="text" id="txtCompanyWebsite" class="form-control" placeholder="Enter company website" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="username">Logo</label>
+                            <div class="mb-3 logo-img-preview" style="display:none">
+                                <img src="" />
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="file" id="filelogo" class="form-control" />
+                                <input type="hidden" id="hdnlogoname" class="form-control" />
+                            </div>
+                            @*<form action="~/FileManager/SaveUploadedFile" method="post" enctype="multipart/form-data"
+                                  class="dropzone" id="dropzoneForm"></form>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="username">Product/Service Images</label>
+                        <div class="productserviceimages_preview" style="display:none">
+                        </div>
+                        <div class="productserviceimages">
+
+                        </div>
+                        <input type="hidden" id="hdn_Script_ProductServiceImages" />
+                        <div class="btn btn-sm btn-round btn-block waves-effect waves-light btnAddproductserviceimages">Add</div>
+
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <a class="close btn btn-round btn-block waves-effect waves-light btnsave" href="#">Save</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <div style="text-align:center">
+            <a class="btn btn-round btn-block waves-effect waves-light btnsave" href="#" style="width:160px">Save</a>
+        </div>
+    </div>
+</div>
+<div id="VORequirementForm" class="overlay">
+    <div class="popup">
+        <h2>VO Requirements</h2>
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+            <div class="VORequirementForm">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="username">Select Language</label>
+                        <div class="input-group mb-3">
+                            &nbsp;&nbsp;<input id="LanguageHindi" type="radio" name="Language" checked />&nbsp;&nbsp;<span for="LanguageHindi">Hindi</span> &nbsp;&nbsp;
+                            &nbsp;&nbsp;<input id="LanguageEnglish" type="radio" name="Language" />&nbsp;&nbsp;<span for="LanguageEnglish">Englidh</span>&nbsp;&nbsp;
+                            &nbsp;&nbsp;<input id="LanguageOthers" type="radio" name="Language" />&nbsp;&nbsp;<span for="LanguageOthers">Others</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="username">Select Gender</label>
+                        <div class="input-group mb-3">
+                            &nbsp;&nbsp;<input id="GenderMale" type="radio" name="Gender" checked />&nbsp;&nbsp;<span for="GenderMale">Male</span> &nbsp;&nbsp;
+                            &nbsp;&nbsp;<input id="GenderFemale" type="radio" name="Gender" />&nbsp;&nbsp;<span for="GenderFemale">Female</span>&nbsp;&nbsp;
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="username">Choose Voice artist Samples</label>
+                        <div class="input-group mb-3">
+                            &nbsp;&nbsp;<input id="VideoTypeNormal" type="radio" name="VideoType" checked />&nbsp;&nbsp;<span for="VideoTypeNormal">Normal</span>&nbsp;&nbsp;
+                            &nbsp;&nbsp;<input id="VideoTypePremium" type="radio" name="VideoType" />&nbsp;&nbsp;<span for="VideoTypePremium">Premium</span>&nbsp;&nbsp;
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <table class="table voiceartistdata">
+                            <thead>
+                                <tr>
+                                    <th>Artist Code</th>
+                                    <th>Sample</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+
+                        </table>
+                    </div>
+
+
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <a class="close btn btn-round btn-block waves-effect waves-light btnsave" href="#">Save</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <a class="btn btn-round btn-block waves-effect waves-light btnsave" href="#">Save</a>
+    </div>
+</div>
+<div id="ExtraDetailsForm" class="overlay">
+    <div class="popup">
+        <h2>Extra Details </h2>
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+            <div class="ExtraDetailsForm">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="username">Extra Video Details</label>
+                        <div class="input-group mb-3">
+                            <textarea class="form-control" placeholder="Enter your video extra details" id="txtExtraDetails"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="username">Choose file</label>
+                        <div class="input-group mb-3">
+                            <input type="file" id="Extrafilelogo" class="form-control" />
+                            <input type="hidden" id="hdnExtrafilelogologoname" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <a class="close btn btn-round btn-block waves-effect waves-light btnsave" href="#">Save</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <a class="btn btn-round btn-block waves-effect waves-light btnsave" href="#">Save</a>
+    </div>
+</div>
+<div id="OrderSummary" class="overlay">
+    <div class="popup">
+        <h2>Order Summary </h2>
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+
+        </div>
+
+        <br />
+        <a class="btn btn-round btn-block waves-effect waves-light" href="#">Close</a>
+    </div>
+</div>
+<input type="hidden" id="CustomerId" value="@ViewBag.CustomerId" />
+
+
+</div>
+<script src="~/scripts/jquery-1.10.2.min.js"></script>
+<style>
+    .video-js {
+        width: 100%;
+    }
+</style>
+
+<script>
+    var _Script_Price = 0;
+    var _VO_SamplePrice_Regular = 0;
+    var _VO_SamplePrice_Premium = 0;
+    var VideoResolution = "Full HD(1920X1080)";
+    var VideoResolution_width = 0; VideoResolution_height = 0;
+    var SampleVideos = {
+        SampleVideoId: 0,
+        SampleVideoPrice: 0,
+        VideoResolution: VideoResolution
+    }
+    var ScriptWriter = {
+        Script_Required: true,
+        Script_VideoConcept: '',
+        Script_PurposeofVideo: '',
+        Script_AboutCompny: '',
+        Script_BenifitesForCustomer: '',
+        Script_TargetAudience: '',
+        Script_CompanyName: '',
+        Script_CompanyWebsite: '',
+        Script_LogoName: '',
+        Script_ProductServiceImages: '',
+        Script_Price: 0
+
+    }
+    var VO = {
+        VO_Required: true,
+        VO_Language: "",
+        VO_Gender: "",
+        VO_ArtistSamleType: "",
+        VO_SampleId: 0,
+        VO_SamplePrice: 0,
+    }
+    var ExtraDetails = {
+        ED_VideoDuration: "",
+        ED_ExtraDetails: "",
+        ED_FileName: ""
+    }
+    var TotalAmount = 0;
+    var OrderSample = {};
+    var VideoUrl = "";
+    var VideoId = "";
+    var VideoPrice = 0;
+    $(document).ready(function () {
+        //getsampleVideo();
+        setVideopath();
+        getVoiceArtist();
+        SetValue();
+        $(".menulistforhide").hide();
+        var width = $($(".popup .content")[0]).width() - 350;
+        $(".popup input[type='text']").css("width", width + "px");
+        $(".popup textarea").css("width", width + "px");
+
+        $("input[type='text']").blur(function () {
+            //SetValue();
+        });
+        $("textarea").blur(function () {
+            //SetValue();
+        });
+        $("input[type='radio']").change(function () {
+            SetValue();
+        });
+
+        $(".btnsave").click(function () {
+            SetValue();
+        });
+        $(".addtocart").click(function () {
+            addtocart();
+        });
+        $("#filelogo").change(function () {
+            if (fileValidation('filelogo', 'image')) {
+                var r = UploadFile("filelogo", "hdnlogoname");
+            }
+        });
+        $("#Extrafilelogo").change(function () {
+            if (fileValidation('Extrafilelogo', 'image')) {
+                var r = UploadFile("Extrafilelogo", "hdnExtrafilelogologoname");
+
+            }
+        });
+
+        var index = 0;
+        $(".btnAddproductserviceimages").click(function () {
+            index++;
+            var html = '<div class="Uploadimage form-control" id="uploadbox_' + index + '"><input type="file" id="filelogo_' + index + '" class="Script_ProductServiceImages" /><input type="hidden" id="hdnlogoname_' + index + '" class="hdn_Script_ProductServiceImages" />' +
+                '<div class="btn btn-sm btn-round btn-block waves-effect waves-light removeuploadbox" data-id="uploadbox_' + index + '">Remove</div>' +
+                '</div>';
+            $(".productserviceimages").append(html);
+            $(".removeuploadbox").click(function () {
+                var id = $(this).attr("data-id");
+                $("#" + id).remove();
+            });
+            $(".Script_ProductServiceImages").change(function () {
+                var filename = $(this).attr("id");
+                var hdnfilename = $(this).siblings("input[type='hidden']").attr("id");
+                if (fileValidation(filename, 'image')) {
+                    var r = UploadFile(filename, hdnfilename);
+
+                }
+            });
+        });
+        $("#ddVideoDuration").change(function () {
+            var d = $("#ddVideoDuration").find("option:selected");
+            _Script_Price = $(d).attr("data-scriptcharges");
+            _VO_SamplePrice_Regular = $(d).attr("data-vocharges_regular");
+            _VO_SamplePrice_Premium = $(d).attr("data-vocharges_premium");
+            SetValue();
+        });
+
+        $(".custom").hide();
+        $("#VideoResolution").change(function () {
+            if ($(this).val().toLowerCase() == "custom") {
+                $(".custom").show();
+            }
+            else {
+                $(".custom").hide();
+            }
+            VideoResolution = $(this).val();
+
+        });
+        $(".customwidth").change(function () {
+            VideoResolution_width = $(".customwidth").val();
+            VideoResolution = "Custom(" + VideoResolution_width + "X" + VideoResolution_height + ")"
+            $(".custom-resotution-text").html("CUSTOM RESOUTION(" + VideoResolution_width + "X" + VideoResolution_height + ")");
+        });
+        $(".customheight").change(function () {
+            VideoResolution_height = $(".customheight").val();
+            VideoResolution = "Custom(" + VideoResolution_width + "X" + VideoResolution_height + ")"
+            $(".custom-resotution-text").html("CUSTOM RESOUTION(" + VideoResolution_width + "X" + VideoResolution_height + ")");
+        });
+
+        $(".btnAddproductserviceimages").trigger("click");
+
+        setInterval(function () {
+            $(".hide-forSampleVideo").hide();
+        }, 10);
+        $("#VORequiredYes").change(function () {
+
+            if ($(this).is(":checked")) {
+                $(".VORequiredYes_1").show();
+                $(".VORequiredYes_2").hide();
+            }
+            else {
+
+                $(".VORequiredYes_1").hide();
+                $(".VORequiredYes_2").show();
+            }
+        });
+        $("#VORequiredNo").change(function () {
+
+            if ($(this).is(":checked")) {
+                $(".VORequiredYes_1").hide();
+                $(".VORequiredYes_2").show();
+
+            }
+            else {
+                $(".VORequiredYes_1").show();
+                $(".VORequiredYes_2").hide();
+            }
+        });
+
+    });
+    function setVideopath() {
+        VideoId = getUrlVars()["id"];
+        VideoPrice = getUrlVars()["p"];
+        VideoUrl = getUrlVars()["v"];
+        BasketId = getUrlVars()["bid"];
+        Name = decodeURI(getUrlVars()["n"]);
+        if (BasketId != null && BasketId != undefined && BasketId != 0) {
+            var data = {};
+            $.ajax({
+                type: "POST",
+                url: "/Basket/MyCartForEdit",
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    if (data != null && data.length > 0) {
+                        console.log(data[0]);
+                        var d = data[0];
+                        $(".nofilechoosen").html("Video Selected");
+                        $("#ddVideoDuration").val(d.ED_VideoDuration);
+                        VideoPrice = d.SampleVideoPrice;
+
+                        if (d.Script_Required == true) {
+                            $("#ScriptRequiredYes").attr("checked", true);
+                            $("#txtVideoConcept").val(d.Script_VideoConcept);
+                            $("#txtPurposeOfVideo").val(d.Script_PurposeofVideo);
+                            $("#txtAboutCompany").val(d.Script_AboutCompany);
+                            $("#txtBenifitesForCustomer").val(d.Script_BenifitesForCustomer);
+                            $("#txtCompanyName").val(d.Script_CompanyName);
+                            $("#txtCompanyWebsite").val(d.Script_CompanyWebsite);
+                            if (d.Script_LogoName != null && d.Script_LogoName != "") {
+                                $("#hdnlogoname").val(d.Script_LogoName);
+                                $(".logo-img-preview img").attr("src", "/Uploads/" + d.Script_LogoName);
+                                $(".logo-img-preview img").show();
+                            }
+                            if (d.Script_ProductServiceImages != "" && d.Script_ProductServiceImages != null) {
+                                var imglist = d.Script_ProductServiceImages.split(",");
+                                var html = "";
+                                for (var i = 0; i < imglist.length; i++) {
+                                    html += "<img src='/Uploads/" + imglist[i] + "' width='100px'/>";
+                                }
+                                $(".productserviceimages_preview").html(html);
+                                $(".productserviceimages_preview").show();
+                                $("#hdn_Script_ProductServiceImages").val(d.Script_ProductServiceImages);
+                            }
+
+                        }
+                    }
+                    SetValue();
+                }
+            });
+        }
+
+        if (!isNaN(VideoPrice)) {
+            $(".videoprice").text('₹ ' + VideoPrice);
+        }
+        var videohtml = "";
+        if (VideoId > 0) {
+            //videohtml = '<div class="selectedvideo-arrea">' +
+            //    '<iframe width="350" height="250" src="'+VideoUrl+'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'+
+            //    '</div>';
+            //$(".SampleVideo-area").find(".videoselected").html(videohtml);
+            $(".nofilechoosen").html("<span>" + Name + "</span> &nbsp;<span class='removedvideo'>x</span>");
+        }
+        else {
+            $(".SampleVideo-area").find(".videoselected").html("Video Not Selected");
+        }
+    }
+    function SetValue() {
+        //SampleVideos = {
+        //   // SampleVideoId: $(".rdbSampleVideo:checked").attr("data-id"),
+        //    SampleVideoPrice: $(".rdbSampleVideo:checked").attr("data-price")
+        //};
+        SampleVideos = {
+            SampleVideoId: VideoId,
+            SampleVideoPrice: VideoPrice,
+            VideoResolution: VideoResolution
+        };
+        var videohtml = "";
+
+        ScriptWriter = {
+            Script_Required: $("#ScriptRequiredYes").is(":checked"),
+            Script_VideoConcept: $("#txtVideoConcept").val().trim(),
+            Script_PurposeOfVideo: $("#txtPurposeOfVideo").val().trim(),
+            Script_AboutCompany: $("#txtAboutCompany").val().trim(),
+            Script_BenifitesForCustomer: $("#txtBenifitesForCustomer").val().trim(),
+            Script_TargetAudience: $("#txtTargetAudience").val().trim(),
+            Script_CompanyName: $("#txtCompanyName").val().trim(),
+            Script_CompanyWebsite: $("#txtCompanyWebsite").val().trim(),
+            Script_LogoName: $("#hdnlogoname").val().trim(),
+            Script_Price: 0
+        };
+        var hdnfilename = "";
+        $(".hdn_Script_ProductServiceImages").each(function () {
+            if ($(this).val() != "") {
+                hdnfilename += $(this).val() + ",";
+            }
+            $("#hdn_Script_ProductServiceImages").val(hdnfilename);
+        });
+        if ($("#hdn_Script_ProductServiceImages").val() != "") {
+            var hdnfile = $("#hdn_Script_ProductServiceImages").val();
+            if (hdnfile.charAt(hdnfile.length - 1) == ',') {
+                hdnfile = hdnfile.substr(0, hdnfile.length - 1);
+            }
+            ScriptWriter.Script_ProductServiceImages = hdnfile;
+        }
+        if (ScriptWriter.Script_Required) {
+            ScriptWriter.Script_Price = _Script_Price;
+        }
+
+        $(".scriptprice").text('₹ ' + ScriptWriter.Script_Price);
+
+        var VO_Language = "";
+        var VO_Gender = "";
+        var VO_ArtistSamleType = "";
+
+        var VO_SampleId = $(".samplevoiceaudio:checked").attr("data-VoiceArtistSoundsId");
+        if (VO_SampleId == undefined) {
+            VO_SampleId = 0;
+        }
+        var VO_SamplePrice = 0;
+        if ($("#LanguageHindi").is(":checked")) {
+            VO_Language = "Hindi";
+        }
+        else if ($("#LanguageEnglish").is(":checked")) {
+            VO_Language = "English";
+        }
+        else if ($("#LanguageHindi").is(":checked")) {
+            if ($("#LanguageOthers").val().trim() != "") {
+                VO_Language = $("#LanguageOthers").val().trim();
+            }
+        }
+
+        if ($("#GenderMale").is(":checked")) {
+            VO_Gender = "Male";
+        }
+        else {
+            VO_Gender = "Female";
+        }
+
+        if ($("#VideoTypeNormal").is(":checked")) {
+            VO_ArtistSamleType = "Normal";
+            _VO_SamplePrice = _VO_SamplePrice_Regular;
+        }
+        else {
+            VO_ArtistSamleType = "Premium";
+            _VO_SamplePrice = _VO_SamplePrice_Premium;
+        }
+
+        VO = {
+            VO_Required: $("#VORequiredYes").is(":checked"),
+            VO_Language: VO_Language,
+            VO_Gender: VO_Gender,
+            VO_ArtistSamleType: VO_ArtistSamleType,
+            VO_SampleId: VO_SampleId,
+            VO_SamplePrice: 0
+        }
+        if (VO.VO_Required) {
+            VO.VO_SamplePrice = _VO_SamplePrice;
+        }
+        $(".voiceoverprice").text('₹ ' + VO.VO_SamplePrice);
+        ExtraDetails = {
+            ED_VideoDuration: $("#ddVideoDuration").val(),
+            ED_ExtraDetails: $("#txtExtraDetails").val().trim(),
+            ED_FileName: $("#hdnExtrafilelogologoname").val()
+        }
+
+        TotalAmount = 0;
+        if (!isNaN(parseFloat(SampleVideos.SampleVideoPrice))) {
+            TotalAmount += parseFloat(SampleVideos.SampleVideoPrice);
+        }
+        if (!isNaN(parseFloat(ScriptWriter.Script_Price))) {
+            TotalAmount += parseFloat(ScriptWriter.Script_Price);
+        }
+        if (!isNaN(parseFloat(VO.VO_SamplePrice))) {
+            TotalAmount += parseFloat(VO.VO_SamplePrice);
+        }
+        //TotalAmount = TotalAmount.toFixed(2);
+        $(".ordertotal").text('₹ ' + TotalAmount);
+        OrderSample = {
+            SampleVideos: SampleVideos,
+            ScriptWriter: ScriptWriter,
+            VO: VO,
+            ExtraDetails: ExtraDetails,
+            TotalAmount: TotalAmount,
+            CustomerId: $("#CustomerId").val()
+        }
+
+        /*set into html*/
+        $(".SampleVideo-area .Price").find("span").html(SampleVideos.SampleVideoPrice);
+        $(".Script-area .Price").find("span").html(ScriptWriter.Script_Price);
+        $(".VO-area .Price").find("span").html(VO.VO_SamplePrice);
+        $(".OrderTotal-area").find("span").html(TotalAmount);
+
+        var ordersamplehtml = '';
+        ordersamplehtml += '<table class="table table-bordered">' +
+        '<tr><td colspan="2">Sample Video (Rs.' + SampleVideos.SampleVideoPrice + ')</td></tr>' +
+        '<tr><td>Video</td><td>' + videohtml + '</td></tr>';
+
+        if (ScriptWriter.Script_Required) {
+
+            ordersamplehtml += '<tr><td colspan="2">Script - (Rs. ' + ScriptWriter.Script_Price + ')</td></tr>' +
+            '<tr><td>Video Concept</td><td>' + ScriptWriter.Script_VideoConcept + '</td></tr>' +
+            '<tr><td>Purpose of Video</td><td>' + ScriptWriter.Script_PurposeOfVideo + '</td></tr>' +
+            '<tr><td>About Company</td><td>' + ScriptWriter.Script_AboutCompany + '</td></tr>' +
+            '<tr><td>Benifits for customers</td><td>' + ScriptWriter.Script_BenifitesForCustomer + '</td></tr>' +
+            '<tr><td>Target Audience</td><td>' + ScriptWriter.Script_TargetAudience + '</td></tr>' +
+            '<tr><td>Company Name</td><td>' + ScriptWriter.Script_CompanyName + '</td></tr>' +
+            '<tr><td>Company Website</td><td>' + ScriptWriter.Script_CompanyWebsite + '</td></tr>' +
+            '<tr><td>Company Logo</td><td><img src="~/Uploads/' + ScriptWriter.Script_LogoName + ' style="width:200px"/></td></tr>';
+        }
+        else {
+            ordersamplehtml += '<tr><td colspan="2">Script Not Required</td></tr>';
+        }
+
+        /*if (VO.VO_Required)
+        {
+            ordersamplehtml += '<tr><td colspan="2">VO - (Rs. ' + VO.VO_SamplePrice+ ')</td></tr>' +
+                 '<tr><td>Language Selected</td><td>' + ScriptWriter.Script_VideoConcept + '</td></tr>' +
+                  '<tr><td>Video Concept</td><td>' + ScriptWriter.Script_VideoConcept + '</td></tr>' +
+                   '<tr><td>Video Concept</td><td>' + ScriptWriter.Script_VideoConcept + '</td></tr>' +
+                    '<tr><td>Video Concept</td><td>' + ScriptWriter.Script_VideoConcept + '</td></tr>' +
+        }
+        else
+        {
+
+        }*/
+        '</table>';
+
+        $("#OrderSummary").find(".content").html(ordersamplehtml);
+    }
+    function addtocart() {
+        SetValue();
+        if (SampleVideos.SampleVideoId > 0) {
+            if (validateform(OrderSample)) {
+                console.log(OrderSample);
+                $.ajax({
+                    type: "POST",
+                    url: "/Basket/AddToCart",
+                    data: JSON.stringify(OrderSample),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        //alert(data);
+                        window.location = location.origin + '/Basket/MyCart';
+                    }
+                });
+            }
+        }
+        else {
+            alert("Please select the Sample Video");
+        }
+    }
+    function validateform(OrderSample) {
+        var isvalid = true;
+        var msg = [];
+        if (OrderSample.ScriptWriter.Script_VideoConcept == "") {
+            isvalid = false;
+            msg.push("Video Concept is required");
+        }
+        if (OrderSample.ScriptWriter.Script_PurposeOfVideo == "") {
+            isvalid = false;
+            msg.push("Purpose Of Video is required");
+        }
+        if (OrderSample.ScriptWriter.Script_AboutCompany == "") {
+            isvalid = false;
+            msg.push("About Company is required");
+        }
+        if (OrderSample.ScriptWriter.Script_BenifitesForCustomer == "") {
+            isvalid = false;
+            msg.push("Benifits for Customer is required");
+        }
+        if (OrderSample.ScriptWriter.Script_CompanyName == "") {
+            isvalid = false;
+            msg.push("Company Name is required");
+        }
+        var m = "";
+        for (var i = 0; i < msg.length; i++) {
+            m += msg[i] + "\n";
+        }
+        if (!isvalid) {
+            // alert(m);
+            $("#success").modal();
+        }
+        return isvalid;
+    }
+    function getsampleVideo() {
+        var data = {};
+        $.ajax({
+            type: "POST",
+            url: "/Home/getSampleVideo",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                var html = "<div class='row'>";
+                if (data != null && data.length > 0) {
+                    for (var i = 0; i < data.length; i++) {
+                        html += '<div class="col-sm-4">' +
+                        '<div class="shop-box grey-section">' +
+                        '<h4>' + data[i].Title + '</h4>' +
+                        //'<div class="product-image"><img src="../Uploads/' + data[i].ImageUrl + '" alt=""></div>' +
+                        '<div>' +
+                        '<video id="my-video_' + i + '" class="video-js" controls  preload="auto" width="350" height="264" poster="../Uploads/' + data[i].ImageUrl + '" data-setup="{}">';
+                        if (data[i].VideoUrl != "") {
+                            html += '<source src="../Uploads/' + data[i].VideoUrl + '" type="video/mp4" />';
+                        }
+                        //'<p class="vjs-no-js"> To view this video please enable JavaScript, and consider upgrading to a web browser that </p>'
+                        html += '</video>' +
+                        '</div>' +
+                        '<div class="description">' + data[i].Description + '</div>' +
+                       // '<div class="shop-price">Video Price Rs. ' + data[i].Price + '</div>' +
+                        '&nbsp;&nbsp;<input onchange="SetValue()" data-id="' + data[i].SampleVideoId + '" data-price="' + data[i].Price + '" type="radio" name="SampleVideo" id="rdbSampleVideo' + data[i].SampleVideoId + '" data-videourl="' + data[i].VideoUrl + '" class="rdbSampleVideo" />&nbsp;&nbsp;<span for="rdbSampleVideo' + data[i].SampleVideoId + '">' +
+                        ' Video Price Rs. ' + data[i].Price + '</span> ' +
+                        '</div>' +
+                        '</div>';
+                    }
+                    html += "</div>";
+                }
+                $(".SampleVideoForm").html(html);
+            }
+        });
+    }
+    function getVoiceArtist() {
+        var data = {};
+        $.ajax({
+            type: "POST",
+            url: "/Home/getVoiceArtist",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+
+                var html = "";
+                for (var i = 0; i < data.length; i++) {
+                    html += '<tr>' +
+                    '<td>' + data[i].UserName + '</td>' +
+                    '<td><input type="radio" class="samplevoiceaudio" name="samplevoiceaudio" data-VoiceArtistSoundsId="' + data[i].VoiceArtistSoundsId + '"/> audio_01  <div class="play" data-sound="' + data[i].SoundFileName + '"></div></td>' +
+                    '<td><audio controls><source src="../Uploads/' + data[i].SoundFileName + '" type="audio/ogg"><source src="../Uploads/' + data[i].SoundFileName + '" type="audio/mpeg">Your browser does not support the audio element.</audio></td>' +
+                    // '<td><input type="radio" class="samplevoiceaudio" name="samplevoiceaudio" data-VoiceArtistSoundsId="' + data[i].VoiceArtistSoundsId + '"/> audio_02 <div class="play" data-sound="' + data[i].SoundFileName + '"></div></td>' +
+                 '</tr>';
+
+                }
+                $(".voiceartistdata tbody").html(html);
+            }
+        });
+    }
+    function getUrlVars() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+
+    function ScriptDetails(CustomerId) {
+        var data = { CustomerId: CustomerId };
+        AjaxCallHtml("Orders", "_ScriptDetails", data, "");
+    }
+</script>
+<link href="~/Content/samplevideo.css" rel="stylesheet" />

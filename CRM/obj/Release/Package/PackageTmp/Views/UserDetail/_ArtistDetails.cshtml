@@ -1,0 +1,36 @@
+﻿
+@model  List<DAL.UserDetails>
+@{
+    Layout = null;
+}
+<style>
+    .modal-content{
+        margin-left: -16px;
+    }
+</style>
+<div class="sentMessage"></div>
+<div class="tbluserdetailsArea">
+    <table id="tbluserdetails" class="table dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+        <thead>
+            <tr style="text-align:left">
+
+                <th>Name</th>
+                <th>Email Id</th>
+                <th>Mobile No</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+        {
+                <tr style=" color:white; text-align:left">
+                    <td><input type="checkbox" name="artistdetails" class="chkartistdetails" data-UserId="@item.UserID" /> @item.FirstName @item.LastName</td>
+                    <td>@item.EmailID</td>
+                    <td>@item.MobileNo</td>
+                </tr>
+        }
+        </tbody>
+    </table>
+    <div style="text-align:center">
+        <div class="btn" onclick="SendOrderToArtist()">Send Mail</div>
+    </div>
+</div>

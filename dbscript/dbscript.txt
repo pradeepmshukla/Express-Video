@@ -1,0 +1,27 @@
+Create databse PriyankaGasService
+go
+
+Create table ItemMaster
+(
+ItemId int identity,
+ItemName nvarchar(500),
+ItemDescription nvarchar(1000),
+Price float,
+SecurityDeposite float,
+ServiceCharges float,
+IsActive bit,
+ActionBy int,
+CreatedDate datetime,
+ModifyBy int,
+ModifyDate datetime
+)
+
+--
+create Table CustomerDetails
+(
+Id int identity,
+ConsumerNo nvarchar(500),
+FirstName  nvarchar(500),
+LasteName  nvarchar(500),
+
+)

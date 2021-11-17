@@ -1,0 +1,80 @@
+﻿.modal-body {
+    padding: 0px;
+}
+/** {
+            margin: 0%;
+            padding: 0%;
+            box-sizing: border-box;
+        }
+
+        body {
+            padding: 20px 20px;
+        }*/
+
+.agreenments .header-section p {
+    color: black;
+}
+
+.agreenments {
+    padding: 20px 10px;
+    background-color: #ffffff !important;
+    margin: auto;
+}
+
+    .agreenments .blackColor {
+        color: black;
+    }
+
+    .agreenments .title {
+        text-align: center;
+    }
+
+    .agreenments p {
+        color: black !important;
+    }
+
+        .agreenments p span {
+            color: red;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+    
+        .agreenments ol li {
+            margin: 15px 0px;
+        }
+
+    .agreenments h4 {
+        margin: 25px 0px;
+        color: black;
+    }
+
+    .agreenments .bluetext {
+        color: blue;
+    }
+
+    .agreenments table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .agreenments th, .agreenments td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 10px 12px;
+        text-align: center;
+    }
+
+    .agreenments th, .agreenments .color {
+        background-color: #9f5afd;
+        font-weight: normal;
+    }
+
+.Defination-section p {
+    color: black !important;
+}
+
+#viewpopup-title{
+    width: 100% !important;
+    text-align: center !important;
+}

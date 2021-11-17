@@ -1,0 +1,254 @@
+﻿.steps .col-md-3 {
+   
+    height: 628px;
+}
+.SampleVideo {
+    border: 1px solid;
+    width: 100%;
+    /*margin: 1px;
+        padding: 6px;*/
+    border-radius: 5px;
+    float: left;
+}
+
+    .SampleVideo .product-image {
+        width: 100%;
+        height: 250px;
+    }
+
+
+.table-data {
+    width: 100%;
+}
+
+    .table-data tr td {
+        width: 20%;
+        text-align: center;
+        vertical-align: top;
+    }
+
+.samplearea .steps {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.samplearea .stepsarea {
+    width: 100%;
+    border: 1px solid;
+}
+
+
+.samplearea .stepsarea-data {
+    width: 100%;
+    border: 0px solid;
+    min-height: 300px;
+}
+
+    .samplearea .stepsarea-data .title {
+        color: darkred;
+        font-size: 15px;
+        font-weight: bold;
+        border: 1px solid;
+        width: 100%;
+    }
+
+    .samplearea .stepsarea-data .content-box {
+        color: darkred;
+        font-size: 13px;
+        border: 1px solid;
+        min-height: 180px;
+        width: 100%;
+        min-height: 222px;
+        position: relative;
+    }
+
+
+    
+
+
+
+.steps .innerbox {
+    border: 2px solid #e7e9e9;
+    width: 100%;
+    min-height: 460px;
+    border-radius: 2rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+        position: relative;
+}
+
+
+input[type=radio] {
+    height: 10px;
+    transform: scale(2);
+}
+
+/* On screens that are 992px or less, set the background color to blue */
+@media screen and (max-width: 2000px) {
+    .steps .col-md-2 {
+        width: 19.99%;
+        padding-left: 2px;
+        padding-right: 2px;
+        float: left;
+    }
+}
+
+/* On screens that are 992px or less, set the background color to blue */
+@media screen and (max-width: 992px) {
+    .steps .col-md-2 {
+        width: 49.99%;
+        padding-left: 2px;
+        padding-right: 2px;
+        float: left;
+    }
+}
+
+/* On screens that are 600px or less, set the background color to olive */
+@media screen and (max-width: 600px) {
+    .steps .col-md-2 {
+        width: 99.6%;
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+}
+
+.shop-box {
+}
+
+
+    .shop-box .shop-price {
+        color: darkred;
+        font-size: 14px;
+        font-weight: bold;
+        min-height: 20px;
+        width: 100%;
+    }
+
+.popup-form {
+    display: none;
+}
+
+.videoselected {
+    border: 0.2rem solid gray;
+    border-radius: 1rem;
+    min-height: 150px;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 100ms;
+    visibility: hidden;
+    opacity: 0;
+}
+
+    .overlay:target {
+        visibility: visible;
+        opacity: 1;
+    }
+
+.popup {
+    margin: 70px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    width: 65%;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+
+    .popup h2 {
+        margin-top: 0;
+        color: #333;
+        font-family: Tahoma, Arial, sans-serif;
+    }
+
+    .popup .close {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        transition: all 200ms;
+        font-size: 30px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #333;
+    }
+
+        .popup .close:hover {
+            color: #06D85F;
+        }
+
+    .popup .content {
+        max-height: 420px; /*60%;*/
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+.box {
+    padding: 20px;
+    border-radius: 20px/50px;
+    background-clip: padding-box;
+    text-align: center;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    left: 0.5rem;
+}
+
+.btn {
+    padding: 0.5rem 2rem;
+    background-color: #f8be19;
+    border-color: #f8be19;
+    color: #0a0a0a;
+    font-weight: bold;
+    }
+
+.button {
+    font-size: 1em;
+    padding: 10px;
+    border: 2px solid #06D85F;
+    border-radius: 20px/50px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+}
+
+.box-comments {
+    padding: 15px;
+    font-weight: bold;
+}
+
+.btn {
+    width: auto;
+}
+
+.product-image {
+    width: 100%;
+    height: 250px;
+}
+
+input[type=radio] {
+    height: 7px;
+}
+
+.removeuploadbox {
+    position: relative;
+    left: 86%;
+    top: -30px;
+}
+
+.productserviceimages .Uploadimage {
+    margin-bottom: 10px;
+}
+
+.Uploadimage input[type=file] {
+    margin-top: 8px;
+}
+
+#filelogo {
+    padding-top: 13px;
+}

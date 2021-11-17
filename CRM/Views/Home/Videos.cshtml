@@ -1,0 +1,317 @@
+﻿@model List<DAL.SampleVideo>
+@{
+    ViewBag.Title = "Videos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<link href="https://vjs.zencdn.net/7.8.4/video-js.css" rel="stylesheet" />
+<script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+<script src="https://vjs.zencdn.net/7.8.4/video.js"></script>*@
+<link href="~/Style/style.css" rel="stylesheet" />
+<style>
+    .SampleVideoBox {
+        text-align: center;
+        margin-bottom: 70px;
+        /*padding-bottom: 1rem;*/
+    }
+
+        .SampleVideoBox .videobox {
+            border: 0px solid black;
+            height: 252px;
+            width: 354px;
+        }
+
+        .SampleVideoBox .btn {
+         
+                padding: 9px 42px !important;
+        }
+
+    .description, VideoList {
+        display: none;
+    }
+    .mn_back{
+        display:block !important;
+    }
+   
+   .btn {
+    position: relative;
+    
+    border: 2px solid #fcc012 !important;
+    padding: 13px 45px 12px !important;
+    text-decoration: none !important;
+    font-size: 13px !important;
+    color: black !important;
+    letter-spacing: 0.1em !important;
+    font-weight: 500 !important;
+    text-transform: uppercase;
+    background-color: #fcc008;
+    -webkit-transition: all .3s ease-out;
+    transition: all .3s ease-out;
+    font-size: 15px !important;
+    border-radius: 3px !important;
+}
+</style>
+
+<br /><br />
+<div class="container">
+    <div class="videoTopDetails">
+        <br />
+        <div class="vHeading">
+            CHOOSE YOUR VIDEO SAMPLE
+            <div class="bellow-line"></div>
+        </div>
+        @*<div class="vdetails">Seeing is believing. Our works are the best testimony to our quality,<br />dedication and professionalism. Treat yourself with some of our recent works.</div>*@
+    </div>
+
+
+    @{
+        List<string> Category = Model.Select(x => x.VideoCategory).Distinct().ToList();
+        <div class="product_container_1">
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="videocategory videocategory-wv" data-videocategory="WHITEBOARD VIDEO">WHITEBOARD</div>
+                </div>
+                <div class="col-md-3  col-sm-6 col-xs-12">
+                    <div class="videocategory videocategory-mgv" data-videocategory="MOTION GRAPHIC VIDEO">MOTION GRAPHIC</div>
+                </div>
+                <div class="col-md-3  col-sm-6 col-xs-12">
+                    <div class="videocategory videocategory-iv" data-videocategory="INFOGRAPHIC VIDEO">INFOGRAPHIC</div>
+                </div>
+                <div class="col-md-3  col-sm-6 col-xs-12">
+                    <div class="videocategory videocategory-ev" data-videocategory="EXPLAINER VIDEO">EXPLAINER</div>
+                </div>
+                
+                
+                
+                
+            </div>
+            <div class="clear"></div>
+        </div>
+    }
+
+    <div class="category-descriptions">
+        <div class="description" data-videocategory="EXPLAINER VIDEO">
+            An explainer video is a short animated video commonly used by businesses to quickly tell their brand stories in a memorable way. Explainer Videos work perfectly well for companies which provide services or products that may be very hard to describe in a clear and concise way.  It requires animated characters, text, graphics, and a narrative to demonstrate as per the requirement. A very popular style in businesses.
+        </div>
+        <div class="description" data-videocategory="INFOGRAPHIC VIDEO">
+            An infographic animation is a kind of Explainer Video that shows a virtual representation of data and knowledge in the form of a video. Because it’s an entertaining combination of audio & visuals, viewers are more likely to make an emotional connection to the message  Such visuals are more eye-catching that any printed note since they combine images, colors, movements, and content that naturally attract the attention. As a result, it gets your message across in an effective and engaging way.
+        </div>
+        <div class="description" data-videocategory="MOTION GRAPHIC VIDEO">
+            Motion graphic are pieces of Real images or digital footages which create the illusion of motion and rotation, and are usually combined with audios & background music which thrilled the viewers and make them excited about your product and your services. Animated motion graphics is a video style that combines informational and educational content with colorful graphics. It makes your videos more exciting with illusions of motion.
+        </div>
+        <div class="description" data-videocategory="WHITEBOARD VIDEO">
+            Whiteboard animation is a process where a story or a storyboard with pictures gets drawn on a whiteboard. Some called them Doodles also. It mostly done with voice over and background music which really made these videos very precise and clear for all our viewers to understand. They are the videos that draw themselves. A very precise way to showcase your business.
+        </div>
+    </div>
+    <div class="level-box">
+
+        <div class="level explainervideo" data-videocategory="EXPLAINER VIDEO">
+            <div class="row ">
+                <div class="col-md-4 col-sm-12">
+                    <div class="level-1 levels">
+                        <div class="level-heading">LEVEL 01</div>
+                        <div class="level-price">Rs 3000/-</div>
+                        <div class="level-perminut">per minute</div>
+                        <div class="level-descirptions">It will be a simple video with<br/>text animations.</div>
+                        <div class="level-button" data-level="Level 01">Choose Video</div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="level-2 levels">
+                        <div class="level-heading">LEVEL 02</div>
+                        <div class="level-price">Rs 6000/-</div>
+                        <div class="level-perminut">per minute</div>
+                        <div class="level-descirptions">It will be a stylish video with<br/> impactful timing & more<br/>lively animations.</div>
+                        <div class="level-button" data-level="Level 02">Choose Video</div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="level-3 levels">
+                        <div class="level-heading">LEVEL 03</div>
+                        <div class="level-price">Rs 9000/-</div>
+                        <div class="level-perminut">per minute</div>
+                        <div class="level-descirptions">It will be a stylish video with<br/>character animations.</div>
+                        <div class="level-button" data-level="Level 03">Choose Video</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="level infographic" data-videocategory="INFOGRAPHIC VIDEO">
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    <div class="level-1 levels">
+                        <div class="level-heading">LEVEL 01</div>
+                        <div class="level-price">Rs 3000/-</div>
+                        <div class="level-perminut">per minute</div>
+                        <div class="level-descirptions">It will be a simple infographics video with text animations.</div>
+                        <div class="level-button" data-level="Level 01">Choose Video</div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="level-2 levels">
+                        <div class="level-heading">LEVEL 02</div>
+                        <div class="level-price">Rs 6000/-</div>
+                        <div class="level-perminut">per minute</div>
+                        <div class="level-descirptions"> It will be a stylish video with impactful timing & complex infographics.</div>
+                        <div class="level-button" data-level="Level 02">Choose Video</div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="level-3 levels">
+                        <div class="level-heading">LEVEL 03</div>
+                        <div class="level-price">Rs 9000/-</div>
+                        <div class="level-perminut">per minute</div>
+                        <div class="level-descirptions">It will be a stylish video with character animations.</div>
+                        <div class="level-button" data-level="Level 03">Choose Video</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="level motionGraphic" data-videocategory="MOTION GRAPHIC VIDEO">
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    <div class="level-1 levels">
+                        <div class="level-heading">LEVEL 01</div>
+                        <div class="level-price">Rs 3000/-</div>
+                        <div class="level-perminut">per minute</div>
+                        <div class="level-descirptions">It will be a simple video with<br/> real images & text animations.</div>
+                        <div class="level-button" data-level="Level 01">Choose Video</div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="level-2 levels">
+                        <div class="level-heading">LEVEL 02</div>
+                        <div class="level-price">Rs 6000/-</div>
+                        <div class="level-perminut">per minute</div>
+                        <div class="level-descirptions">It will be a simple yet stylish video<br/> with real images, videos & text animations.</div>
+                        <div class="level-button" data-level="Level 02">Choose Video</div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="level-3 levels">
+                        <div class="level-heading">LEVEL 03</div>
+                        <div class="level-price">Rs 9000/-</div>
+                        <div class="level-perminut">per minute</div>
+                        <div class="level-descirptions">It will be a very stylish video for<br/> brand,company & product promotions.</div>
+                        <div class="level-button" data-level="Level 03">Choose Video</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="level whiteboard" data-videocategory="WHITEBOARD VIDEO">
+            <div class="row">
+                <div class="col-md-4 col-sm-12">
+                    <div class="level-1 levels">
+                        <div class="level-heading">LEVEL 01</div>
+                        <div class="level-price">Rs 3000/-</div>
+                        <div class="level-perminut">per minute</div>
+                        <div class="level-descirptions"> It will be a simple video with<br/>text animations.</div>
+                        <div class="level-button" data-level="Level 01">Choose Video</div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="level-2 levels">
+                        <div class="level-heading">LEVEL 02</div>
+                        <div class="level-price">Rs 6000/-</div>
+                        <div class="level-perminut">per minute</div>
+                        <div class="level-descirptions">It will be a stylish video with<br/>impactful timing & more lively<br/>animations.</div>
+                        <div class="level-button" data-level="Level 02">Choose Video</div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="level-3 levels">
+                        <div class="level-heading">LEVEL 03</div>
+                        <div class="level-price">Rs 9000/-</div>
+                        <div class="level-perminut">per minute</div>
+                        <div class="level-descirptions">It will be a stylish video with<br/>character animations in color.</div>
+                        <div class="level-button" data-level="Level 03">Choose Video</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 VideoList" data-videocategory="@item.VideoCategory" data-videotype="@item.VideoType">
+            <div class="SampleVideoBox">
+                <div class="videobox">               
+                    <iframe width="350" height="250" src="@item.YoutubeLink" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <p class="videoname" style="margin:0px">@item.Name</p>
+                @*<p class="videoprice"  style="margin:0px">Rs.@item.Price</p>*@
+                <div class="selectbutton">
+                   <a class="btn" href="/Home/SampleVideo" onclick="SaveVideoSelected('@item.SampleVideoId','@item.Name','@item.Price','@item.YoutubeLink')">Select</a>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="videolistnotfound">Video not found</div>
+</div>
+    <div class="back_btn text-center">
+        <a href="/Home/SampleVideo" class="btn btnforcustomer">Back</a>
+        <a href="/Dashboard" class="btn btnforOtherThanCustomer" style="display:none">Back</a>
+        <br /><br />
+    </div>
+<style>
+    .video-js {
+        width: 100%;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        setInterval(function () {
+            $(".hide-forSampleVideo").hide();
+            $(".adminbacktodashboard").show();
+        }, 10);
+        $(".videocategory").click(function () {
+            //$(".videocategory").css("background-color", "white"); 
+            //$(this).css("background-color", "#fcc012");
+            var category = $(this).attr("data-videocategory");
+            $(".VideoList").hide();
+            $(".description").hide();
+            $(".level").hide();
+            $(".videolistnotfound").hide();
+
+            //$(".VideoList[data-videocategory='" + category + "']").show();
+            $(".description[data-videocategory='" + category + "']").show();
+            $(".level[data-videocategory='" + category + "']").show();
+        });
+
+        $($(".videocategory")[0]).trigger("click");
+        if (getUrlVars()["s"] == "admin") {
+            $(".selectbutton").hide();
+            $(".mn_back").remove();
+            $(".btnforOtherThanCustomer").show();
+            $(".btnforcustomer").hide();
+        }
+
+        $(".videocategory").click(function () {
+            var size = window.outerWidth;
+            if (size > 425) {
+                $('html,body').animate({ scrollTop: 164 }, 'slow');
+            }
+            else {
+                $('html,body').animate({ scrollTop: 768 }, 'slow');
+            }
+            console.log(size);
+        });
+        $(".level-button").click(function () {
+
+            var videotype = $(this).attr("data-level");
+            var category = $(this).parents(".level").attr("data-videocategory");
+
+            $(".VideoList").hide();
+            $(".videolistnotfound").hide();
+            $(".VideoList[data-videocategory='" + category + "']").filter(".VideoList[data-videotype='" + videotype + "']").show();
+            if ($(".VideoList[data-videocategory='" + category + "']").filter(".VideoList[data-videotype='" + videotype + "']").length == 0) {
+                $(".videolistnotfound").show();
+                
+            }
+            $('html,body').animate({ scrollTop: 700 }, 'slow');
+        });
+    });
+</script>

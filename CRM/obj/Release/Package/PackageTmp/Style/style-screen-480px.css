@@ -1,0 +1,256 @@
+﻿@media all and (max-width: 480px) {
+    .navbar-custom .nav-link {
+        padding: 0 0.75rem;
+        color: #7081b9;
+        /* line-height: 0px; */
+        max-height: 70px;
+    }
+
+    .wch-img p {
+        color: rgb(96,92,93);
+        /* margin-top: -8px; */
+        margin-top: 33px;
+    }
+
+    .wch-img {
+        text-align: center;
+        margin-top: 20px;
+        height: 405px;
+    }
+
+        .wch-img h2 {
+            color: rgb(96,92,93);
+            height: 3rem;
+            font-size: 2.5rem;
+            width: 100%;
+            text-align: center;
+            /* margin: 25px auto; */
+            margin-top: 7px;
+            line-height: 2.5rem;
+        }
+
+    #lowPriceContent {
+        margin-top: 57px;
+    }
+
+    .section {
+        padding-top: 34px;
+        padding-bottom: 2px;
+    }
+
+    .section-title {
+        font-family: Montserrat-Bold;
+        font-size: 2.5rem;
+        line-height: 5rem;
+        margin-top: 55px;
+    }
+
+    .whychooseus {
+        margin-top: 103rem;
+    }
+
+
+    .navbar .brand {
+        /* float: left; */
+        /* width: 296px; */
+        font-size: 27px;
+    }
+
+    .getpromo-price {
+        font-size: 6rem;
+        color: white;
+        width: 74%;
+        margin: 0 auto;
+    }
+
+    .our-services {
+        margin-top: 14rem;
+    }
+
+    .viewsample-dropdown {
+        padding-top: 18px;
+        padding-bottom: 30px;
+    }
+
+    .how-it-works {
+        font-weight: bold;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        padding-left: 1rem;
+    }
+
+    .reservedby {
+        position: absolute;
+        bottom: -257px;
+        left: 16%;
+    }
+
+    .videoTopDetails .vHeading {
+        font-size: 2.5rem;
+        font-weight: bold;
+        position: relative;
+    }
+
+    .OrderYourVideo, .DownloadYourVideo {
+        width: 266px;
+        height: 95px;
+        padding: 6px;
+        margin: 0px;
+        float: right;
+        border-radius: 6px;
+        text-align: center;
+        color: black;
+        font-weight: bold;
+        margin-top: 13rem;
+        margin-right: 2rem;
+    }
+
+        .OrderYourVideo h3 {
+            line-height: 25px;
+            font-size: 26px;
+        }
+
+    .announcement {
+        background-color: white;
+        height: 114vh;
+        border-radius: 2px;
+        overflow-y: auto;
+        margin: 45px auto;
+    }
+
+    .btnlogout-left {
+        margin: 0 auto;
+        min-width: 138px;
+        line-height: 3;
+        left: 0%;
+        transform: scale(0.9);
+    }
+
+    .btnlogout-right {
+        margin: 0 auto;
+        min-width: 138px;
+        line-height: 3;
+        left: 0%;
+        transform: scale(0.9);
+    }
+
+    .frheader {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .profilearea {
+        width: 290px;
+        height: auto;
+        margin-left: -66px;
+    }
+
+    .top-line {
+        background-image: url(../Content/Images/dashboard/freelancer1.png);
+        background-repeat: no-repeat;
+        width: 61%;
+        transform: scaleX(-1) scale(1.5);
+        position: absolute;
+        height: 240px;
+        left: 0rem;
+        margin-left: 75px;
+        top: 0rem;
+    }
+
+    .dashboardSection {
+        height: 180px;
+        margin-bottom: 370px;
+    }
+
+    .Review-box-1-area {
+        margin-bottom: 40px;
+    }
+
+    .Total-earning {
+        width: 244px;
+        height: 177px;
+        background-color: rgb(235,203,20);
+        color: black;
+        text-align: center;
+        padding: 2rem;
+        border-radius: 24px;
+        font-size: 2rem;
+        float: none;
+        font-weight: bold;
+        margin: 180px auto;
+    }
+
+    .chartdetails {
+        margin-top: -75px;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 470px) {
+
+    .OrderYourVideo, .DownloadYourVideo {
+        margin-right: 68px;
+    }
+
+    .announcement .announcement-heading {
+        font-size: 24px;
+    }
+
+    .page-wrapper .page-content {
+        padding: 0 9px 15px 3px;
+    }
+
+    .LatestOrder {
+        background-color: white;
+        padding: 7px;
+        border-radius: 2px;
+        margin-top: 99px;
+    }
+
+    .videoTopDetails .vHeading {
+        font-size: 2.5rem;
+        font-weight: bold;
+        position: relative;
+        margin-top: 27px;
+    }
+
+    .Total-earning {
+        position: absolute;
+        left: 36px;
+    }
+
+    .uploadprofileicon {
+        width: 40px;
+        margin-left: 85px;
+        margin-top: -69px;
+    }
+
+    .imageDetails {
+        position: relative;
+        bottom: 23px;
+        left: -41px;
+    }
+
+    audio {
+        transform: scale(0.7);
+        margin-left: -25px;
+    }
+
+    video {
+        width: 266px;
+        height: 250px;
+        left: 0px;
+        top: 0px;
+    }
+
+    .btnupdatesoundsample {
+        margin-left: 0px;
+        margin-top: 20px;
+    }
+
+    .btnupdateprofile {
+        margin-top: 35px;
+        bottom: 31px;
+        width: 100%;
+        left: -100px;
+    }
+}

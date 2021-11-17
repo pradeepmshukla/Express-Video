@@ -1,0 +1,142 @@
+﻿@model DAL.EmailManagement
+@{
+    ViewBag.Title = "New Staff";
+    Layout = null;// "~/Views/Shared/_AdminLayout.cshtml";
+}
+<head>
+    <script src="~/Content/Theme/Admin/plugins/ckeditor/ckeditor.js"></script>
+</head>
+<div class="row">
+    <input type="hidden" id="EmailMangementID" value="@Model.EmailMangementID" />
+    <div class="col-md-4 col-sm-12">
+        <div class="form-group">
+            <label for="username">Email Title</label>
+            <div class="input-group mb-3">
+                @if (string.IsNullOrEmpty(Model.UniqueKey))
+                {
+                <input type="text" class="form-control" id="UniqueKey" placeholder="Enter Unique Key" value="@Model.UniqueKey" />
+                }
+                else
+                {
+                <input type="text" class="form-control" id="UniqueKey" placeholder="Enter Unique Key" value="@Model.UniqueKey" readonly />
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-sm-12">
+        <div class="form-group">
+            <label for="username">Email Title</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="EMTitle" placeholder="enter  email title" value="@Model.EMTitle" />
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <div class="form-group">
+            <label for="username">Email From</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="EMFrom" placeholder="Enter Email From" value="@Model.EMFrom">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <div class="form-group">
+            <label for="username">Email Subject</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="EMSubject" placeholder="Enter Subject" value="@Model.EMSubject">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <div class="form-group">
+            <label for="username">Email CC</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="EMCC" placeholder="Enter Email CC" value="@Model.EMCC">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12">
+        <div class="form-group">
+            <label for="username">Email BCC</label>
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="EMBCC" placeholder="Enter Email BCC" value="@Model.EMBCC">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12">
+        <div class="form-group">
+            <label for="username">Email Body</label>
+            <textarea class="form-control" id="EMBody">@Model.EMBody</textarea>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div id="btnSubmit" class="btn btn-sm btn-round btn-block waves-effect waves-light">Save</div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="username">Enter Email Address </label>
+            <input type="text" class="form-control" id="TestEmailAddress" placeholder="Enter email address (by defaut sent to akhilesh.vis17@gmail.com)" value="" /><br />
+            <div id="btnSendmail" class="btn" onclick="TestMail()">Test Mail</div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        CKEDITOR.replace('EMBody', {
+            fullPage: true,
+            extraPlugins: 'docprops',
+            allowedContent: true,
+            height: 320
+        });
+
+
+        $("#btnSubmit").click(function () {
+            SaveData();
+        });
+
+
+    });
+
+    function SaveData() {
+        var data = {
+            EmailMangementID: $("#EmailMangementID").val().trim(),
+            UniqueKey: $("#UniqueKey").val().trim(),
+            EMTitle: $("#EMTitle").val().trim(),
+            EMFrom: $("#EMFrom").val().trim(),
+            EMSubject: $("#EMSubject").val().trim(),
+            EMCC: $("#EMCC").val().trim(),
+            EMBCC: $("#EMBCC").val().trim(),
+            EMBody: CKEDITOR.instances.EMBody.getData()
+        }
+        if (isvalidate(data)) {
+            AjaxCall("EmailManagement", "SaveData", data, true);
+            callPage('/EmailManagement/Index', 'Email Management', '');
+        }
+    }
+    function isvalidate(d) {
+        var isvalid = true;
+        var msg = [];
+        if (d.UniqueKey == "") {
+            isvalid = false;
+            msg.push("Email Title is required");
+        }
+
+        if (!isvalid) {
+            ShowMessage(msg, "Required");
+        }
+        return isvalid;
+    }
+
+</script>

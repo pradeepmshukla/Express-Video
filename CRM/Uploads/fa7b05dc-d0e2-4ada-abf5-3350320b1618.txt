@@ -1,0 +1,19 @@
+1. home page design changes
+2. GST not calculating on my cart page(its working when edit and update)
+3. shared file legal document - cross check all final document
+4. my cart design changes.. REVIEW YOU ORDER in signle table
+5. bill to auto not saved
+
+
+6. animation remove from text
+7. text keep in center
+8. add TIMINGS above time in footer OR left align
+9. hover effect with color change on forgot password
+10. on home page all button folow login button
+
+11. faq add dropdown icon
+
+-Admin Panel
+1. Total Customer-> Total Customer registered
+2. Announcement add in the admin dashboard
+3. 

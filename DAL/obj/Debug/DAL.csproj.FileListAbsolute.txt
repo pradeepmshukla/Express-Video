@@ -1,0 +1,31 @@
+E:\Project\CRM\DAL\bin\Debug\DAL.dll
+E:\Project\CRM\DAL\bin\Debug\DAL.pdb
+E:\Project\CRM\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+E:\Project\CRM\DAL\obj\Debug\DAL.dll
+E:\Project\CRM\DAL\obj\Debug\DAL.pdb
+D:\Client Project\CRM\DAL\bin\Debug\DAL.dll
+D:\Client Project\CRM\DAL\bin\Debug\DAL.pdb
+D:\Client Project\CRM\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+D:\Client Project\CRM\DAL\obj\Debug\DAL.dll
+D:\Client Project\CRM\DAL\obj\Debug\DAL.pdb
+D:\Client Project\PriyankaGasService\DAL\bin\Debug\DAL.dll
+D:\Client Project\PriyankaGasService\DAL\bin\Debug\DAL.pdb
+D:\Client Project\PriyankaGasService\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+D:\Client Project\PriyankaGasService\DAL\obj\Debug\DAL.dll
+D:\Client Project\PriyankaGasService\DAL\obj\Debug\DAL.pdb
+D:\Client Project\Expressvideo\CRM\DAL\bin\Debug\DAL.dll
+D:\Client Project\Expressvideo\CRM\DAL\bin\Debug\DAL.pdb
+D:\Client Project\Expressvideo\CRM\DAL\obj\Debug\DAL.dll
+D:\Client Project\Expressvideo\CRM\DAL\obj\Debug\DAL.pdb
+D:\Client Project\Expressvideo\CRM\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+F:\Client Project\Expressvideo\CRM\DAL\bin\Debug\DAL.dll
+F:\Client Project\Expressvideo\CRM\DAL\bin\Debug\DAL.pdb
+F:\Client Project\Expressvideo\CRM\DAL\obj\Debug\DAL.csproj.AssemblyReference.cache
+F:\Client Project\Expressvideo\CRM\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+F:\Client Project\Expressvideo\CRM\DAL\obj\Debug\DAL.dll
+F:\Client Project\Expressvideo\CRM\DAL\obj\Debug\DAL.pdb
+F:\Client Project\Expressvideo\CODE\CRM\DAL\bin\Debug\DAL.dll
+F:\Client Project\Expressvideo\CODE\CRM\DAL\bin\Debug\DAL.pdb
+F:\Client Project\Expressvideo\CODE\CRM\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+F:\Client Project\Expressvideo\CODE\CRM\DAL\obj\Debug\DAL.dll
+F:\Client Project\Expressvideo\CODE\CRM\DAL\obj\Debug\DAL.pdb

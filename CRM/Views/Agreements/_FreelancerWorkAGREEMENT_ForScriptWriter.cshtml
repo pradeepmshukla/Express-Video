@@ -1,0 +1,107 @@
+﻿@{
+    Layout = null;
+}
+
+<link href="~/Style/Agreements.css" rel="stylesheet" />
+
+<div class="agreenments">
+    <div class="header-section">
+        <div class="title">
+            <h3>FREELANCER WORK AGREEMENT </h3>
+        </div>
+        <p>This <strong>“Freelancer work agreement”</strong> is a sub-agreement of <strong>“Freelancer Agreement”</strong> which was accepted by you, at the time of registering as a Freelancer or service provider on (<a href="www.expressvideo.in">www.expressvideo.in</a>).</p>
+    </div>
+    <p>
+        This agreement is entered into and made for <span style="color:red; text-transform:capitalize;">[Order No. @ViewBag.OrderStatus.Rows[0]["OrderID"]]</span> effective as of
+        [
+        @if (Convert.ToString(@ViewBag.OrderStatus.Rows[0]["ScriptAssignedDate"]) == "")
+        {
+            <span style="color:red;">
+                @DateTime.Now.ToShortDateString()
+            </span>
+        }
+        else
+        {
+            <span style="color:red;">
+                @ViewBag.OrderStatus.Rows[0]["ScriptAssignedDate"]
+            </span>
+        }
+        ], by and between:
+    </p>
+    <ol>
+        <li>
+            <strong> "Express Video"</strong> which is a website <a href="www.expressvideo.in">( www.expressvideo.in )</a> registered and managed under the name "Moody Fox Productions",
+            a sole proprietor company hereinafter referred to as<br> <span><strong>("Express Video", "we", "our" or "us") </strong></span>
+            And
+        </li>
+        <li><span style="color:red; text-transform:uppercase">@CRM.Models.Global.GlobalFunctions.GetFullName()</span> hereinafter referred to as <strong>("you" or "Freelance')</strong> </li>
+    </ol>
+    <h4> WHEREAS :</h4>
+    <ol>
+        <li> Company has a need for<strong> Content Writing Services</strong>; and</li>
+        <li>Freelancer has an interest in performing such services for us; and</li>
+        <li> The parties wish to set forth the terms and conditions upon which such services will be provided to the Company.</li>
+    </ol>
+    <p>You must read, agree to, and accept all of the terms and conditions contained in this “Freelancer work agreement” and “Freelancer Agreement”, in order to proceed with us. </p>
+
+    <!------ -------------------------------------- PROJECT DETAIL SECTION--------------------------------------------------->
+    <section>
+        <h4 class="bluetext">1.	PROJECT DETAILS</h4>
+        <p>Freelancer will get all the description of project along with the sample video selected by Express Video Customers under “Project details” section available in their login account of <a href="www.expressvideo.in" style="color: blue; font-weight: 800;">www.expressvideo.in </a>. Please make sure you follow the requirements provided by the customer. </p>
+    </section>
+
+    <!------ -------------------------------------- PROJECT SCHEDULES SECTION--------------------------------------------------->
+    <section>
+        <h4 class="bluetext">2.	PROJECT SCHEDULES</h4>
+        <p>
+            The start date of the project will be
+
+            @if (Convert.ToString(@ViewBag.OrderStatus.Rows[0]["ScriptAssignedDate"]) == "")
+            {
+                <span style="color:red;">
+                    @DateTime.Now.ToShortDateString()
+                </span>
+            }
+            else
+            {
+                <span style="color:red;">
+                    @ViewBag.OrderStatus.Rows[0]["ScriptAssignedDate"]
+                </span>
+            }
+            and the delivery date will be
+
+            @if(Convert.ToString(ViewBag.OrderStatus.Rows[0]["ScriptEndDate"]) == "")
+            {
+                <span style="color:red;">
+                    @DateTime.Now.ToShortDateString()
+                </span>
+            }
+            else
+            {
+                <span style="color:red;">
+                    @ViewBag.OrderStatus.Rows[0]["ScriptEndDate"]
+                </span>
+            }
+
+            . You need to deliver the final project with approval from Express Video Customers within this schedule. Anything after that, will lead to penalty.
+        </p>
+    </section>
+
+    <!------ -------------------------------------- FREELANCER FEES/RATES SECTION--------------------------------------------------->
+    <section>
+        <h4 class="bluetext">3.	FREELANCER FEES/RATES</h4>
+        <p>The freelancer fees of this Work Order is Rs <span style="color:red; font-weight: bold; text-transform: capitalize;">[@ViewBag.OrderStatus.Rows[0]["ScriptUserCharges"]]</span> for <span style="color:red; font-weight: bold; ">[ @ViewBag.Orders.Rows[0]["ED_VideoDuration"]]</span> of video duration.</p>
+    </section>
+
+    <!------ -------------------------------------- EXPRESS VIDEO CONTACT INFORMATION SECTION--------------------------------------------------->
+    <section>
+        <h4 class="bluetext">4.	EXPRESS VIDEO CONTACT INFORMATION</h4>
+        <p style="margin: 0%;">For any work production related concerns, mail us on <span style="color:blue; text-transform:lowercase;">update@expressvideo.in</span></p>
+        <p style="margin-top: 5px; margin-bottom: 0%;">For any official concerns and communication, mail us on <span style="color:blue; text-transform:lowercase; ">support@expressvideo.in</span></p>
+        <p style="margin-top: 5px;">Customer Support no. <span style="color:blue; text-transform:lowercase;">  +91-9643083000.</span> </p>
+    </section>
+    @if (ViewBag.OrderStatus.Rows[0]["ScriptAssignedUserId"] == 0)
+    {
+        <div class="btn" onclick="AcceptWorkAgreements(@ViewBag.OrderStatus.Rows[0]["OrderId"])">ACCEPT</div>
+    }
+</div>

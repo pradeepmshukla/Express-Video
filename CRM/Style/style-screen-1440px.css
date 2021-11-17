@@ -1,0 +1,31 @@
+@media all and (max-width: 1440px) {
+
+      .title_part{
+        position: relative;
+    width: 100%;
+    padding-right: 9px;
+    padding-left: 9px;
+    }
+    .page-title {
+        font-size: 22px;
+        margin: 0;
+        /* padding: 7px; */
+        padding: 12px 27px;
+        font-weight: bold;
+    }
+     .footer-admin {
+    border-top: 1px solid #e8ebf3;
+    bottom: -114px;
+    padding: 20px;
+    position: absolute;
+    right: 0;
+    left: 0;
+    color: #fff;
+}
+     .btn_VORequirements{
+    font-size: small;
+    
+    padding: 9px 2px !important;
+    margin-left: 5px;
+}
+}

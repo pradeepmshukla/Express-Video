@@ -1,0 +1,463 @@
+﻿/*@media only screen and (min-width: 600px) and  (max-width:719px){*/
+@media (max-width: 600px) {
+    .extraline {
+        height: 76px;
+    }
+
+    .our-services {
+        margin-top: 23rem;
+    }
+
+    .maincircle {
+        position: relative;
+        top: -17px;
+        width: 344px;
+        left: -29%;
+    }
+
+    .outer-center {
+        float: right;
+        right: 73% !important;
+        position: relative;
+        margin: 10px 0px;
+    }
+
+    .inner-center {
+        border: 1px solid black;
+        width: 259px;
+        height: 54px;
+        float: right;
+        right: -58%;
+        margin-left: 3rem;
+        position: relative;
+        color: black;
+        text-align: center;
+        padding: 0.8rem;
+        cursor: pointer;
+        transition: 0.3s all;
+        margin: 4px;
+    }
+
+    .filltheform {
+        font-size: 26px;
+        color: white;
+        margin: 0 auto;
+        margin-top: 19px;
+        margin-bottom: 30px;
+        text-align: center;
+        font-family: cursive;
+        font-family: 'Hind', sans-serif;
+        padding-bottom: 34px;
+        padding: 0px 12px;
+    }
+
+    .ourserviceimgClick {
+        position: relative;
+        left: 0px;
+        padding: 0rem;
+        margin-bottom: 5rem;
+    }
+
+    .processbox {
+        width: 100%;
+        line-height: 2rem;
+        text-align: left;
+        position: relative;
+        /* transform: scale(0.9); */
+        left: 1%;
+        margin: 31px auto;
+    }
+
+    .contents {
+        font-size: 1.5rem;
+        margin-top: -46px;
+        margin-left: -5px;
+        width: 76%;
+    }
+
+    .wch-img p {
+        color: rgb(96,92,93);
+        margin-top: -8px;
+    }
+
+    .timing {
+        margin-top: 28px;
+    }
+
+    .helpandsupport {
+        padding-top: 28px;
+        text-align: left;
+    }
+
+    .footer-bottom-1 {
+        background-color: black;
+        width: 100%;
+        padding-left: 13%;
+        padding-right: 22%;
+        padding-top: 0px;
+        padding-bottom: 14px;
+        position: absolute;
+        text-align: center;
+    }
+
+    .social {
+        margin-top: -7px;
+        margin-left: -9px;
+    }
+
+    .ourserviceimgClick .ourserviceimgClickimg {
+        width: 95%;
+        height: 274px;
+    }
+
+    .ourserviceimgClick .background-box {
+        width: 94%;
+        height: 274px;
+        left: 11px;
+        top: -1px;
+    }
+
+    .ourserviceimgClick .ourserviceimgClickimg h2 {
+        position: absolute;
+        bottom: 0rem;
+        font-size: 1.4rem;
+        color: rgb(96,92,93);
+        width: 100%;
+        text-align: center;
+        font-weight: bolder;
+    }
+
+    .navbar-nav li ul {
+        margin-top: -3px;
+        min-width: 200px;
+        background: rgba(14,14,14,0.9);
+        left: 109px;
+        display: block !important;
+        z-index: 39;
+    }
+
+    .ourprocess-content {
+        position: relative;
+        width: 100%;
+        height: 1px;
+        margin: 0 auto;
+    }
+
+    .maincircle {
+        position: relative;
+        top: -17px;
+        width: 89%;
+        left: 0px;
+    }
+
+    .whychooseus {
+        margin-top: 99rem;
+    }
+
+    .processbox img {
+        margin: -22px auto;
+        width: 130%;
+    }
+
+    .wch-img h2 {
+        color: rgb(96,92,93);
+        height: 5rem;
+        font-size: 2.5rem;
+        width: 100%;
+        text-align: center;
+        margin: 25px auto;
+        margin-top: 7px;
+        line-height: 2.5rem;
+    }
+
+    .ourservice-exaplinervideos img {
+        width: 65%;
+        margin: 10px auto;
+    }
+
+    .ourservice-motiongraphic img {
+        width: 55%;
+        margin: 10px auto;
+    }
+
+    .ourservice-scriptWriter img {
+        width: 71%;
+        margin-top: -15px;
+    }
+
+
+    .section {
+        padding-top: 34px;
+        padding-bottom: 72px;
+    }
+
+    .our-services-description {
+        width: 77%;
+        margin: 0 auto;
+        box-shadow: 1px 1px 11px 1px #dedede;
+        padding: 1rem;
+        border-radius: 1rem;
+    }
+
+    blockquote {
+        margin: 40px 0;
+        background-color: #f6f6f6;
+        padding: 30px;
+        position: relative;
+        border-left-color: #efe34a;
+        font-size: inherit;
+        line-height: 1.7;
+        color: #6B6B6B;
+        min-height: 222px;
+    }
+
+    #whyvideoareimportant {
+        margin-top: -27px;
+    }
+
+    .salesvideo {
+        margin-top: 0px;
+    }
+
+    .whoweare-description {
+        width: 132%;
+        margin: 0 auto;
+        background: url(../Content/Images/whoweare/bg_who-we-are.png);
+        background-size: 100% 54%;
+        background-position: 100% 0%;
+        padding-left: 81px;
+        padding-top: 20px;
+        font-size: 1.4em;
+        color: white;
+        background-repeat: no-repeat;
+        margin-left: -5rem;
+    }
+
+        .whoweare-description p {
+            width: 80%;
+            margin-left: 0px;
+            font-size: 1.2rem;
+            line-height: 2rem;
+        }
+
+    .img3guys {
+        width: 100%;
+        margin-left: -4rem;
+    }
+
+    .brand {
+        display: inline-block;
+        margin: 0 0 15px 15px;
+        text-align: center;
+        font-size: 33px;
+        line-height: 1;
+        text-transform: uppercase;
+        font-weight: 500;
+        color: #fff;
+        letter-spacing: 0.16em;
+    }
+
+    .getpromo {
+        font-size: 26px;
+        color: white;
+        width: 100%;
+        padding: 0px 10px;
+        margin: 0px auto;
+        margin-top: 23px;
+        margin-bottom: 10px;
+    }
+
+    .reviewyourorder {
+        margin-left: 10px;
+        font-size: 1.9rem;
+        padding-top: 50px;
+    }
+
+    .basket-card {
+        margin: 68px auto;
+        width: 96%;
+        font-size: 1.3rem;
+    }
+
+    .videooutput iframe {
+        width: 86% !important;
+    }
+
+    .divloginmsg {
+        margin-top: 15px;
+    }
+
+    .divconfirmation {
+        position: absolute;
+        bottom: -1488px;
+        background-color: white;
+        padding: 0;
+        left: 14px;
+    }
+
+    .basket-card {
+        margin: 68px auto;
+        width: 96%;
+        font-size: 1.3rem;
+        margin-bottom: 243px;
+    }
+
+    .videocategory {
+        font-weight: bold;
+        text-align: center;
+        padding: 6px;
+        margin: 9px auto;
+        cursor: pointer;
+        transition: 0.3s all;
+        width: 86%;
+    }
+
+    .category-descriptions {
+        text-align: justify;
+        width: 70%;
+        margin: 16px auto;
+    }
+
+    .modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+        width: 90%;
+        margin: 90px auto;
+    }
+}
+
+
+
+/*@media only screen and (min-width: 320px)and (max-width: 480px){*/
+@media (min-width: 320px)and (max-width: 480px) {
+
+    .vHeading {
+        font-size: 2rem;
+    }
+
+    .videoTopDetails .vHeading {
+        font-size: 2.3rem;
+        font-weight: bold;
+        position: relative;
+        margin-bottom: 29px;
+    }
+
+
+    #recaptcha_challenge_image {
+        margin: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    #recaptcha_response_field {
+        margin: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    .recaptchatable #recaptcha_image {
+        margin: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+    }
+
+    .recaptchatable .recaptcha_r1_c1,
+    .recaptchatable .recaptcha_r3_c1,
+    .recaptchatable .recaptcha_r3_c2,
+    .recaptchatable .recaptcha_r7_c1,
+    .recaptchatable .recaptcha_r8_c1,
+    .recaptchatable .recaptcha_r3_c3,
+    .recaptchatable .recaptcha_r2_c1,
+    .recaptchatable .recaptcha_r4_c1,
+    .recaptchatable .recaptcha_r4_c2,
+    .recaptchatable .recaptcha_r4_c4,
+    .recaptchatable .recaptcha_image_cell {
+        margin: 0 !important;
+        width: 100% !important;
+        background: none !important;
+        height: auto !important;
+    }
+
+    .steps .step-no {
+        width: 100%;
+        min-height: 45px;
+        padding: 2px;
+        text-align: center;
+        color: #ffffff;
+        /* font-weight: bold; */
+        font-size: 3rem;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+        background-size: 100% !important;
+        margin-bottom: 2.5rem;
+        margin-top: 5rem;
+        text-transform: uppercase;
+    }
+
+    .pricebox {
+        background: url(../Content/Images/steps/price.png);
+        width: 30rem;
+        height: 15rem;
+        background-size: contain;
+        position: absolute;
+        bottom: -128px;
+        background-position: -43px;
+        background-repeat: no-repeat;
+    }
+
+
+    .btnordernow {
+        border-radius: 50px;
+        background-color: #f33f5d;
+        color: white;
+        font-weight: 100;
+        border-color: #f33f5d;
+        margin-top: -63px;
+    }
+
+
+    .basket-card {
+        margin: 68px auto;
+        width: 96%;
+        font-size: 1.3rem;
+        margin-bottom: 293px;
+    }
+
+    .deliverydays {
+        text-align: center;
+        background-color: #fcc012 !important;
+        width: 86%;
+        margin: 139px auto;
+    }
+
+    .divconfirmation {
+        position: absolute;
+        bottom: -1413px;
+        background-color: white;
+        padding: 7px;
+        left: 15px;
+        width: 91%;
+    }
+
+    .videocategory {
+        font-weight: bolder;
+        text-align: center;
+        padding: 6px;
+        margin: 12px auto;
+        cursor: pointer;
+        transition: 0.3s all;
+        font-size: 23px;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .divconfirmation {
+        position: absolute;
+        bottom: -1423px;
+        background-color: white;
+        padding: 7px;
+        left: 15px;
+        width: 91%;
+    }
+}
